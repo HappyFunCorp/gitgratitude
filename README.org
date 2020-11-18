@@ -1,0 +1,30 @@
+* gratitude
+
+** environment
+
+Required keys in the =.env= file are:
+
+| key              | desc                                                                                                          |
+| =RAILS_MASTER_KEY= | key for =config/credentials.yml.enc=                                                                            |
+| =REDIS_URL=        | redis://redis:6379/0 for the docker-compose environment                                                       |
+| =DATABASE_URL=     | DATABASE_URL=postgresql://postgres:awesome_password@postgres:5432/gratitude?encoding=utf8&pool=5&timeout=5000 |
+
+** Development
+
+This project uses [[https://docs.docker.com/compose/][docker-compose]].  Simply install and then run
+=docker-compose up= to bring up the various services.
+
+*** pgadmin
+
+Pgadmin is setup and running on port 4000.  Username is
+=admin@exmaple.com= and password is =SuperSecret=.
+
+*** database
+
+The database can be initialized using
+
+#+begin_src bash
+./r rails db:reset
+./r rails db:migrate
+#+end_src
+
