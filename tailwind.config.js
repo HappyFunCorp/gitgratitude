@@ -1,7 +1,6 @@
 module.exports = {
     purge: {
-        enabled: true,
-        content: [
+         content: [
             './app/**/*.html',
             './app/**/*.erb',
             './app/**/*.vue',
