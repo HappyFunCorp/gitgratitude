@@ -17,3 +17,4 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 
 require("stylesheets/application.scss")
+require('fontsource-dosis')
