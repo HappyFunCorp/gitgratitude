@@ -1,5 +1,4 @@
 * gratitude
-
 ** environment
 
 Required keys in the =.env= file are:
@@ -27,4 +26,124 @@ The database can be initialized using
 ./r rails db:reset
 ./r rails db:migrate
 #+end_src
+
+** Models
+*** Project
+
+| name                    | name of the project |
+| homepage                | homepage            |
+| repourl                 | repository          |
+| readme                  |                     |
+| ecosystem_id            | gem/npm/etc         |
+| semver                  | true/false          |
+| project_start           |                     |
+| stars                   |                     |
+| provider_count          |                     |
+| dependencies_count      |                     |
+| code_contributors       |                     |
+| discussion_contributors |                     |
+
+*** Project Stats
+
+| project_id       | project                                                   |
+| quarter          | 2020Q1 etc                                                |
+| releases         |                                                           |
+| people_count     | unique total of number of people interacting with project |
+| code_count       | unique total of people interacting with code              |
+| discussion_count | unique total of people interacting with disucssions       |
+
+*** Project Structure
+
+| project_id       |                                              |
+| commit_id        | updated when any commit changes these things |
+| license          |                                              |
+| code of conduct  |                                              |
+| funding          |                                              |
+| ci               |                                              |
+| Application Type | Rails/wordpress/laravel/etc??                |
+| Dockerfile       |                                              |
+| Procfile         |                                              |
+
+*** Repository
+
+| project_id |                              |
+| giturl     | git url of the project       |
+| htmlurl    | user readable version        |
+| type       | module/documentation/website |
+
+*** Lockfile
+
+| type          | Gemfile.lock,package.lock,json,etc |
+| author_id     | author                             |
+| repository_id | possibly null                      |
+| commit_id     | possibly null                      |
+| data          | blob                               |
+
+*** Dependency
+
+| lockfile_id |                                  |
+| project_id  |                                  |
+| release_id  |                                  |
+| name        |                                  |
+| version     | actual version lockfile is using |
+| pattern     |                                  |
+
+*** Commits
+| repository_id |                |
+| sha           | commit_id      |
+| ticket_number |                |
+| message       | Commit message |
+| author_id     | author         |
+| timezone      |                |
+| files         |                |
+| added_lines   |                |
+| deleted_lines |                |
+
+*** Commit Files
+| repository_id |   |
+| sha           |   |
+| filename      |   |
+| filelanguage  |   |
+| 
+| added_lines   |   |
+| deleted_lines |   |
+
+*** Author
+
+| id       | id |
+| github   |    |
+| name     |    |
+| email    |    |
+| homepage |    |
+| twitter  |    |
+| timezone |    |
+
+*** Releases
+
+| project_id          | project               |
+| version             | version number        |
+| package_manager_url |                       |
+| major version       |                       |
+| minor version       |                       |
+| patch               |                       |
+| tag                 |                       |
+| commit_id           |                       |
+| sha                 | commit of the release |
+| timestamp           |                       |
+
+*** Discussions
+
+| project_id        | project                     |
+| parent_id         | top level discussion object |
+| issue_id          | If this is a bug issue      |
+| timezone          |                             |
+| author_id         |                             |
+| topic             | name                        |
+| body              |                             |
+| contributor_count | count                       |
+
+*** Ecosystem
+
+| name | gem/npm/etc. |
+|      |              |
 
