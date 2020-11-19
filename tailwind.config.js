@@ -11,7 +11,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Dosis", ...defaultTheme.fontFamily.sans]
+                header: ["Dosis", ...defaultTheme.fontFamily.sans]
             }
         }
     },
