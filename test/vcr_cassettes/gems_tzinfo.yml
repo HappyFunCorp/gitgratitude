@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/tzinfo.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 6529e8f5-bb46-429f-96ea-13b6f920b7ce
+      X-Runtime:
+      - '0.018482'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 44.230.114.12:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 23 Nov 2020 01:28:24 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18122-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1606094905.691451,VS0,VE101
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"1bfa26de263af2a9da355bc360d54bc5"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"tzinfo","downloads":379261111,"version":"2.0.3","version_downloads":85499,"platform":"ruby","authors":"Philip
+        Ross","info":"TZInfo provides access to time zone data and allows times to
+        be converted using time zone rules.","licenses":["MIT"],"metadata":{"homepage_uri":"https://tzinfo.github.io","changelog_uri":"https://github.com/tzinfo/tzinfo/blob/master/CHANGES.md","bug_tracker_uri":"https://github.com/tzinfo/tzinfo/issues","source_code_uri":"https://github.com/tzinfo/tzinfo/tree/v2.0.3","documentation_uri":"https://rubydoc.info/gems/tzinfo/2.0.3"},"yanked":false,"sha":"6f1705dd3ca4cf21fbdd1abdea8338334ef115df2e33e42a8f791b19db9765ab","project_uri":"https://rubygems.org/gems/tzinfo","gem_uri":"https://rubygems.org/gems/tzinfo-2.0.3.gem","homepage_uri":"https://tzinfo.github.io","wiki_uri":null,"documentation_uri":"https://rubydoc.info/gems/tzinfo/2.0.3","mailing_list_uri":null,"source_code_uri":"https://github.com/tzinfo/tzinfo/tree/v2.0.3","bug_tracker_uri":"https://github.com/tzinfo/tzinfo/issues","changelog_uri":"https://github.com/tzinfo/tzinfo/blob/master/CHANGES.md","funding_uri":null,"dependencies":{"development":[],"runtime":[{"name":"concurrent-ruby","requirements":"~\u003e
+        1.0"}]}}'
+  recorded_at: Mon, 23 Nov 2020 01:28:24 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,44 @@
+<table>
+    <tr>
+        <th>Name</th>
+        <td><%= @project.name %></td>
+    </tr>
+
+    <tr>
+        <th>Description</th>
+        <td><%= @project.description %></td>
+    </tr>
+
+    <tr>
+        <th>License</th>
+        <td><%= @project.license %></td>
+    </tr>
+
+    <tr>
+        <th>Latest Version</th>
+        <td><%= @project.latest_version %></td>
+    </tr>
+
+    <tr>
+        <th>Downloads</th>
+        <td><%= @project.downloads %></td>
+    </tr>
+
+    <tr>
+        <th>Homepage</th>
+        <td><%= link_to @project.homepage, @project.homepage %></td>
+    </tr>
+
+    <% @project.repositories.each do |rep| %>
+        <tr>
+            <th>Giturl</th>
+            <td><%= link_to rep.git_url, rep.git_url %></td>
+        </tr>
+
+        <tr>
+            <th>Homepage</th>
+            <td><%= rep.homepage_url %></td>
+        </tr>
+    <% end %>
+</table>
+            

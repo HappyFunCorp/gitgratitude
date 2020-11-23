@@ -1,0 +1,2 @@
+class Packagejsonlock < Lockfile
+end

@@ -1,0 +1,70 @@
+<div class="border border-blue-300 shadow rounded-md p-4 max-w-md w-full mx-auto my-4">
+    <div class="<%= @lockfile.unscraped_dependencies != 0 ? 'animate-pulse' : '' %> flex space-x-4">
+        <div class="rounded-full bg-blue-400 h-12 w-12"></div>
+        <div class="flex-1 space-y-4 py-1" >
+            <div class="font-bold text-blue-400 rounded w-3/4">
+                <%= @lockfile.ecosystem.name %> dependency graph with <%= @lockfile.dependencies.count %> dependencies
+            </div>
+            <div class="space-y-2">
+                <% if @out_of_date.count > 0 %>
+                    <p class="text-blue-400">
+                        <%= @out_of_date.count %> out of date dependencies
+                    </p>
+                <% end %>
+
+                <% if @lockfile.unscraped_dependencies > 0 %>
+                    <p class="text-blue-400">
+                        Looking up <%= @lockfile.unscraped_dependencies %> projects...
+                    </p>
+                <% end  %>
+
+                <% if @lockfile.queued_jobs > 0 %>
+                    <p class="text-blue-400">
+                        <%= @lockfile.queued_jobs %> queued.
+                    </p>
+                <% end  %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table-auto w-full rounded-t-lg" >
+    <thead class="shadow-md">
+        <tr>
+            <th class="py-2 bg-indigo-100 rounded-tl-lg">Name</th>
+            <th class="py-2 bg-indigo-100">Version</th>
+            <th class="py-2 bg-indigo-100">Latest Version</th>
+            <th class="py-2 bg-indigo-100 rounded-tr-lg">Health</th>
+        </tr>
+    </thead>
+
+    <% @out_of_date.each_with_index do |dep,i| %>
+        <tr class="font-mono <%= i % 2 == 0 ? 'bg-gray-50' : '' %> <%= dep.project_id.nil? ? 'animate-pulse' : '' %>">
+            <td class="px-4 py-2"><%= link_to dep.name, dep.project, class: "hover:underline" %></td>
+            <td class="px-4 py-2"><%= dep.version %></td>
+            <td class="px-4 py-2"><%= dep.latest_version %></td>
+            <td class="px-4 py-2"><%= dep.health %></td>
+        </tr>
+    <% end %>
+</table>
+
+
+<table class="table-auto w-full rounded-t-lg" >
+    <thead class="shadow-md">
+        <tr>
+            <th class="py-2 bg-indigo-100 rounded-tl-lg">Name</th>
+            <th class="py-2 bg-indigo-100">Version</th>
+            <th class="py-2 bg-indigo-100">Latest Version</th>
+            <th class="py-2 bg-indigo-100 rounded-tr-lg">Health</th>
+        </tr>
+    </thead>
+
+    <% @dependencies.each_with_index do |dep,i| %>
+        <tr class="font-mono <%= i % 2 == 0 ? 'bg-gray-50' : '' %> <%= dep.project_id.nil? ? 'animate-pulse' : '' %>">
+            <td class="px-4 py-2"><%= dep.name %></td>
+            <td class="px-4 py-2"><%= dep.version %></td>
+            <td class="px-4 py-2"><%= dep.latest_version %></td>
+            <td class="px-4 py-2"><%= dep.health %></td>
+        </tr>
+    <% end %>
+</table>

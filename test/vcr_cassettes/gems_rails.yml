@@ -1,0 +1,96 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/rails.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 7454e3ed-be56-42dd-a2a1-e7039082d2c3
+      X-Runtime:
+      - '0.023876'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 44.230.114.12:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sun, 22 Nov 2020 21:09:32 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18121-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1606079372.026386,VS0,VE111
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"d6bbd6c8135993143fee973a7fac3d94"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"rails","downloads":253059778,"version":"6.0.3.4","version_downloads":1586005,"platform":"ruby","authors":"David
+        Heinemeier Hansson","info":"Ruby on Rails is a full-stack web framework optimized
+        for programmer happiness and sustainable productivity. It encourages beautiful
+        code by favoring convention over configuration.","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/rails/rails/releases/tag/v6.0.3.4","bug_tracker_uri":"https://github.com/rails/rails/issues","source_code_uri":"https://github.com/rails/rails/tree/v6.0.3.4","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","documentation_uri":"https://api.rubyonrails.org/v6.0.3.4/"},"yanked":false,"sha":"af3b76d0641875e903a6d1006b5556d3a8070cbeaa416bc50025df729f9b446f","project_uri":"https://rubygems.org/gems/rails","gem_uri":"https://rubygems.org/gems/rails-6.0.3.4.gem","homepage_uri":"https://rubyonrails.org","wiki_uri":null,"documentation_uri":"https://api.rubyonrails.org/v6.0.3.4/","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","source_code_uri":"https://github.com/rails/rails/tree/v6.0.3.4","bug_tracker_uri":"https://github.com/rails/rails/issues","changelog_uri":"https://github.com/rails/rails/releases/tag/v6.0.3.4","funding_uri":null,"dependencies":{"development":[],"runtime":[{"name":"actioncable","requirements":"=
+        6.0.3.4"},{"name":"actionmailbox","requirements":"= 6.0.3.4"},{"name":"actionmailer","requirements":"=
+        6.0.3.4"},{"name":"actionpack","requirements":"= 6.0.3.4"},{"name":"actiontext","requirements":"=
+        6.0.3.4"},{"name":"actionview","requirements":"= 6.0.3.4"},{"name":"activejob","requirements":"=
+        6.0.3.4"},{"name":"activemodel","requirements":"= 6.0.3.4"},{"name":"activerecord","requirements":"=
+        6.0.3.4"},{"name":"activestorage","requirements":"= 6.0.3.4"},{"name":"activesupport","requirements":"=
+        6.0.3.4"},{"name":"bundler","requirements":"\u003e= 1.3.0"},{"name":"railties","requirements":"=
+        6.0.3.4"},{"name":"sprockets-rails","requirements":"\u003e= 2.0.0"}]}}'
+  recorded_at: Sun, 22 Nov 2020 21:09:31 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,90 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/concurrent-ruby.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 3f54ce1f-eeef-49f8-8d85-cc3c9fd98b8a
+      X-Runtime:
+      - '0.015903'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 54.214.179.27:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sat, 21 Nov 2020 00:05:57 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18147-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1605917157.287843,VS0,VE102
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"6f8baca14c05f9861b4b6e3b57bf3e74"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"concurrent-ruby","downloads":275367890,"version":"1.1.7","version_downloads":19099581,"platform":"ruby","authors":"Jerry
+        D''Antonio, Petr Chalupa, The Ruby Concurrency Team","info":"Modern concurrency
+        tools including agents, futures, promises, thread pools, actors, supervisors,
+        and more.\nInspired by Erlang, Clojure, Go, JavaScript, actors, and classic
+        concurrency patterns.\n","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/ruby-concurrency/concurrent-ruby/blob/master/CHANGELOG.md","source_code_uri":"https://github.com/ruby-concurrency/concurrent-ruby"},"yanked":false,"sha":"ff4befc88d522ccb2109596da26309f4b0b041683ca62d3cb903b313e1caddee","project_uri":"https://rubygems.org/gems/concurrent-ruby","gem_uri":"https://rubygems.org/gems/concurrent-ruby-1.1.7.gem","homepage_uri":"http://www.concurrent-ruby.com","wiki_uri":null,"documentation_uri":null,"mailing_list_uri":null,"source_code_uri":"https://github.com/ruby-concurrency/concurrent-ruby","bug_tracker_uri":null,"changelog_uri":"https://github.com/ruby-concurrency/concurrent-ruby/blob/master/CHANGELOG.md","funding_uri":null,"dependencies":{"development":[],"runtime":[]}}'
+  recorded_at: Sat, 21 Nov 2020 00:05:57 GMT
+recorded_with: VCR 6.0.0

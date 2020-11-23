@@ -1,0 +1,88 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/turbolinks.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 188cffbf-df08-46e2-a77c-c639a7cc374b
+      X-Runtime:
+      - '0.015573'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 54.214.179.27:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Sun, 22 Nov 2020 21:09:10 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18148-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1606079350.410191,VS0,VE98
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"f75bae47af21ef578e559b7f67983e08"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"turbolinks","downloads":81898256,"version":"5.2.1","version_downloads":6640424,"platform":"ruby","authors":"David
+        Heinemeier Hansson","info":"Rails engine for Turbolinks 5 support","licenses":["MIT"],"metadata":{"source_code_uri":"https://github.com/turbolinks/turbolinks-rails"},"yanked":false,"sha":"5fea5889c4e2a78a5bd9abda3860c565342b50c6e2593697d5558a08e15cce9c","project_uri":"https://rubygems.org/gems/turbolinks","gem_uri":"https://rubygems.org/gems/turbolinks-5.2.1.gem","homepage_uri":"https://github.com/turbolinks/turbolinks","wiki_uri":null,"documentation_uri":null,"mailing_list_uri":null,"source_code_uri":"https://github.com/turbolinks/turbolinks-rails","bug_tracker_uri":null,"changelog_uri":null,"funding_uri":null,"dependencies":{"development":[],"runtime":[{"name":"turbolinks-source","requirements":"~\u003e
+        5.2"}]}}'
+  recorded_at: Sun, 22 Nov 2020 21:09:10 GMT
+recorded_with: VCR 6.0.0

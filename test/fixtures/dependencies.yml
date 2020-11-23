@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+turbolinks:
+  lockfile: gratitudegems
+  name: turbolinks
+  version: "5.2.1"
+
+tilt:
+  lockfile: gratitudegems
+  name: tilt
+  version: "2.0.10"

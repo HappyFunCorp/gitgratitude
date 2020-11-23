@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lockfile: one
+  project: one
+  release: one
+  name: MyString
+  version: MyString
+  pattern: MyString
+
+two:
+  lockfile: one
+  project: one
+  release: one
+  name: MyString
+  version: MyString
+  pattern: MyString

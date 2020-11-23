@@ -13,6 +13,29 @@ Required keys in the =.env= file are:
 This project uses [[https://docs.docker.com/compose/][docker-compose]].  Simply install and then run
 =docker-compose up= to bring up the various services.
 
+*** Initial start up
+
+#+begin_src bash
+./r bundle
+./r yarn
+./r rails db:setup
+#+end_src
+
+And then
+
+#+begin_src bash
+docker-compose up
+#+end_src
+
+*** Testing
+
+Guard is setup to run everything, and it will also run bundle install
+if your =Gemfile= changes.
+
+#+begin_src bash
+./r bundle exec guard
+#+end_src
+
 *** pgadmin
 
 Pgadmin is setup and running on port 4000.  Username is
@@ -31,17 +54,19 @@ The database can be initialized using
 *** Project
 
 | name                    | name of the project |
+| description             |                     |
 | homepage                | homepage            |
-| repourl                 | repository          |
-| readme                  |                     |
+| latest_version          |                     |
 | ecosystem_id            | gem/npm/etc         |
-| semver                  | true/false          |
 | project_start           |                     |
+| license                 | license             |
 | stars                   |                     |
 | provider_count          |                     |
 | dependencies_count      |                     |
 | code_contributors       |                     |
 | discussion_contributors |                     |
+
+rails g model project name ecosystem:references description homepage latest_version downloads:integer project_start:datetime stars:integer provider_count:integer dependencies_count:integer code_contributors:integer discussion_contributors:integer license
 
 *** Project Stats
 
@@ -71,6 +96,9 @@ The database can be initialized using
 | htmlurl    | user readable version        |
 | type       | module/documentation/website |
 
+
+rails g model repository project:references git_url homepage_url repo_type
+
 *** Lockfile
 
 | type          | Gemfile.lock,package.lock,json,etc |
@@ -78,6 +106,10 @@ The database can be initialized using
 | repository_id | possibly null                      |
 | commit_id     | possibly null                      |
 | data          | blob                               |
+
+rails g model lockfile type data:text author:references:nullable repository:references:nullable commit:references
+rails g model gemfilelock --parent lockfile
+rails g model packagejsonlock --parent lockfile
 
 *** Dependency
 
@@ -87,6 +119,8 @@ The database can be initialized using
 | name        |                                  |
 | version     | actual version lockfile is using |
 | pattern     |                                  |
+
+rails g model dependency lockfile:references project:references release:references name version pattern
 
 *** Commits
 | repository_id |                |
@@ -99,14 +133,17 @@ The database can be initialized using
 | added_lines   |                |
 | deleted_lines |                |
 
+rails g model commit repository:references sha ticket_number message author:references timzone file_count:integer added_lines:integer deleted_lines:integer
+
 *** Commit Files
-| repository_id |   |
-| sha           |   |
-| filename      |   |
-| filelanguage  |   |
-| 
-| added_lines   |   |
-| deleted_lines |   |
+| repository_id |                               |
+| sha           |                               |
+| filename      |                               |
+| file_type     | module, test, doc, devop, etc |
+| added_lines   |                               |
+| deleted_lines |                               |
+
+rails g model commit_file repository:references commit:references filename file_type added_lines:integer deleted_lines:integer
 
 *** Author
 
@@ -118,10 +155,13 @@ The database can be initialized using
 | twitter  |    |
 | timezone |    |
 
+rails g model author name email github twitter timezone
+
 *** Releases
 
 | project_id          | project               |
 | version             | version number        |
+| semver              | boolean               |
 | package_manager_url |                       |
 | major version       |                       |
 | minor version       |                       |
@@ -130,6 +170,8 @@ The database can be initialized using
 | commit_id           |                       |
 | sha                 | commit of the release |
 | timestamp           |                       |
+
+rails g model release project:references version major_version:integer minor_version:integer patch:integer semvar:boolean package_manager_url tag commit:references sha
 
 *** Discussions
 
@@ -144,6 +186,10 @@ The database can be initialized using
 
 *** Ecosystem
 
-| name | gem/npm/etc. |
-|      |              |
+| name          | gem/npm/etc. |
+| type          |              |
+| language_home |              |
+| packages_home |              |
+
+rails g model ecosystem name type language_home packages_home
 

@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  repository: one
+  sha: MyString
+  ticket_number: MyString
+  message: MyString
+  author: one
+  timzone: MyString
+  file_count: 1
+  added_lines: 1
+  deleted_lines: 1
+
+two:
+  repository: two
+  sha: MyString
+  ticket_number: MyString
+  message: MyString
+  author: two
+  timzone: MyString
+  file_count: 1
+  added_lines: 1
+  deleted_lines: 1
