@@ -38,8 +38,10 @@ class Gemfilelock < Lockfile
     project.save
 
     giturl = info["source_code_uri"]
-    giturl.gsub!( /\/tree\/.*/, "" )
-    repo = project.repositories.where( git_url: giturl ).first_or_create
+    if giturl
+      giturl.gsub!( /\/tree\/.*/, "" )
+      repo = project.repositories.where( git_url: giturl ).first_or_create
+    end
 
     release = project.releases.where( version: info["version"] ).first
     release ||= project.releases.new
