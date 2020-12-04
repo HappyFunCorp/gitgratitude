@@ -1,0 +1,266 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/concurrent-ruby.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - d3bef2f1-ee65-47cc-9c76-83b1d6b416a0
+      X-Runtime:
+      - '0.015944'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 54.214.179.27:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 23 Nov 2020 17:14:18 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18155-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1606151658.290971,VS0,VE343
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"cb1781f1917393daee13637910eeb623"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"concurrent-ruby","downloads":275891638,"version":"1.1.7","version_downloads":19451082,"platform":"ruby","authors":"Jerry
+        D''Antonio, Petr Chalupa, The Ruby Concurrency Team","info":"Modern concurrency
+        tools including agents, futures, promises, thread pools, actors, supervisors,
+        and more.\nInspired by Erlang, Clojure, Go, JavaScript, actors, and classic
+        concurrency patterns.\n","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/ruby-concurrency/concurrent-ruby/blob/master/CHANGELOG.md","source_code_uri":"https://github.com/ruby-concurrency/concurrent-ruby"},"yanked":false,"sha":"ff4befc88d522ccb2109596da26309f4b0b041683ca62d3cb903b313e1caddee","project_uri":"https://rubygems.org/gems/concurrent-ruby","gem_uri":"https://rubygems.org/gems/concurrent-ruby-1.1.7.gem","homepage_uri":"http://www.concurrent-ruby.com","wiki_uri":null,"documentation_uri":null,"mailing_list_uri":null,"source_code_uri":"https://github.com/ruby-concurrency/concurrent-ruby","bug_tracker_uri":null,"changelog_uri":"https://github.com/ruby-concurrency/concurrent-ruby/blob/master/CHANGELOG.md","funding_uri":null,"dependencies":{"development":[],"runtime":[]}}'
+  recorded_at: Mon, 23 Nov 2020 17:14:18 GMT
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/faker.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 6480d061-dbc0-490f-9fce-3d180b617486
+      X-Runtime:
+      - '0.019072'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 44.230.114.12:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 23 Nov 2020 17:14:18 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18153-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1606151659.889498,VS0,VE105
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"305fa922be8834b239c8f9de4892ebac"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"faker","downloads":77251277,"version":"2.14.0","version_downloads":1063956,"platform":"ruby","authors":"Benjamin
+        Curtis, Vitor Oliveira","info":"Faker, a port of Data::Faker from Perl, is
+        used to easily generate fake data: names, addresses, phone numbers, etc.","licenses":["MIT"],"metadata":{"yard.run":"yri","changelog_uri":"https://github.com/faker-ruby/faker/blob/master/CHANGELOG.md","bug_tracker_uri":"https://github.com/faker-ruby/faker/issues","source_code_uri":"https://github.com/faker-ruby/faker","documentation_uri":"https://rubydoc.info/github/faker-ruby/faker/master"},"yanked":false,"sha":"86d67f5578bffe0d06e53b6f320e59348662bf8bbfecef344d7780291241501b","project_uri":"https://rubygems.org/gems/faker","gem_uri":"https://rubygems.org/gems/faker-2.14.0.gem","homepage_uri":"https://github.com/faker-ruby/faker","wiki_uri":null,"documentation_uri":"https://rubydoc.info/github/faker-ruby/faker/master","mailing_list_uri":null,"source_code_uri":"https://github.com/faker-ruby/faker","bug_tracker_uri":"https://github.com/faker-ruby/faker/issues","changelog_uri":"https://github.com/faker-ruby/faker/blob/master/CHANGELOG.md","funding_uri":null,"dependencies":{"development":[{"name":"minitest","requirements":"=
+        5.14.2"},{"name":"pry","requirements":"= 0.13.1"},{"name":"rake","requirements":"=
+        13.0.1"},{"name":"rubocop","requirements":"= 0.90.0"},{"name":"simplecov","requirements":"=
+        0.17.1"},{"name":"test-unit","requirements":"= 3.3.6"},{"name":"timecop","requirements":"=
+        0.9.1"},{"name":"yard","requirements":"= 0.9.25"}],"runtime":[{"name":"i18n","requirements":"\u003e=
+        1.6, \u003c 2"}]}}'
+  recorded_at: Mon, 23 Nov 2020 17:14:18 GMT
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/i18n.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 033f066a-46ca-48e1-9a71-3329acbe41b5
+      X-Runtime:
+      - '0.017938'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 52.89.230.238:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Mon, 23 Nov 2020 17:14:19 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18140-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1606151659.215000,VS0,VE338
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"cff68e62b0adaa04ede387d1333462f8"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"i18n","downloads":399793756,"version":"1.8.5","version_downloads":15931534,"platform":"ruby","authors":"Sven
+        Fuchs, Joshua Harvey, Matt Aimonetti, Stephan Soller, Saimon Moore, Ryan Bigg","info":"New
+        wave Internationalization support for Ruby.","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/svenfuchs/i18n/releases","bug_tracker_uri":"https://github.com/svenfuchs/i18n/issues","source_code_uri":"https://github.com/svenfuchs/i18n","documentation_uri":"https://guides.rubyonrails.org/i18n.html"},"yanked":false,"sha":"f3bb7c9e89804cde8264b89f47f4746527f7293e7b5e4c74e66a9b70cfe97a94","project_uri":"https://rubygems.org/gems/i18n","gem_uri":"https://rubygems.org/gems/i18n-1.8.5.gem","homepage_uri":"https://github.com/ruby-i18n/i18n","wiki_uri":null,"documentation_uri":"https://guides.rubyonrails.org/i18n.html","mailing_list_uri":null,"source_code_uri":"https://github.com/svenfuchs/i18n","bug_tracker_uri":"https://github.com/svenfuchs/i18n/issues","changelog_uri":"https://github.com/svenfuchs/i18n/releases","funding_uri":null,"dependencies":{"development":[],"runtime":[{"name":"concurrent-ruby","requirements":"~\u003e
+        1.0"}]}}'
+  recorded_at: Mon, 23 Nov 2020 17:14:19 GMT
+recorded_with: VCR 6.0.0

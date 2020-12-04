@@ -4,7 +4,8 @@ class CreateCommitFiles < ActiveRecord::Migration[6.0]
       t.references :repository, type: :uuid
       t.references :commit, type: :uuid
       t.string :filename
-      t.string :file_type
+      t.string :language
+      t.string :category
       t.integer :added_lines
       t.integer :deleted_lines
 

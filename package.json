@@ -7,6 +7,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
     "@tailwindcss/forms": "^0.2.1",
+    "alpinejs": "^2.7.3",
     "autoprefixer": "^9",
     "fontsource-dosis": "^3.0.5",
     "postcss": "^7",

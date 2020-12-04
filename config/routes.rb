@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   resources :lockfiles
   resources :projects
+  resources :repositories
 end

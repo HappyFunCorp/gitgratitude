@@ -38,6 +38,7 @@ class Gemfilelock < Lockfile
     project.save
 
     giturl = info["source_code_uri"]
+    # TODO which are these
     if giturl
       giturl.gsub!( /\/tree\/.*/, "" )
       repo = project.repositories.where( git_url: giturl ).first_or_create

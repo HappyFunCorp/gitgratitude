@@ -15,6 +15,12 @@ class Lockfile < ApplicationRecord
     end
   end
 
+  def state
+    return :loading if !data_collected?
+    return :out_of_date if out_of_date.count > 0
+    :up_to_date
+  end
+
   def out_of_date
     dependencies.joins( :project ).where( "version != projects.latest_version" )
   end

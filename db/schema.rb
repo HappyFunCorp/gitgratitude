@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_19_200519) do
+ActiveRecord::Schema.define(version: 2020_11_28_154724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -30,7 +30,8 @@ ActiveRecord::Schema.define(version: 2020_11_19_200519) do
     t.uuid "repository_id"
     t.uuid "commit_id"
     t.string "filename"
-    t.string "file_type"
+    t.string "language"
+    t.string "category"
     t.integer "added_lines"
     t.integer "deleted_lines"
     t.datetime "created_at", precision: 6, null: false
@@ -78,6 +79,20 @@ ActiveRecord::Schema.define(version: 2020_11_19_200519) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "file_stats", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "repository_id", null: false
+    t.uuid "commit_id", null: false
+    t.string "filename"
+    t.string "language"
+    t.integer "code_count"
+    t.integer "comment_count"
+    t.integer "blank_count"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commit_id"], name: "index_file_stats_on_commit_id"
+    t.index ["repository_id"], name: "index_file_stats_on_repository_id"
+  end
+
   create_table "lockfiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "type"
     t.text "data"
@@ -116,7 +131,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_200519) do
     t.integer "major_version"
     t.integer "minor_version"
     t.integer "patch"
-    t.boolean "semvar"
+    t.boolean "semver"
     t.string "package_manager_url"
     t.string "tag"
     t.uuid "commit_id"
@@ -132,15 +147,37 @@ ActiveRecord::Schema.define(version: 2020_11_19_200519) do
     t.string "git_url"
     t.string "homepage_url"
     t.string "repo_type"
+    t.integer "total_commits"
+    t.datetime "last_git_sync"
+    t.datetime "last_analysis"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_repositories_on_project_id"
   end
 
+  create_table "tags", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "repository_id", null: false
+    t.string "tag_name"
+    t.string "version"
+    t.uuid "commit_id"
+    t.string "sha"
+    t.integer "major_version"
+    t.integer "minor_version"
+    t.integer "patch"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commit_id"], name: "index_tags_on_commit_id"
+    t.index ["repository_id"], name: "index_tags_on_repository_id"
+  end
+
   add_foreign_key "commits", "authors"
   add_foreign_key "commits", "repositories"
+  add_foreign_key "file_stats", "commits"
+  add_foreign_key "file_stats", "repositories"
   add_foreign_key "lockfiles", "authors"
   add_foreign_key "lockfiles", "commits"
   add_foreign_key "lockfiles", "repositories"
   add_foreign_key "repositories", "projects"
+  add_foreign_key "tags", "commits"
+  add_foreign_key "tags", "repositories"
 end

@@ -61,5 +61,19 @@ class GemfilelockTest < ActiveSupport::TestCase
     assert_equal tzinfo.releases.count, 2, "Should have two releases"
     assert_equal tzinfo.releases.last.version, "2.0.3"
   end
+
+  test "should cache gem query results for 6 hours" do
+    tzinfo_dep = Dependency.create( lockfile: Gemfilelock.create, name: "tzinfo" )
+
+    VCR.use_cassette( "gems_tzinfo" ) do 
+      tzinfo_dep.find_project
+    end
+
+    tzinfo_dep.reload
+
+    assert !tzinfo_dep.project.nil?, "should have a project"
+
+    tzinfo_dep.find_project
+  end
     
 end

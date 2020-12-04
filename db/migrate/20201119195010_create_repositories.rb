@@ -5,6 +5,9 @@ class CreateRepositories < ActiveRecord::Migration[6.0]
       t.string :git_url
       t.string :homepage_url
       t.string :repo_type
+      t.integer :total_commits
+      t.datetime :last_git_sync
+      t.datetime :last_analysis
 
       t.timestamps
     end

@@ -50,7 +50,15 @@ The database can be initialized using
 ./r rails db:migrate
 #+end_src
 
-** Models
+** Package manager models
+*** Ecosystem
+
+| name          | gem/npm/etc. |
+| type          |              |
+| language_home |              |
+| packages_home |              |
+
+rails g model ecosystem name type language_home packages_home
 *** Project
 
 | name                    | name of the project |
@@ -89,16 +97,6 @@ rails g model project name ecosystem:references description homepage latest_vers
 | Dockerfile       |                                              |
 | Procfile         |                                              |
 
-*** Repository
-
-| project_id |                              |
-| giturl     | git url of the project       |
-| htmlurl    | user readable version        |
-| type       | module/documentation/website |
-
-
-rails g model repository project:references git_url homepage_url repo_type
-
 *** Lockfile
 
 | type          | Gemfile.lock,package.lock,json,etc |
@@ -122,41 +120,6 @@ rails g model packagejsonlock --parent lockfile
 
 rails g model dependency lockfile:references project:references release:references name version pattern
 
-*** Commits
-| repository_id |                |
-| sha           | commit_id      |
-| ticket_number |                |
-| message       | Commit message |
-| author_id     | author         |
-| timezone      |                |
-| files         |                |
-| added_lines   |                |
-| deleted_lines |                |
-
-rails g model commit repository:references sha ticket_number message author:references timzone file_count:integer added_lines:integer deleted_lines:integer
-
-*** Commit Files
-| repository_id |                               |
-| sha           |                               |
-| filename      |                               |
-| file_type     | module, test, doc, devop, etc |
-| added_lines   |                               |
-| deleted_lines |                               |
-
-rails g model commit_file repository:references commit:references filename file_type added_lines:integer deleted_lines:integer
-
-*** Author
-
-| id       | id |
-| github   |    |
-| name     |    |
-| email    |    |
-| homepage |    |
-| twitter  |    |
-| timezone |    |
-
-rails g model author name email github twitter timezone
-
 *** Releases
 
 | project_id          | project               |
@@ -171,8 +134,81 @@ rails g model author name email github twitter timezone
 | sha                 | commit of the release |
 | timestamp           |                       |
 
-rails g model release project:references version major_version:integer minor_version:integer patch:integer semvar:boolean package_manager_url tag commit:references sha
+rails g model release project:references version major_version:integer minor_version:integer patch:integer semver:boolean package_manager_url tag commit:references sha
 
+* Source Control models
+*** Repository
+
+| project_id          |                                              |
+| giturl              | git url of the project                       |
+| homepage_urlencoded | user readable version                        |
+| type                | module/documentation/website                 |
+| total_commits       | Total number of commits from git (preparsed) |
+| last_git_sync       |                                              |
+| last_analysis       |                                              |
+
+rails g model repository project:references git_url homepage_url repo_type last_git_sync:datetime last_analysis:datetime total_commits:initeger
+
+*** Tags
+
+| repository_id | repo                 |
+| tag_name      |                      |
+| version       | parsed from tag_name |
+| commit_id     |                      |
+| sha           |                      |
+
+rails g model tags repository:references tag_name version commit:references sha  major_version:integer minor_version:integer patch:integer 
+
+*** Commits
+| repository_id |                |
+| sha           | commit_id      |
+| ticket_number |                |
+| message       | Commit message |
+| author_id     | author         |
+| timezone      |                |
+| files         |                |
+| added_lines   |                |
+| deleted_lines |                |
+
+rails g model commit repository:references sha ticket_number message author:references timzone file_count:integer added_lines:integer deleted_lines:integer
+
+*** Commit Files
+| repository_id |                           |
+| sha           |                           |
+| filename      |                           |
+| language      |                           |
+| category      | module_code,test_code,etc |
+| added_lines   |                           |
+| deleted_lines |                           |
+
+rails g model commit_file repository:references commit:references language category added_lines:integer deleted_lines:integer
+*** File_stat
+
+From cloc
+
+| repository_id |   |
+| commit_id     |   |
+| filename      |   |
+| language      |   |
+| code_count    |   |
+| blank_count   |   |
+| comment_count |   |
+
+rails g model file_stat repository:references commit:references filename language code_count:integer blank_count comment_count
+
+*** Author
+
+| id       | id |
+| github   |    |
+| name     |    |
+| email    |    |
+| homepage |    |
+| twitter  |    |
+| timezone |    |
+
+rails g model author name email github twitter timezone
+
+* Forge Models
 *** Discussions
 
 | project_id        | project                     |
@@ -184,12 +220,8 @@ rails g model release project:references version major_version:integer minor_ver
 | body              |                             |
 | contributor_count | count                       |
 
-*** Ecosystem
 
-| name          | gem/npm/etc. |
-| type          |              |
-| language_home |              |
-| packages_home |              |
-
-rails g model ecosystem name type language_home packages_home
-
+* References
+https://changelog.com/news/the-war-for-the-soul-of-open-source-mn7P
+https://github.com/chef/license_scout
+https://www.libhunt.com/

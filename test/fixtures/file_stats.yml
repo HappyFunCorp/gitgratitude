@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  repository: one
+  commit: one
+  filename: MyString
+  language: MyString
+  code_count: 1
+  blank_count: MyString
+  comment_count: MyString
+
+two:
+  repository: two
+  commit: two
+  filename: MyString
+  language: MyString
+  code_count: 1
+  blank_count: MyString
+  comment_count: MyString

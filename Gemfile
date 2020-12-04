@@ -57,7 +57,9 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem "pg", "~> 1.2"
-gem "sidekiq", "~> 6.1"
-gem "redis-rails", "~> 5.0"
-gem "gems", "~> 1.2"
+gem 'pg', "~> 1.2"
+gem 'sidekiq', "~> 6.1"
+#gem 'redis-rails', "~> 5.0"
+gem 'gems', "~> 1.2"
+gem 'semver2', '3.4.2', require: 'semver'
+gem 'lograge'

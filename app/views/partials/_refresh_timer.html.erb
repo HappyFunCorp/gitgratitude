@@ -1,0 +1,26 @@
+<div x-data="refreshComponent()" x-init='() => {startTimer()}'>Refreshing in <span x-text="refresh"/></div>
+
+<script>
+ function refreshComponent() {
+     return {
+         refresh: 5,
+         startTimer: function() {
+             const self = this;
+             let interval = null;
+             
+             function countDown() {
+                 self.refresh = self.refresh - 1;
+                 if( self.refresh < 1 ) {
+                     if( interval ) {
+                         clearInterval( interval );
+                     }
+                     window.location = window.location;
+                 }
+             }
+             
+             console.log( "Starting timer" );
+             interval = setInterval( () => { countDown() }, 1000 );
+         }
+     }
+ }
+</script>

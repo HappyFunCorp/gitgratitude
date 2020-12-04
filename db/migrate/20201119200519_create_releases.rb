@@ -6,7 +6,7 @@ class CreateReleases < ActiveRecord::Migration[6.0]
       t.integer :major_version
       t.integer :minor_version
       t.integer :patch
-      t.boolean :semvar
+      t.boolean :semver
       t.string :package_manager_url
       t.string :tag
       t.references :commit, type: :uuid

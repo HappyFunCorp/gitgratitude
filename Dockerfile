@@ -7,11 +7,11 @@ RUN addgroup --gid $GROUP_ID user && adduser --disabled-password --gecos '' --ui
 
 WORKDIR /app/gratitude
 
-# nodejs and yarn
+# nodejs and yarn and cloc
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
-RUN apt-get update && apt-get install -y nodejs yarn
+RUN apt-get update && apt-get install -y nodejs yarn cloc
 
 # install rails
 RUN gem install rails bundler

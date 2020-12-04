@@ -1,3 +1,11 @@
+<p>Queued: <%= @queued %></p>
+<p>Dependencies Detected: <%= @dependencies.count %></p>
+<p>Unscraped Dependencies: <%= @unscraped_dependencies %></p>
+<p>Out of date: <%= @out_of_date.count %></p>
+<% if @progress < 1 %>
+    <%= render "partials/refresh_timer" %>
+<% end  %>
+
 <div class="border border-blue-300 shadow rounded-md p-4 max-w-md w-full mx-auto my-4">
     <div class="<%= @lockfile.unscraped_dependencies != 0 ? 'animate-pulse' : '' %> flex space-x-4">
         <div class="rounded-full bg-blue-400 h-12 w-12"></div>
@@ -28,6 +36,12 @@
     </div>
 </div>
 
+<% if @progress != 1 %>
+    <%= render partial: "partials/progress_bar", locals: { message: "Scraping Progress", percentage: (@progress * 100).to_i } %>
+<% end  %>
+
+<% if @out_of_date.count > 0 %>
+
 <table class="table-auto w-full rounded-t-lg" >
     <thead class="shadow-md">
         <tr>
@@ -47,6 +61,8 @@
         </tr>
     <% end %>
 </table>
+
+<% end %>
 
 
 <table class="table-auto w-full rounded-t-lg" >
