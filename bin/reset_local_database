@@ -1,0 +1,13 @@
+docker-compose down
+docker volume rm gratitude_gratitude-postgres
+docker volume rm gratitude_gratitude-redis
+rm -f db/schema.rb
+echo
+echo
+echo Press control c once postgres has fully initiallized!
+echo
+echo
+docker-compose up postgres
+./r rails db:setup
+./r rails db:migrate
+./r bundle exec guard

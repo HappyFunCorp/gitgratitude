@@ -45,21 +45,21 @@ class Repository < ApplicationRecord
       system( "cd #{workdir}; git pull origin master > /dev/null 2>&1" )
     end
 
-    total_commits = `cd #{workdir};git rev-list --count HEAD`.chomp
+    total_commits = `cd #{workdir};git rev-list --all --count HEAD`.chomp
     update( last_git_sync: Time.now, total_commits: total_commits )
   end
 
-  def working_copy sha
-    system( "cd #{workdir}; git checkout #{sha} > /dev/null 2>&1" )
-  end
+#  def working_copy sha
+#    system( "cd #{workdir}; git checkout #{sha} > /dev/null 2>&1" )
+#  end
 
   def find_tags
     sync if needs_sync?
     
-    latest_tags = `cd #{workdir};git tag --sort=-v:refname --format='%(refname:short):%(objectname):%(creatordate:iso8601-strict)'`.lines.collect { |x| x.chomp }
+    latest_tags = `cd #{workdir};git tag --sort=-v:refname --format='%(refname:short):%(objectname):%(*objectname):%(creatordate:iso8601-strict)'`.lines.collect { |x| x.chomp }
 
     latest_tags.each do |tag_string|
-      Tag.from_tag_string self, tag_string
+      tag = Tag.from_tag_string self, tag_string
     end
   end
 
@@ -72,7 +72,7 @@ class Repository < ApplicationRecord
     total_added = 0
     total_deleted = 0
 
-    `cd #{workdir};git log --pretty=format:'|%H|%ae|%an|%aI|%s' --numstat`.each_line do |line|
+    `cd #{workdir};git log --all --pretty=format:'|%H|%ae|%an|%aI|%s' --numstat`.each_line do |line|
       line.chomp!
 
       if line[0] == '|'
@@ -91,15 +91,19 @@ class Repository < ApplicationRecord
 
         added += 1
 
+        zone = Time.parse( date ).strftime( '%z' )
+
         author = Author.where( email: email ).first_or_create
         author.name = name
+        author.timezone ||= zone
         author.save
 
         files_added = 0
         total_added = 0
         total_deleted = 0
 
-        commit = commits.create( sha: sha, author: author, message: summary, created_at: date )
+
+        commit = commits.create( sha: sha, author: author, message: summary, created_at: date, timezone: zone )
       elsif line.length != 0
         md = /([\d|-]*)\s*([\d|-]*)\s*(.*)/.match( line )
         added_lines = md[1]

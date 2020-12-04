@@ -2,14 +2,17 @@ class Tag < ApplicationRecord
   belongs_to :repository
   belongs_to :commit, optional: true
 
+  before_save :find_commit
+
   def self.from_tag_string repository, string
     tag = Tag.new repository_id: repository.id
     
-    md = string.match( /(.*?):(.*?):(.*)/ )
+    md = string.match( /(.*?):(.*?):(.*?):(.*)/ )
 
     tag.tag_name = md[1]
     tag.sha = md[2]
-    tag.created_at = md[3]
+    tag.sha = md[3] unless md[3].blank? # have annotated tags point to the main commit
+    tag.created_at = md[4]
 
     return if repository.tags.where( tag_name: md[1] ).first
 
@@ -29,6 +32,13 @@ class Tag < ApplicationRecord
     tag.save
 
     tag
+  end
+
+  def find_commit
+    if repository && !commit
+      self.commit = repository.commits.where( sha: sha ).first
+    end
+    self.commit
   end
 
   def previous_patch

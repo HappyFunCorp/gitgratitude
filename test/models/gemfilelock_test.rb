@@ -50,7 +50,7 @@ class GemfilelockTest < ActiveSupport::TestCase
     tzinfo_dep = Dependency.create( lockfile: Gemfilelock.create, name: "tzinfo" )
 
     VCR.use_cassette( "gems_tzinfo" ) do 
-      tzinfo_dep.find_project
+      tzinfo_dep.lockfile.ecosystem.lookup_project tzinfo.name
     end
 
     tzinfo.reload

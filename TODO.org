@@ -17,6 +17,7 @@
 Releases should come from the package manager, but tags should come from the repository
 *** Shared filesystem?
 *** Should releases link to projects or repositoties?
+*** Make commit importing faster (commitfiles batching)
 
 
 * Sidekiq

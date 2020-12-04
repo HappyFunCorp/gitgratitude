@@ -4,7 +4,7 @@ class Dependency < ApplicationRecord
   belongs_to :release, optional: true
 
   def find_project
-    self.project = lockfile.find_project self
+    self.project = lockfile.ecosystem.lookup_project_cached self.name
     save
   end
 

@@ -6,7 +6,7 @@ class CreateCommits < ActiveRecord::Migration[6.0]
       t.string :ticket_number
       t.string :message
       t.references :author, null: false, foreign_key: true, type: :uuid
-      t.string :timzone
+      t.string :timezone
       t.integer :file_count
       t.integer :added_lines
       t.integer :deleted_lines

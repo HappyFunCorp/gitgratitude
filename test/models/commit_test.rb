@@ -15,8 +15,8 @@ class CommitTest < ActiveSupport::TestCase
     pattern = `grep 2.0.0 #{repo.workdir}/.travis.yml`.chomp
     assert pattern.blank?
   end
-            
-  test "should create filestates for a given commit" do
+
+  test "should create filestats for a given commit" do
     repo = repositories :flori_json
     repo.debug = "json_id"
 
@@ -24,17 +24,20 @@ class CommitTest < ActiveSupport::TestCase
 
     assert_not_equal 0, repo.commits.count
 
-    commit = repo.commits.where( sha: "db91e90ac1375283f29e1f4a235cc7abb043c2f0" )
+    commit = repo.commits.where( sha: "db91e90ac1375283f29e1f4a235cc7abb043c2f0" ).first
 
     assert_not_nil commit
-    p commit
 
     commit.create_file_stats
 
-    assert_not_equal 0, commit.file_stats.count
+    assert_not_equal 0, commit.file_stats.count, "should have created some file_stats"
 
-    commit.file_stats.each do |x|
-      printf "%20s %20s %d %d %d\n", x.filename, x.language, x.code_count, x.commit_count, x.blank_count
-    end
+    count = commit.file_stats.count
+
+    commit.reload
+
+    commit.create_file_stats
+
+    assert_equal count, commit.file_stats.count, "should not double create file_stats"
   end
 end

@@ -25,7 +25,8 @@ class RepositoriesController < ApplicationController
     @readme = @files.where( catgegory: 'readme' )
     @lockfile = @files.where( category: 'lockfile' )
 
-    @count_by_types = @repository.commit_files.group( :category ).select( "count(*) as count ,category")
+    @count_by_categories = @repository.commit_files.group( :category ).select( "count(*) as count ,category").reorder( "count desc" )
+    @count_by_language = @repository.commit_files.group( :language ).select( "count(*) as count ,language").reorder( "count desc" )
 
     @progress = 0
     if @repository.total_commits && @repository.total_commits > 0

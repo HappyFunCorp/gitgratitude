@@ -14,7 +14,7 @@
 <p>Last analysis: <%= time_ago_nilable @repository.last_analysis %></p>
 <p><%= @queued ? 'sync queued' : '' %></p>
 
-<p><%= @commits.count %> commits</p>
+<p><%= @commits.count %>/<%= @repository.total_commits %> commits</p>
 <p><%= @tags.count %> tags</p>
 <p><%= @authors.count %> authors</p>
 <p><%= @files.count %> tracked file changes over <%= @distinct_file_count %> distinct files</p>
@@ -24,16 +24,31 @@
     <p>Earliest commit <%= @commits.first.created_at %></p>
 <% end %>
 
-<h2 class="text-lg">File types</h2>
+<h2 class="text-lg">File Categories</h2>
 <table>
     <tr>
-        <th>Type</th>
+        <th>Category</th>
         <th>Count</th>
     </tr>
 
-    <% @count_by_types.each do |r| %>
+    <% @count_by_categories.each do |r| %>
         <tr>
             <td><%= r.category %></td>
+            <td><%= r.count  %></td>
+        </tr>
+    <% end %>
+</table>
+
+<h2 class="text-lg">File Languages</h2>
+<table>
+    <tr>
+        <th>Language</th>
+        <th>Count</th>
+    </tr>
+
+    <% @count_by_language.each do |r| %>
+        <tr>
+            <td><%= r.language %></td>
             <td><%= r.count  %></td>
         </tr>
     <% end %>

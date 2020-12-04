@@ -1,0 +1,87 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/foreman.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - be5cc2d8-a76a-4085-8b8d-d9ef202c9764
+      X-Runtime:
+      - '0.017436'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 44.240.15.233:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 04 Dec 2020 17:03:53 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18171-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1607101433.725027,VS0,VE351
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"37708b9c42368204154d4725b2983721"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"foreman","downloads":46609682,"version":"0.87.2","version_downloads":858035,"platform":"ruby","authors":"David
+        Dollar","info":"Process manager for applications with multiple components","licenses":["MIT"],"metadata":{},"yanked":false,"sha":"2727bc6e2100bf80b76e391aefe8c30a9d172b4a8acf56f072f94ffeedeeef6b","project_uri":"https://rubygems.org/gems/foreman","gem_uri":"https://rubygems.org/gems/foreman-0.87.2.gem","homepage_uri":"http://github.com/ddollar/foreman","wiki_uri":null,"documentation_uri":"https://www.rubydoc.info/gems/foreman/0.87.2","mailing_list_uri":null,"source_code_uri":null,"bug_tracker_uri":null,"changelog_uri":null,"funding_uri":null,"dependencies":{"development":[],"runtime":[]}}'
+  recorded_at: Fri, 04 Dec 2020 17:03:52 GMT
+recorded_with: VCR 6.0.0

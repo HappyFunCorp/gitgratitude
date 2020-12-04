@@ -28,7 +28,7 @@ class DependencyTest < ActiveSupport::TestCase
   test "should not refresh if the project is already there" do
     turbolinks = dependencies :turbolinks
 
-    turbolinks.project = Project.create( name: "turbolinks" )
+    turbolinks.project = Project.create( ecosystem: Ecosystem.gems, name: "turbolinks" )
 
     begin VCR::Errors::UnhandledHTTPRequestError
       turbolinks.find_project
