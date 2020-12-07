@@ -7,4 +7,4 @@ build:
     GROUP_ID: 1000
 run:
   web: bundle exec rails server -p $PORT
-  sidekiq: bundlle exec sidekiq
+  sidekiq: bundle exec sidekiq
