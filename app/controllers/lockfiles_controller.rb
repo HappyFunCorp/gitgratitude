@@ -42,8 +42,10 @@ class LockfilesController < ApplicationController
       @progress = (d_count - @unscraped_dependencies).to_f / @dependencies.count.to_f
     end
        
-    if @queued
+    if !@queued.blank?
       render "show_unparsed"
+    else
+      render "show"
     end
   end
 end
