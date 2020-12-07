@@ -50,6 +50,12 @@ The database can be initialized using
 ./r rails db:migrate
 #+end_src
 
+
+** Heroku
+heroku buildpacks:add --index 1 heroku-community/apt
+
+
+
 ** Package manager models
 *** Ecosystem
 
