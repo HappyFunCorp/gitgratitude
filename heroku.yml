@@ -1,0 +1,10 @@
+build:
+  docker:
+    web: Dockerfile
+    sidekiq: Dockerfile
+  config:
+    USER_ID: 1000
+    GROUP_ID: 1000
+run:
+  web: bundle exec rails server -p $PORT
+  sidekiq: bundlle exec sidekiq
