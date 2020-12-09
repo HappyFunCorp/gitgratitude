@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y nodejs yarn cloc
 # install rails
 RUN gem install rails bundler
 
-COPY Gemfile.lock Gemfile /app/gratitude
+COPY Gemfile.lock /app/gratitude
+COPY Gemfile /app/gratitude
 RUN bundle install
 COPY . /app/gratitude
 
