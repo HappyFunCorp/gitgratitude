@@ -15,6 +15,7 @@ COPY Gemfile.lock /app/gratitude
 COPY Gemfile /app/gratitude
 RUN bundle install
 COPY . /app/gratitude
+RUN yarn install --check-files
 RUN rails webpacker:install
 RUN rails assets:precompile
 
