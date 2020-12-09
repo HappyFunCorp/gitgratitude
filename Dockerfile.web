@@ -1,0 +1,20 @@
+FROM ruby:2.7
+
+WORKDIR /app/gratitude
+
+# nodejs and yarn and cloc
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN curl -sL https://deb.nodesource.com/setup_15.x | bash -
+RUN apt-get update && apt-get install -y nodejs yarn cloc
+
+# install rails
+RUN gem install rails bundler
+
+COPY Gemfile.lock /app/gratitude
+RUN bundle install
+COPY . /app/gratitude
+
+EXPOSE 3000
+
+CMD rm -f tmp/pids/server.pid;bundle exec rails server -b 0.0.0.0

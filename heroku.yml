@@ -1,10 +1,7 @@
 build:
   docker:
-    web: Dockerfile
-    sidekiq: Dockerfile
-  config:
-    USER_ID: 1000
-    GROUP_ID: 1000
+    web: Dockerfile.web
+    sidekiq: Dockerfile.web
 run:
   web: bundle exec rails server -p $PORT
   sidekiq: bundle exec sidekiq
