@@ -27,9 +27,9 @@ RUN yarn install --check-files
 COPY . /app/gratitude
 
 #RUN yarn install --check-files
-ARG RAILS_MASTER_KEY
-RUN bundle exec rake assets:precompile
+#ARG RAILS_MASTER_KEY
+#RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
 
-CMD rm -f tmp/pids/server.pid;bundle exec rails server -b 0.0.0.0
+CMD bundle exec sidekiq
