@@ -56,26 +56,22 @@
 
 <h2 class="text-lg">Tags</h2>
 
-<table>
+<table class="w-full">
     <tr>
         <th>Date</th>
         <th>Tag</th>
         <th>sha</th>
-        <th>Readme</th>
-        <th>Changelog</th>
-        <th>Authors</th>
+        <th class="w-1/2">Authors</th>
     </tr>
 
     <% @tags.each do |tag| %>
         <tr>
-            <td><%= tag.created_at %></td>
+            <td><%= tag.created_at.strftime( "%Y-%m-%d" ) %></td>
             <td><%= tag.version %></td>
             <td><%= tag.sha[0..6] %></td>
-            <td><%= tag.latest_readme %></td>
-            <td><%= tag.latest_changelog %></td>
             <td>
                 <% tag.authors.each do |author| %>
-                    <%= link_to author.name, author, class: "hover:underline" %>
+                    <%= link_to author.name, author, class: "hover:underline inline" %>
                 <% end %>
             </td>
         </tr>

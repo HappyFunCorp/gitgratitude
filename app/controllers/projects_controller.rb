@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
       ProjectSyncJob.queue @project
     end
 
-    @queued = ProjectSyncJob.is_queued? @project
+    @queued = !@project.up_to_date?
 
     @releases = @project.releases.reorder( "created_at desc" )
   end

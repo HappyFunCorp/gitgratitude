@@ -3,3 +3,4 @@ docker push registry.heroku.com/gitgratitude/web
 docker build --build-arg RAILS_MASTER_KEY -f Dockerfile.sidekiq . -t registry.heroku.com/gitgratitude/sidekiq
 docker push registry.heroku.com/gitgratitude/sidekiq
 heroku container:release web sidekiq
+heroku run rails db:migrate --type=web
