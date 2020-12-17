@@ -14,6 +14,7 @@ class CreateProjects < ActiveRecord::Migration[6.0]
       t.integer :code_contributors
       t.integer :discussion_contributors
       t.string :license
+      t.datetime :last_sync
       t.timestamps
     end
   end

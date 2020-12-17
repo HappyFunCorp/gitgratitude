@@ -1,0 +1,21 @@
+<h1 class="text-4xl"><%= @author.name %></h1>
+
+<p>Timezone: <%= @author.timezone %></p>
+
+<table class="w-full">
+    <tr>
+        <th>When</th>
+        <th>Repo</th>
+        <th>What</th>
+    </tr>
+
+    
+    <% @commits.each do |commit|%>
+        <tr>
+            <td><%= commit.created_at.strftime( "%Y-%m-%h" ) %></td>
+            <td><%= link_to commit.repository.git_url, commit.repository, class: "hover:underline" %></td>
+            <!-- TODO shouldn't hard code github style links -->
+            <td><%= link_to commit.message, "#{commit.repository.git_url}/commit/#{commit.sha}", class: "hover:underline" %>
+        </tr>
+    <% end %>
+</table>

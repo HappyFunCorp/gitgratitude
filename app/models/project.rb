@@ -4,6 +4,12 @@ class Project < ApplicationRecord
   has_many :releases, dependent: :destroy
 
   def up_to_date?
-    false
+    !last_sync.nil? && last_sync > 24.hours.ago
+  end
+
+  def sync_releases
+    ecosystem.populate_project_info self
+    ecosystem.refresh_releases self
+    update( last_sync: Time.now )
   end
 end

@@ -1,0 +1,17 @@
+<table class="w-full">
+    <tr>
+        <th>Name</th>
+        <th>Language Home</th>
+        <th>Packages Home</th>
+        <th>Projects</th>
+    </tr>
+
+    <% @ecosystems.each do |ecosystem| %>
+        <tr>
+            <td><%= link_to ecosystem.name, ecosystem_path( ecosystem) , class: "hover:underline" %></td>
+            <td><%= link_to ecosystem.language_home, ecosystem.language_home %></td>
+            <td><%= link_to ecosystem.packages_home, ecosystem.packages_home %></td>
+            <td><%= link_to "#{ecosystem.projects.count} tracked", ecosystem_path( ecosystem )  %>
+        </tr>
+    <% end  %>
+</table>

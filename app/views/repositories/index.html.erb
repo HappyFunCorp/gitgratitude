@@ -1,0 +1,20 @@
+<table>
+    <tr>
+        <th>Name</th>
+        <th>URL</th>
+        <th>Last Analyzed</th>
+        <th>Tags</th>
+        <th>Authors</th>
+        <th>Commits</th>
+    </tr>
+
+    <% @repositories.each do |repo| %>
+        <tr>
+            <td><%= link_to repo.project.name, repository_path( repo ) %></td>
+            <td><%= link_to repo.git_url, repository_path( repo ) %></td>
+            <td><%= link_to repo.last_analysis || "", repository_path( repo ) %></td>
+            <td><%= link_to repo.authors.count, repository_path( repo ) %></td>
+            <td><%= link_to repo.total_commits || "", repository_path( repo ) %></td>
+        </tr>
+    <% end %>
+</table>

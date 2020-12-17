@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 2020_11_28_154724) do
     t.integer "code_contributors"
     t.integer "discussion_contributors"
     t.string "license"
+    t.datetime "last_sync"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ecosystem_id"], name: "index_projects_on_ecosystem_id"

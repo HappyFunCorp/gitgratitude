@@ -1,11 +1,11 @@
 class Ecosystem < ApplicationRecord
-  has_many :projects
+  has_many :projects, dependent: :destroy
   
   def self.gems
-    eco = Ecosystem.where( name: "gems" ).first
+    eco = GemEcosystem.where( name: "gems" ).first_or_create
 
-    if eco.nil?
-      eco = GemEcosystem.create( name: "gems", language_home: "https://www.ruby-lang.org/", packages_home: "https://rubygems.org/" )
+    if eco.language_home.blank?
+      eco.update( language_home: "https://www.ruby-lang.org/", packages_home: "https://rubygems.org/" )
     end
 
     eco

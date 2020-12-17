@@ -1,0 +1,566 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/json.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - '05448fbb-b6b9-41d2-9a1e-e90f62076f74'
+      X-Runtime:
+      - '0.013173'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 44.230.114.12:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Thu, 17 Dec 2020 16:06:25 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18152-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1608221186.832536,VS0,VE96
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"05d39cde986ab9e412db8ee6877a9224"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"json","downloads":390688296,"version":"2.4.1","version_downloads":44088,"platform":"ruby","authors":"Florian
+        Frank","info":"This is a JSON implementation as a Ruby extension in C.","licenses":["Ruby"],"metadata":{"wiki_uri":"https://github.com/flori/json/wiki","homepage_uri":"http://flori.github.io/json/","changelog_uri":"https://github.com/flori/json/blob/master/CHANGES.md","bug_tracker_uri":"https://github.com/flori/json/issues","source_code_uri":"https://github.com/flori/json","documentation_uri":"http://flori.github.io/json/doc/index.html"},"yanked":false,"sha":"f8d2ead1568e59de3d44dc4bfca9f4a93c8b73818ad7df986025fa9de2edf627","project_uri":"https://rubygems.org/gems/json","gem_uri":"https://rubygems.org/gems/json-2.4.1.gem","homepage_uri":"http://flori.github.io/json/","wiki_uri":"https://github.com/flori/json/wiki","documentation_uri":"http://flori.github.io/json/doc/index.html","mailing_list_uri":null,"source_code_uri":"https://github.com/flori/json","bug_tracker_uri":"https://github.com/flori/json/issues","changelog_uri":"https://github.com/flori/json/blob/master/CHANGES.md","funding_uri":null,"dependencies":{"development":[{"name":"rake","requirements":"\u003e=
+        0"},{"name":"test-unit","requirements":"\u003e= 0"}],"runtime":[]}}'
+  recorded_at: Thu, 17 Dec 2020 16:06:25 GMT
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/versions/json.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '8500'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Last-Modified:
+      - Thu, 17 Dec 2020 05:16:36 GMT
+      Cache-Control:
+      - max-age=0, public
+      X-Request-Id:
+      - ff86d02d-5aee-442b-ac5b-fb358fdc351c
+      X-Runtime:
+      - '0.034998'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 44.230.114.12:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Thu, 17 Dec 2020 16:06:26 GMT
+      Via:
+      - 1.1 varnish
+      Age:
+      - '0'
+      X-Served-By:
+      - cache-ewr18143-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1608221186.039211,VS0,VE116
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"a4d50471a14917a0b957144620685b9f"'
+      Server:
+      - RubyGems.org
+    body:
+      encoding: ASCII-8BIT
+      string: '[{"authors":"Daniel Luz","built_at":"2020-12-17T00:00:00.000Z","created_at":"2020-12-17T05:16:35.999Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":317,"metadata":{"wiki_uri":"https://github.com/flori/json/wiki","homepage_uri":"http://flori.github.io/json/","changelog_uri":"https://github.com/flori/json/blob/master/CHANGES.md","bug_tracker_uri":"https://github.com/flori/json/issues","source_code_uri":"https://github.com/flori/json","documentation_uri":"http://flori.github.io/json/doc/index.html"},"number":"2.4.1","summary":"JSON
+        Implementation for Ruby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"ec15fdfa6e094a9df8831dc8faf50fea5ff21f80e414c0c67aa976fc3eac351e"},{"authors":"Florian
+        Frank","built_at":"2020-12-17T00:00:00.000Z","created_at":"2020-12-17T05:16:21.549Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":44088,"metadata":{"wiki_uri":"https://github.com/flori/json/wiki","homepage_uri":"http://flori.github.io/json/","changelog_uri":"https://github.com/flori/json/blob/master/CHANGES.md","bug_tracker_uri":"https://github.com/flori/json/issues","source_code_uri":"https://github.com/flori/json","documentation_uri":"http://flori.github.io/json/doc/index.html"},"number":"2.4.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"f8d2ead1568e59de3d44dc4bfca9f4a93c8b73818ad7df986025fa9de2edf627"},{"authors":"Daniel
+        Luz","built_at":"2020-12-15T00:00:00.000Z","created_at":"2020-12-15T10:49:56.390Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":1593,"metadata":{"wiki_uri":"https://github.com/flori/json/wiki","homepage_uri":"http://flori.github.io/json/","changelog_uri":"https://github.com/flori/json/blob/master/CHANGES.md","bug_tracker_uri":"https://github.com/flori/json/issues","source_code_uri":"https://github.com/flori/json","documentation_uri":"http://flori.github.io/json/doc/index.html"},"number":"2.4.0","summary":"JSON
+        Implementation for Ruby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"a217903defa0e3a7fc9683e31d7e5c1c94d6488ed4bb71a9801756929fdc3c46"},{"authors":"Florian
+        Frank","built_at":"2020-12-15T00:00:00.000Z","created_at":"2020-12-15T10:49:15.630Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":153809,"metadata":{"wiki_uri":"https://github.com/flori/json/wiki","homepage_uri":"http://flori.github.io/json/","changelog_uri":"https://github.com/flori/json/blob/master/CHANGES.md","bug_tracker_uri":"https://github.com/flori/json/issues","source_code_uri":"https://github.com/flori/json","documentation_uri":"http://flori.github.io/json/doc/index.html"},"number":"2.4.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"601ca653b508882b402c06d2ad47269457b3acea26a6108c6fbe7161cdb454f2"},{"authors":"Daniel
+        Luz","built_at":"2020-06-30T00:00:00.000Z","created_at":"2020-06-30T12:17:44.633Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":128517,"metadata":{},"number":"2.3.1","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"042143ef80ce2a3e957cfc177400f6f3e1da0839caf6c93bed526a1701f66875"},{"authors":"Florian
+        Frank","built_at":"2020-06-30T00:00:00.000Z","created_at":"2020-06-30T12:12:24.657Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":16169095,"metadata":{"wiki_uri":"https://github.com/flori/json/wiki","homepage_uri":"http://flori.github.io/json/","changelog_uri":"https://github.com/flori/json/blob/master/CHANGES.md","bug_tracker_uri":"https://github.com/flori/json/issues","source_code_uri":"https://github.com/flori/json","documentation_uri":"http://flori.github.io/json/doc/index.html"},"number":"2.3.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"3f9ebb42fcd46ec3ecad16c89c7b174dc539bdd353610c39c15aecca1d570e95"},{"authors":"Daniel
+        Luz","built_at":"2019-12-11T00:00:00.000Z","created_at":"2019-12-11T17:33:49.777Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":227738,"metadata":{},"number":"2.3.0","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"8b3b975e45ce520b513ba3992ec6d6a4ff0351bdc7229eb4a39f6e2f8e9533b3"},{"authors":"Florian
+        Frank","built_at":"2019-12-11T00:00:00.000Z","created_at":"2019-12-11T14:52:59.137Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":24297593,"metadata":{},"number":"2.3.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        1.9","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"b61691fd2087ac37141b75ff4287ce2c3f17251c713e97ef73b43b4bb2e0355b"},{"authors":"Daniel
+        Luz","built_at":"2019-02-21T00:00:00.000Z","created_at":"2019-02-21T22:28:05.047Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":193512,"metadata":{},"number":"2.2.0","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"c8c295359e585861e8d11929c856fbbe6792833a60ac06b7d1968cd5d90f3c6b"},{"authors":"Florian
+        Frank","built_at":"2019-02-21T00:00:00.000Z","created_at":"2019-02-21T22:27:37.775Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":34035694,"metadata":{},"number":"2.2.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        1.9","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"9dd1437156773f72c096058ec837faac1b00077121a3fd574e68f895ea3aa96b"},{"authors":"Daniel
+        Luz","built_at":"2017-04-18T00:00:00.000Z","created_at":"2017-04-18T09:40:36.592Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":399593,"metadata":{},"number":"2.1.0","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"76191914bbe3b030911366c3773950c8e5acaa041aa541c7e165bf3e5d2b2053"},{"authors":"Florian
+        Frank","built_at":"2017-04-18T00:00:00.000Z","created_at":"2017-04-18T09:40:21.347Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":60722263,"metadata":{},"number":"2.1.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        1.9","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"b76fd09b881088c6c64a12721a1528f2f747a1c2ee52fab4c1f60db8af946607"},{"authors":"Florian
+        Frank","built_at":"2017-04-11T00:00:00.000Z","created_at":"2017-04-11T10:42:14.494Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":580365,"metadata":{},"number":"2.0.4","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        1.9","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"ee1361f37fbd9f06d0de3976cd4320a84119aa41fa7f321eb67244404add3114"},{"authors":"Daniel
+        Luz","built_at":"2017-04-11T00:00:00.000Z","created_at":"2017-04-11T10:42:03.454Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":15800,"metadata":{},"number":"2.0.4","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"498211e3adae88f44db80ae3bc996860d0a8d09601d0c90e61f2e5f830b7a6df"},{"authors":"Daniel
+        Luz","built_at":"2017-01-12T00:00:00.000Z","created_at":"2017-01-12T14:21:23.916Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":52924,"metadata":{},"number":"2.0.3","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"088cc32c5bbd0c5bff00d4e4e970b05ae31741192520129c951ba3ee82ad4850"},{"authors":"Florian
+        Frank","built_at":"2017-01-12T00:00:00.000Z","created_at":"2017-01-12T14:20:40.049Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":4046672,"metadata":{},"number":"2.0.3","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        1.9","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"14e75b0de38ca662ef6a8f86ffb30fdf3516ba5cdae60c04369c181a4909fc32"},{"authors":"Daniel
+        Luz","built_at":"2016-07-26T00:00:00.000Z","created_at":"2016-07-26T11:12:26.197Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":84947,"metadata":{},"number":"2.0.2","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"456a19ed1ba523710249eb6ac6f8da65e50198e68b07d2aafb7b5575b68da6c0"},{"authors":"Florian
+        Frank","built_at":"2016-07-26T00:00:00.000Z","created_at":"2016-07-26T11:11:58.675Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":9198816,"metadata":{},"number":"2.0.2","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"~\u003e
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"400f60ac8282da80764c5d6fbb04c096390a85950bb488652abc1eb993b411d2"},{"authors":"Daniel
+        Luz","built_at":"2016-07-01T00:00:00.000Z","created_at":"2016-07-01T15:34:00.290Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":9268,"metadata":{},"number":"2.0.1","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"74a184fe23ee7552e273fb85d0385c6793a35c96a2ecce12cfa00a4cc07aeb30"},{"authors":"Florian
+        Frank","built_at":"2016-07-01T00:00:00.000Z","created_at":"2016-07-01T15:33:42.149Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":469176,"metadata":{},"number":"2.0.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"~\u003e
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"cbea6bfe7bf5162c0fb71f6b0ab2c3108ef05bd0ea7b2f98b1ed6d5a8e75bfee"},{"authors":"Daniel
+        Luz","built_at":"2016-07-01T00:00:00.000Z","created_at":"2016-07-01T09:32:43.805Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":1290,"metadata":{},"number":"2.0.0","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"a4518d389a195b7318f6e67ba10fe5af0b9bbd2a5ba0e0f492062f13f0909395"},{"authors":"Florian
+        Frank","built_at":"2016-07-01T00:00:00.000Z","created_at":"2016-07-01T09:32:15.062Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":23892,"metadata":{},"number":"2.0.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"~\u003e
+        2.0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"c0c63b867433ebfd46ac281fff04234b2a7043ea3aa209ce472d8e9aa54a8a68"},{"authors":"Daniel
+        Luz","built_at":"2017-01-13T00:00:00.000Z","created_at":"2017-01-13T11:12:31.773Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":4559526,"metadata":{},"number":"1.8.6","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"bb31431ab50bd2126d59f05210fb2878051809e4cfe3d470b11f03b2efd0137e"},{"authors":"Florian
+        Frank","built_at":"2017-01-13T00:00:00.000Z","created_at":"2017-01-13T11:12:13.758Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":86020419,"metadata":{},"number":"1.8.6","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"65af27ca985f70eb0d083aab0f75712c771871222af021ce533bad77bd3bb262"},{"authors":"Daniel
+        Luz","built_at":"2017-01-12T00:00:00.000Z","created_at":"2017-01-12T11:47:53.820Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":32553,"metadata":{},"number":"1.8.5","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"05f960ea0478a56bceade12866a7c34ce9ef1544297fdf54fe90482a0537cbdf"},{"authors":"Florian
+        Frank","built_at":"2017-01-12T00:00:00.000Z","created_at":"2017-01-12T11:47:22.746Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":579166,"metadata":{},"number":"1.8.5","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"70f7e21bc66da1dbf925968f9d88be811bcc5ace0bc614c7e838241a0b8c9fb7"},{"authors":"Daniel
+        Luz","built_at":"2015-06-01T00:00:00.000Z","created_at":"2015-06-02T07:29:43.326Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":6410287,"metadata":{},"number":"1.8.3","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"1c84109bb7f443e920bd8f7b43f6b90c9f67426ecf81575bf026a1e98f2b09c5"},{"authors":"Florian
+        Frank","built_at":"2015-06-01T00:00:00.000Z","created_at":"2015-06-02T07:29:31.773Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":37706048,"metadata":{},"number":"1.8.3","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"8ca2091e26678fb989d66cdb9f0104f1307bc584b429c2fd783d51e4b3f14bdb"},{"authors":"Daniel
+        Luz","built_at":"2015-01-09T00:00:00.000Z","created_at":"2015-01-09T00:58:43.461Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":875683,"metadata":{},"number":"1.8.2","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"cae0580cb4d76f53bb466fafc07dccedc47e27556d614720b843cb2a6fb7969d"},{"authors":"Florian
+        Frank","built_at":"2015-01-09T00:00:00.000Z","created_at":"2015-01-09T00:58:00.120Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":32526636,"metadata":{},"number":"1.8.2","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":"\u003e=
+        0","prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"256f73d107635f54e3dd84daba65da7b08f9d6a6e6aeb046db6a46b98bd8fb7f"},{"authors":"Daniel
+        Luz","built_at":"2013-10-17T00:00:00.000Z","created_at":"2013-10-17T12:05:35.634Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":920881,"metadata":{},"number":"1.8.1","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"7e7466a11bc26a19c2a3ed90826e92814c2f8984aea7552c46b27c544e10de84"},{"authors":"Florian
+        Frank","built_at":"2013-10-17T00:00:00.000Z","created_at":"2013-10-17T12:03:08.808Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":20350904,"metadata":{},"number":"1.8.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":["Ruby"],"requirements":[],"sha":"961bfbbfa9fda1e857e9c791e964e6664e0d43bf687b19669dfbc7cdbc5e0200"},{"authors":"Daniel
+        Luz","built_at":"2013-05-13T00:00:00.000Z","created_at":"2013-05-13T12:57:02.503Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":383387,"metadata":{},"number":"1.8.0","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":["Ruby"],"requirements":null,"sha":"bde0d2d8fb3823f647826359fb55b4943a3a925dfdaa52843ed9091061720b3e"},{"authors":"Florian
+        Frank","built_at":"2013-05-13T00:00:00.000Z","created_at":"2013-05-13T12:56:43.376Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":14141970,"metadata":{},"number":"1.8.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":["Ruby"],"requirements":null,"sha":"87e49cccff3fb2091c53141a605956e8d9a252cda43128714f9fdb51d0ca1729"},{"authors":"Daniel
+        Luz","built_at":"2013-02-11T00:00:00.000Z","created_at":"2013-02-11T18:12:38.239Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":345728,"metadata":{},"number":"1.7.7","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":["Ruby"],"requirements":null,"sha":"60a9c3c56d13319676d354421fea4b6317135e1bc3bc133a7fe5304f819ab986"},{"authors":"Florian
+        Frank","built_at":"2013-02-11T00:00:00.000Z","created_at":"2013-02-11T18:09:53.545Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":9075455,"metadata":{},"number":"1.7.7","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":["Ruby"],"requirements":null,"sha":"fd702ed46565b354d7508e88bb3c4855f7fdd771ab89435d7ecbbe98deb0b7ec"},{"authors":"Daniel
+        Luz","built_at":"2012-12-31T00:00:00.000Z","created_at":"2012-12-31T00:41:47.603Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":147410,"metadata":{},"number":"1.7.6","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":[],"requirements":null,"sha":"3cf0a4f84c654533cfe3b0c071395b55fea965725412fcb970690d8eb70ed8d4"},{"authors":"Florian
+        Frank","built_at":"2012-12-31T00:00:00.000Z","created_at":"2012-12-31T00:41:17.714Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":2054150,"metadata":{},"number":"1.7.6","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":[],"requirements":null,"sha":"4aa06575429fd28919d137dccb8b3c11bd0518466d94dc185fffc8fa3f6bb008"},{"authors":"Daniel
+        Luz","built_at":"2012-08-17T00:00:00.000Z","created_at":"2012-08-17T19:00:21.291Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":186526,"metadata":{},"number":"1.7.5","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"3beb4405f080e41484c72c5babf673054912e2af0bdd64c99c8ac344dcd7bb52"},{"authors":"Florian
+        Frank","built_at":"2012-08-17T00:00:00.000Z","created_at":"2012-08-17T18:59:09.725Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":3507717,"metadata":{},"number":"1.7.5","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"e064596aed55983ece9b4864a347ace1b2f0d3541292c5bf4be955994f8d8e7c"},{"authors":"Daniel
+        Luz","built_at":"2012-07-26T00:00:00.000Z","created_at":"2012-07-26T07:47:14.263Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":99354,"metadata":{},"number":"1.7.4","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"80f031d27e0f09bfba34a9cf78e32af0d3fd9e0efa4eb6360e2be7729c5a74a6"},{"authors":"Florian
+        Frank","built_at":"2012-07-26T00:00:00.000Z","created_at":"2012-07-26T07:45:19.826Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":601851,"metadata":{},"number":"1.7.4","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"d2129e3fa9f5ed1629367559a0740d8d920e0f5d328e7450a380ee8040eb9e4d"},{"authors":"Daniel
+        Luz","built_at":"2012-05-11T00:00:00.000Z","created_at":"2012-05-11T22:27:08.949Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":140958,"metadata":{},"number":"1.7.3","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"2c833b912f2b1d90a7deb0046e6fe25f1f331a8bd84d1385e1c5ca756fc4f742"},{"authors":"Florian
+        Frank","built_at":"2012-05-11T00:00:00.000Z","created_at":"2012-05-11T22:26:22.060Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":2018040,"metadata":{},"number":"1.7.3","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"1070e6cd2fedc0cb06e7e56a980b884bdf6e61a9184abb1c6e677d308b4c26d9"},{"authors":"Daniel
+        Luz","built_at":"2012-05-11T00:00:00.000Z","created_at":"2012-05-11T19:04:25.093Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":77275,"metadata":{},"number":"1.7.2","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"27e517a72e859fd8429aad3ce68d560a5423ae118153d4b42379afa5dca4e93e"},{"authors":"Florian
+        Frank","built_at":"2012-05-11T00:00:00.000Z","created_at":"2012-05-11T19:03:50.957Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":8273,"metadata":{},"number":"1.7.2","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"d884153abf0ad4ed987f1a46dd79a7c716282af3c1f6ff38e746b81dbb31b208"},{"authors":"Daniel
+        Luz","built_at":"2012-05-07T00:00:00.000Z","created_at":"2012-05-07T11:29:43.331Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":81997,"metadata":{},"number":"1.7.1","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"0248488178e896261128f0b028dd787f11b80f214631fdca8dc247f2e741209e"},{"authors":"Florian
+        Frank","built_at":"2012-05-07T00:00:00.000Z","created_at":"2012-05-07T11:25:38.574Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":213448,"metadata":{},"number":"1.7.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"356ce749966c3c2789ec9d2040d5fc4d9ff34c4995e2989bb4bcf7952a8fadc2"},{"authors":"Daniel
+        Luz","built_at":"2012-04-28T00:00:00.000Z","created_at":"2012-04-28T01:29:11.431Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":103699,"metadata":{},"number":"1.7.0","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"c0af6f303e456311b73c63a5772c988800b07d6b988ec7587b2fd09a14db5efa"},{"authors":"Florian
+        Frank","built_at":"2012-04-28T00:00:00.000Z","created_at":"2012-04-28T01:28:47.285Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":202207,"metadata":{},"number":"1.7.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"5affdd32dfc4a21f3d076d12e223a5da3778d0d027a6b033f556ba394c6ca6de"},{"authors":"Florian
+        Frank","built_at":"2013-02-10T00:00:00.000Z","created_at":"2013-02-11T18:05:43.872Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":198014,"metadata":{},"number":"1.6.8","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":[],"requirements":null,"sha":"2c66ad4038eb4a0823ee8c2d8f0a4cbf66991011b031aab0d22ded2ca75e7708"},{"authors":"Daniel
+        Luz","built_at":"2013-02-10T00:00:00.000Z","created_at":"2013-02-11T18:05:25.281Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":79602,"metadata":{},"number":"1.6.8","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":[],"requirements":null,"sha":"75548f6972d9f74d2df8ceeef0c6423a9eafa1ddf8c6ff220b19d972f026a805"},{"authors":"Daniel
+        Luz","built_at":"2012-04-28T00:00:00.000Z","created_at":"2012-04-28T01:17:35.289Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":83033,"metadata":{},"number":"1.6.7","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"480f73045c1502abb97dc08dab50f987ff02fb884c2eaa0008ffb0bd4d88e19c"},{"authors":"Florian
+        Frank","built_at":"2012-04-28T00:00:00.000Z","created_at":"2012-04-28T01:14:53.336Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":118587,"metadata":{},"number":"1.6.7","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"02ad99f012ea4aaaab5b15fd3b0b44ac05aed08ef29e0173d46fcf01d63a070f"},{"authors":"Daniel
+        Luz","built_at":"2012-03-26T00:00:00.000Z","created_at":"2012-03-26T15:11:54.377Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":101514,"metadata":{},"number":"1.6.6","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"ebd4d29fe9dbdcee46c26d91c16bac446447cf7507e3123f8a8a1dc18eb0d3d1"},{"authors":"Florian
+        Frank","built_at":"2012-03-26T00:00:00.000Z","created_at":"2012-03-26T15:10:49.543Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":836141,"metadata":{},"number":"1.6.6","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"6d6d0b623a1598da90fa24e73e7cdbf4e4f6dd6b0aa24518b2d57e387291463c"},{"authors":"Daniel
+        Luz","built_at":"2012-01-15T00:00:00.000Z","created_at":"2012-01-15T14:50:57.774Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":136003,"metadata":{},"number":"1.6.5","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"cafefea1295df393b3fb04ff0b66eeeeed746c02a2fdf025343e62797423c3ed"},{"authors":"Florian
+        Frank","built_at":"2012-01-15T00:00:00.000Z","created_at":"2012-01-15T14:49:59.332Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":1888814,"metadata":{},"number":"1.6.5","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"e5fcbdca6238ca27f50306d8e1c41de483e8bc3a76ea7f54f691ddcf56ffad7e"},{"authors":"Daniel
+        Luz","built_at":"2011-12-23T23:00:00.000Z","created_at":"2011-12-24T14:17:21.456Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":86501,"metadata":{},"number":"1.6.4","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"fd4288b83be0ddcc47f57fd6a0dd71fe7fbf5ae95858a30d1293fd2ee7157e7d"},{"authors":"Florian
+        Frank","built_at":"2011-12-24T00:00:00.000Z","created_at":"2011-12-24T14:15:56.581Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":410173,"metadata":{},"number":"1.6.4","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"340df772d3b50d6e19b6f085bca392b661f882b8cae32f5aa564a77f3c51b3a9"},{"authors":"Daniel
+        Luz","built_at":"2011-12-01T00:00:00.000Z","created_at":"2011-12-01T08:18:50.261Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":91852,"metadata":{},"number":"1.6.3","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"49a6b5b0ebba8843c7d2dfc87d2928c0dd7e7045c3b4aa4a00dc4ebcfb5bc837"},{"authors":"Florian
+        Frank","built_at":"2011-12-01T00:00:00.000Z","created_at":"2011-12-01T08:17:01.907Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":547715,"metadata":{},"number":"1.6.3","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"15211258766f8a8186601a8af6b3a019949c443bec101f2c602583454036942d"},{"authors":"Daniel
+        Luz","built_at":"2011-11-28T00:00:00.000Z","created_at":"2011-11-28T16:05:05.082Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":79222,"metadata":{},"number":"1.6.2","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"c0a87d3896a351f42c4371c8f67a231857a78df27bf481879c6362be5677c251"},{"authors":"Florian
+        Frank","built_at":"2011-11-28T00:00:00.000Z","created_at":"2011-11-28T12:10:09.602Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":152178,"metadata":{},"number":"1.6.2","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"b30b0d3cf4646e462dfd6a6dcd16ca03d89d34e8933468537ac9941e00a462e7"},{"authors":"Florian
+        Frank","built_at":"2011-09-18T00:00:00.000Z","created_at":"2011-09-18T13:26:40.274Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":2334163,"metadata":{},"number":"1.6.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"84615d86cbf748fe60870e722e8450b871e6885f3294628eefb90b1d12c9b877"},{"authors":"Daniel
+        Luz","built_at":"2011-09-17T22:00:00.000Z","created_at":"2011-09-18T13:25:06.317Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":149215,"metadata":{},"number":"1.6.1","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"f25962fea7e5cb82bb8b6cc2eda0c10f8de46bc53393656c94f25b249d6dbcce"},{"authors":"Daniel
+        Luz","built_at":"2011-09-13T00:00:00.000Z","created_at":"2011-09-13T20:19:28.911Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":78242,"metadata":{},"number":"1.6.0.1","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"c0f467065aca10f8f97c23c08d2bb9e6abff96946f578907caf3a771690b9281"},{"authors":"Florian
+        Frank","built_at":"2011-09-12T00:00:00.000Z","created_at":"2011-09-12T23:26:46.003Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":59428,"metadata":{},"number":"1.6.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"d8812a67d05ebbf5f82cc5e72d18d3d55c27e062393076deae18d40adc9e3303"},{"authors":"Florian
+        Frank","built_at":"2013-02-10T00:00:00.000Z","created_at":"2013-02-11T18:05:08.039Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":261186,"metadata":{},"number":"1.5.5","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":[],"requirements":null,"sha":"8202bf2e1dd2d9c28bbea62ee7c5a03da21fe06ec14d2411d654d6e58307383f"},{"authors":"Daniel
+        Luz","built_at":"2013-02-10T00:00:00.000Z","created_at":"2013-02-11T18:04:49.359Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":84153,"metadata":{},"number":"1.5.5","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":[],"requirements":null,"sha":"ddfbbe8ccc4bfaceab2fd5a543c728176cc09f8ec4ce9a4bf080f581921c3ecb"},{"authors":"Daniel
+        Luz","built_at":"2011-08-31T00:00:00.000Z","created_at":"2011-08-31T23:26:36.584Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":96294,"metadata":{},"number":"1.5.4","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"01efd6095aef7d6dc48c2f651a96996a01f3c256e0ca5a57b3f590e215f526b0"},{"authors":"Florian
+        Frank","built_at":"2011-08-31T00:00:00.000Z","created_at":"2011-08-31T00:34:14.608Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":449632,"metadata":{},"number":"1.5.4","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"3acf6c344e5f9089b6e4d675d18384bb61a36c81d038ce9a65906987711c789e"},{"authors":"Daniel
+        Luz","built_at":"2011-06-19T22:00:00.000Z","created_at":"2011-06-20T12:36:56.821Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":95931,"metadata":{},"number":"1.5.3","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"54f12e8b72411dbc6058f929f0e71a68bb98fcefdb375827351731e7b23169e6"},{"authors":"Florian
+        Frank","built_at":"2011-06-20T00:00:00.000Z","created_at":"2011-06-20T12:35:45.980Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":563207,"metadata":{},"number":"1.5.3","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"dd0a9449a21d85c20701adc14758b86d19760a2a2351a3f6029f5608dd99077a"},{"authors":"Daniel
+        Luz","built_at":"2011-06-14T22:00:00.000Z","created_at":"2011-06-14T22:39:11.297Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":80341,"metadata":{},"number":"1.5.2","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"9eb2a6442081d501846bf35cb00869bf1580b3f2351a87f0ba2cd45dd207a2d8"},{"authors":"Florian
+        Frank","built_at":"2011-06-14T00:00:00.000Z","created_at":"2011-06-14T22:33:55.724Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":540391,"metadata":{},"number":"1.5.2","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"f486f02e271cc290c5f76793c0036e1c2886306be54cf42feb8cf32152b00a79"},{"authors":"Florian
+        Frank","built_at":"2011-01-25T23:00:00.000Z","created_at":"2011-01-26T01:20:39.315Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":1784464,"metadata":{},"number":"1.5.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"d6319dc5213c11297e5441d1bf204e1517036b0680b4373a7eda4f1ba33404ed"},{"authors":"Daniel
+        Luz","built_at":"2011-01-25T23:00:00.000Z","created_at":"2011-01-26T01:20:03.388Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":107953,"metadata":{},"number":"1.5.1","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"5ee8252c25bfee5e3fb77cc51456810314828cf2cc974f01523799e3a6bbd78c"},{"authors":"Daniel
+        Luz","built_at":"2011-01-22T23:00:00.000Z","created_at":"2011-01-23T06:02:24.975Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":259875,"metadata":{},"number":"1.5.0","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"b7478ef50cb92c0962152ffa4aabcf91913436027f14faf8bc0b024c4a4fbf4c"},{"authors":"Florian
+        Frank","built_at":"2011-01-21T23:00:00.000Z","created_at":"2011-01-22T21:08:54.615Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":36943,"metadata":{},"number":"1.5.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"f29c0c7cc0390f60c14f26a74accdf46debd07887e2e7b0c6f543663894c79db"},{"authors":"Daniel
+        Luz","built_at":"2010-08-12T05:00:00.000Z","created_at":"2010-08-12T23:16:52.314Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":139269,"metadata":{},"number":"1.4.6","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"cc4cbca4dc777d3e628bf166ffb6871e3cea6302d4f85d4d98504c04872b19c1"},{"authors":"Florian
+        Frank","built_at":"2010-08-08T22:00:00.000Z","created_at":"2010-08-09T07:27:45.352Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":3381316,"metadata":{},"number":"1.4.6","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"d3241a141c6da5963e59bf75a91d832d13e7ec6793b8e48465395216a1e17ec5"},{"authors":"Daniel
+        Luz","built_at":"2010-08-07T05:00:00.000Z","created_at":"2010-08-07T16:05:05.820Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":78866,"metadata":{},"number":"1.4.5","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"d938dd0de3067c5f64e5306ff7556590285991cd57d5c66d179695bda741d3b7"},{"authors":"Florian
+        Frank","built_at":"2010-08-06T22:00:00.000Z","created_at":"2010-08-07T00:11:16.975Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":6250,"metadata":{},"number":"1.4.5","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"c7b772ceefa82813a467ab4f43ba7b0b13ecbee2e0a7f4195f99c4ed00226d53"},{"authors":"Daniel
+        Luz","built_at":"2010-08-06T05:00:00.000Z","created_at":"2010-08-06T20:03:44.188Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":77501,"metadata":{},"number":"1.4.4","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"c8e1a198eaa1883b76e4ca3c018f347f76ce7e85df63984718f7a3c95a870c8c"},{"authors":"Florian
+        Frank","built_at":"2010-08-05T22:00:00.000Z","created_at":"2010-08-06T11:44:02.577Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":8777,"metadata":{},"number":"1.4.4","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"e84c397c948cbd5d4bcb652d8e95a56d5fca0dbc19b737efa337e87ad1591b36"},{"authors":"Daniel
+        Luz","built_at":"2010-08-03T05:00:00.000Z","created_at":"2010-08-03T22:54:31.802Z","description":"A
+        JSON implementation as a JRuby extension.","downloads_count":78687,"metadata":{},"number":"1.4.3","summary":"JSON
+        implementation for JRuby","platform":"java","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"a26d177698a4cc3f7a702440da96b7fdfb2abf242b518074e7241867689514d6"},{"authors":"Florian
+        Frank","built_at":"2010-05-04T22:00:00.000Z","created_at":"2010-05-05T21:28:16.326Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":148489,"metadata":{},"number":"1.4.3","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"46f26a861601de5d4332952c51a9cc867f36e4b54bcb496801b949cd8df17e64"},{"authors":"Florian
+        Frank","built_at":"2010-04-27T22:00:00.000Z","created_at":"2010-04-27T22:42:53.144Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":57229,"metadata":{},"number":"1.4.2","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"aed3ca14a953a5e2fd8fbf165a046efb66047d5bc7f0c717924a024ba819e275"},{"authors":"Florian
+        Frank","built_at":"2010-04-24T22:00:00.000Z","created_at":"2010-04-25T13:47:06.653Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":8492,"metadata":{},"number":"1.4.1","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"f31196b21a760a97767a408d450b110046d0a599cd967c1f5d361d212e648e96"},{"authors":"Florian
+        Frank","built_at":"2010-04-22T22:00:00.000Z","created_at":"2010-04-23T21:31:54.480Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":10606,"metadata":{},"number":"1.4.0","summary":"JSON
+        Implementation for Ruby","platform":"ruby","rubygems_version":"\u003e= 0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"9df3f040b07eabbcf9ffbe333d50c0f505fb3fb5c5217c085261ca0fe2aa145b"},{"authors":"Florian
+        Frank","built_at":"2010-04-07T22:00:00.000Z","created_at":"2010-04-08T07:52:04.601Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":154069,"metadata":{},"number":"1.2.4","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"5de55c4531a01c1b02ed9440713a4aa86c83005a05897ff97c4bf5435748b2f1"},{"authors":"Florian
+        Frank","built_at":"2010-03-10T23:00:00.000Z","created_at":"2010-03-11T09:12:53.160Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":36030,"metadata":{},"number":"1.2.3","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"7088797171ee45a400a5cfa10fd675faa5f7d4dd04ac83f14e167dd5087ea9e5"},{"authors":"Florian
+        Frank","built_at":"2010-02-27T23:00:00.000Z","created_at":"2010-02-28T17:17:25.963Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":18233,"metadata":{},"number":"1.2.2","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"9b0e4c2fcc1d61354106ff803b6d89357584c8969b0028c71070591d04f64012"},{"authors":"Florian
+        Frank","built_at":"2010-02-25T23:00:00.000Z","created_at":"2010-02-26T21:29:28.308Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":7377,"metadata":{},"number":"1.2.1","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"4ab9da3d9c720a7e260d35a309da485c37866565cf4ac4c83f2dd0be277aa95a"},{"authors":"Florian
+        Frank","built_at":"2009-11-08T02:00:00.000Z","created_at":"2009-11-08T04:16:36.255Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":111763,"metadata":{},"number":"1.2.0","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"c79e55447aa2774079817589a888b8291273ff344a7fcb28a1428c8746862e6b"},{"authors":"Florian
+        Frank","built_at":"2009-08-31T01:00:00.000Z","created_at":"2009-09-24T22:13:20.241Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":77329,"metadata":{},"number":"1.1.9","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"9ab9a35d395bdcd49943fdd913767fc62a013da29bf32ef4d0c492b643bc92a5"},{"authors":"Florian
+        Frank","built_at":"2009-08-31T01:00:00.000Z","created_at":"2009-09-24T22:13:16.758Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":3497,"metadata":{},"number":"1.1.8","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"84012a9467def426de74afdfa9dbd9ac5facd3e7d7d25b06310c91f61a446e47"},{"authors":"Florian
+        Frank","built_at":"2009-06-29T22:00:00.000Z","created_at":"2009-08-05T00:38:34.000Z","description":"This
+        is a JSON implementation as a Ruby extension in C.","downloads_count":12291,"metadata":{},"number":"1.1.7","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"eb3b1d31d1e158fd12b1f5c01db66c3d44d45727f4941c5f12cb4704018e68fb"},{"authors":"Florian
+        Frank","built_at":"2009-05-09T22:00:00.000Z","created_at":"2009-07-25T18:11:31.000Z","description":"","downloads_count":67915,"metadata":{},"number":"1.1.6","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"948a14cc0e20337ebce7300e70d7f5eec5fba2d0de6bbeba940984954c36743e"},{"authors":"Florian
+        Frank","built_at":"2009-05-09T22:00:00.000Z","created_at":"2009-07-25T18:11:32.000Z","description":"","downloads_count":6409,"metadata":{},"number":"1.1.5","summary":"A
+        JSON implementation as a Ruby extension","platform":"x86-linux","rubygems_version":"\u003e=
+        0","ruby_version":"~\u003e 1.8.6","prerelease":false,"licenses":null,"requirements":null,"sha":"318661f7fb1d001cbb42c5419893519364005c5a678d2638e46d28d927cd4800"},{"authors":"Florian
+        Frank","built_at":"2009-05-09T22:00:00.000Z","created_at":"2009-07-25T18:11:31.000Z","description":"","downloads_count":4845,"metadata":{},"number":"1.1.5","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"327485658f6c3c161c4a695d6ba661b2286136c191d55dac0624e648b5f5f22f"},{"authors":"Florian
+        Frank","built_at":"2009-04-01T22:00:00.000Z","created_at":"2009-07-25T18:11:32.000Z","description":"","downloads_count":7006,"metadata":{},"number":"1.1.4","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"80b5d6e87d5c74bcc02c52691ef9df5a9a14a9c9a8a6820e348877ee8e49d4dc"},{"authors":"Florian
+        Frank","built_at":"2008-07-10T22:00:00.000Z","created_at":"2009-07-25T18:11:32.000Z","description":"","downloads_count":14231,"metadata":{},"number":"1.1.3","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":null,"prerelease":false,"licenses":null,"requirements":null,"sha":"379852d4a88e68b58605a3fbad5c6d7c329a4e7e91b221a3d4b077c63cdc64fe"},{"authors":"Florian
+        Frank","built_at":"2007-11-26T23:00:00.000Z","created_at":"2009-07-25T18:11:32.000Z","description":"","downloads_count":7906,"metadata":{},"number":"1.1.2","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"52bd2153171219f956b1822bbc4a6ca1292cc0996f06692db1ee90906dce8cd1"},{"authors":"Florian
+        Frank","built_at":"2007-07-06T01:00:00.000Z","created_at":"2009-09-24T22:13:13.888Z","description":"","downloads_count":3101,"metadata":{},"number":"1.1.1","summary":"A
+        JSON implementation as a Ruby extension","platform":"mswin32","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"258ef57c65b82ecee0c77e8f5fe30772727fdbda0d13860fb6aee4e54e0e457f"},{"authors":"Florian
+        Frank","built_at":"2007-07-05T22:00:00.000Z","created_at":"2009-07-25T18:11:32.000Z","description":"","downloads_count":5769,"metadata":{},"number":"1.1.1","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"7489c634b717da46fbfe5b3056450f44b6d059c28f80075a763fb3e96ec30e6b"},{"authors":"Florian
+        Frank","built_at":"2007-06-04T01:00:00.000Z","created_at":"2009-09-24T22:13:13.236Z","description":"","downloads_count":2496,"metadata":{},"number":"1.1.0","summary":"A
+        JSON implementation as a Ruby extension","platform":"mswin32","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"55ad590b57b44c24071fda6e9f3521bc0e0d38be39e8daba64848ca9f70c02e5"},{"authors":"Florian
+        Frank","built_at":"2007-06-03T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":6227,"metadata":{},"number":"1.1.0","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"69974523a9f0a86d8064a19319a243d393da11705a97f4d7666db3f44cea7f0c"},{"authors":"Florian
+        Frank","built_at":"2007-05-10T01:00:00.000Z","created_at":"2009-09-24T22:13:12.577Z","description":"","downloads_count":2337,"metadata":{},"number":"1.0.4","summary":"A
+        JSON implementation as a Ruby extension","platform":"mswin32","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"c5e9df6c89c0b8857ea6fbbd5d17b2c82c3b56c182ecdc97fcd7f47894b70594"},{"authors":"Florian
+        Frank","built_at":"2007-05-09T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":3562,"metadata":{},"number":"1.0.4","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"a61383990d70e8ba581f5f543522e405c1e9cf2f5bbb3ec63bcd57a06a980c27"},{"authors":"Florian
+        Frank","built_at":"2007-04-27T01:00:00.000Z","created_at":"2009-09-24T22:13:11.673Z","description":"","downloads_count":2398,"metadata":{},"number":"1.0.3","summary":"A
+        JSON implementation as a Ruby extension","platform":"mswin32","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"320cb86ec7cd318e6bd197bcf1d905e4f34b50f4af9cd04041ec63e1c28166a2"},{"authors":"Florian
+        Frank","built_at":"2007-04-25T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":3611,"metadata":{},"number":"1.0.3","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"7960983360213dd66e8cb56331c4c8ec66cebd99fe23a0759fe326179dee4acc"},{"authors":"Florian
+        Frank","built_at":"2007-04-01T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":3490,"metadata":{},"number":"1.0.2","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"9d71419edce824a682698553edd58cfaf9f6e07dacd918befb558691d3ae53bd"},{"authors":"Florian
+        Frank","built_at":"2007-03-26T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":3553,"metadata":{},"number":"1.0.1","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"5690829e5dded2c607b0f105a12be9dc8034c395aba95b2ca60f5ecf19700806"},{"authors":"Florian
+        Frank","built_at":"2007-03-26T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":4196,"metadata":{},"number":"1.0.0","summary":"A
+        JSON implementation as a Ruby extension","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"3d96f1bd84b39dcec28dbd0b1ff6236feaa3b63f8a1e31a1594db7ab562c20ce"},{"authors":"Florian
+        Frank","built_at":"2007-02-09T23:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":19783,"metadata":{},"number":"0.4.3","summary":"A
+        JSON implementation in Ruby","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"2600bae66eb672fa0133e84ae1bcecbfe7002597514044fcd8e9bbe339b40264"},{"authors":"Florian
+        Frank","built_at":"2006-08-24T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":3478,"metadata":{},"number":"0.4.2","summary":"A
+        JSON implementation in Ruby","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"43731909f844bc12cb75645172d4a9ab57bb8dbaa5b582b35080bb2804822d69"},{"authors":"Florian
+        Frank","built_at":"2006-02-05T23:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":3371,"metadata":{},"number":"0.4.1","summary":"A
+        JSON implementation in Ruby","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"95430aea5d2b22b48ca41c91d693d24ecb3fab6da66547c9344afbf65c384fba"},{"authors":"Florian
+        Frank","built_at":"2005-09-29T22:00:00.000Z","created_at":"2009-07-25T18:11:33.000Z","description":"","downloads_count":3655,"metadata":{},"number":"0.4.0","summary":"A
+        JSON implementation in Ruby","platform":"ruby","rubygems_version":"\u003e=
+        0","ruby_version":"\u003e 0.0.0","prerelease":false,"licenses":null,"requirements":null,"sha":"11f024f6ae9377f934a4002de6054d86ac5e0dc951e53346cecd5dda7511a25d"}]'
+  recorded_at: Thu, 17 Dec 2020 16:06:25 GMT
+recorded_with: VCR 6.0.0

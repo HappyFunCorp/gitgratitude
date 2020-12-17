@@ -1,0 +1,30 @@
+<table class="w-full">
+    <tr>
+        <th>Name</th>
+        <th>Ecosystem</th>
+        <th>Downloads</th>
+        <th>Last Refreshed</th>
+        <th>Version</th>
+        <th>Tracked</th>
+        <th>First Release</th>
+        <th>Latest Release</th>
+    </tr>
+
+    <% projects.each do |project| %>
+        <tr>
+            <td><%= link_to project.name, project, class: "hover:underline" %></td>
+            <td><%= link_to project.ecosystem.name, ecosystem_path( project.ecosystem ), class: "hover:underline" %></td>
+            <td><%= number_to_human( project.downloads ) %></td>
+            <td><%= link_to project.last_sync.nil? ? 'never' : "#{time_ago_in_words( project.last_sync )} ago", project %></td>
+            <td><%= link_to project.latest_version, project %></td>
+            <td><%= link_to project.last_sync.nil? ? 'unknown' : project.releases.count, project %></td>
+            <% if project.last_sync %>
+                <td><%= project.releases.first.created_at.strftime( "%Y-%m-%d") %></td>
+                <td><%= project.releases.last.created_at.strftime( "%Y-%m-%d") %></td>
+            <% else %>
+                <td>na</td>
+                <td>na</td>
+            <% end  %>
+        </tr>
+    <% end  %>
+</table>

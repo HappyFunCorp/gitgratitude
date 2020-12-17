@@ -3,11 +3,16 @@ class RepositoriesController < ApplicationController
     @repository = Repository.new
   end
 
+  def index
+    flash.now[:notice] = "Need permission checking on repositories#show"
+    @repositories = Repository.all
+  end
+
   def create
   end
 
   def show
-    flash[:notice] = "Need permission checking on repositories#show"
+    flash.now[:notice] = "Need permission checking on repositories#show"
     
     @repository = Repository.find params[:id]
 

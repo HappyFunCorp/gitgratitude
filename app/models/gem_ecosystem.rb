@@ -2,9 +2,13 @@ class GemEcosystem < Ecosystem
   def lookup_project name
     project = projects.where( name: name ).first
     project ||= projects.new( name: name )
-        
+
+    populate_project_info( project )
+  end
+
+  def populate_project_info( project )
     gems_client = Gems::Client.new
-    info = gems_client.info( name )
+    info = gems_client.info( project.name )
 
     project.homepage = info["homepage_uri"]
     project.downloads = info["downloads"]

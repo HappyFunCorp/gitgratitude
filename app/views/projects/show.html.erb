@@ -1,7 +1,18 @@
+<% if @queued %>
+    Processing...
+    <%= render partial: "partials/refresh_timer" %>
+<% end %>
+
 <table>
     <tr>
         <th>Name</th>
         <td><%= @project.name %></td>
+    </tr>
+
+    <tr>
+        <th>Last Sync</th>
+        <td><%= @project.last_sync %>
+        </td>
     </tr>
 
     <tr>
@@ -42,3 +53,31 @@
     <% end %>
 </table>
             
+
+<h2 class="text-xl">Releases</h2>
+
+<table class="w-full">
+    <tr>
+        <th>Version</th>
+        <th>Date</th>
+        <th>Major</th>
+        <th>Minor</th>
+        <th>Patch</th>
+        <th>Downloads</th>
+        <th>Tag</th>
+        <th>Commit</th>
+    </tr>
+
+    <% @releases.each do |release| %>
+        <tr>
+            <td><%= release.version %></td>
+            <td><%= release.created_at.strftime( "%Y-%m-%d" ) %></td>
+            <td><%= release.major_version %></td>
+            <td><%= release.minor_version  %></td>
+            <td><%= release.patch %></td>
+            <td><%= number_to_human( release.download_count ) %></td>
+            <td><%= release.tag %></td>
+            <td><%= release.commit_id %></td>
+        </tr>
+    <% end  %>
+</table>

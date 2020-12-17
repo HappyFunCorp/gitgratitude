@@ -1,0 +1,37 @@
+<h2 class="text-xl">Multiple Repositories, last 6 months</h2>
+
+<p>Of the repositories that we've tracked, here are the authors involved with the most in the last 6 months</p>
+
+<table class="w-full" >
+    <tr>
+        <th>Name</th>
+        <th>Repositories</th>
+    </tr>
+
+    <% @recent_repo_count_by_author.each do |author| %>
+        <tr>
+            <td><%= link_to author.name, author, class: "hover:underline" %></td>
+            <td><%= author.repo_count %> repos</td>
+        </tr>
+    <% end %>
+</table>
+
+
+<h2 class="text-xl">Multiple Repositories, all time</h2>
+
+<p>Of the repositories that we've tracked, here are the authors involved with the most of them</p>
+
+<table class="w-full" >
+    <tr>
+        <th>Name</th>
+        <th>Repositories</th>
+    </tr>
+
+    <% @repo_count_by_author.each do |author| %>
+        <tr>
+            <td><%= link_to author.name, author, class: "hover:underline" %></td>
+            <td><%= author.repo_count %> repos</td>
+        </tr>
+    <% end %>
+</table>
+

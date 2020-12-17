@@ -23,4 +23,18 @@ class ProjectTest < ActiveSupport::TestCase
     refute p.downloads == 0, "should have download count"
     refute p.license.blank?, "licence should be set"
   end
+
+  test "project should load all the releases" do
+    json = Project.create name: 'json', ecosystem: Ecosystem.gems
+
+    refute json.up_to_date?
+
+    VCR.use_cassette 'gems_json_releases' do
+      json.sync_releases
+    end
+
+    assert json.up_to_date?
+
+    assert json.releases.count > 1
+  end
 end

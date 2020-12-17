@@ -73,7 +73,11 @@
             <td><%= tag.sha[0..6] %></td>
             <td><%= tag.latest_readme %></td>
             <td><%= tag.latest_changelog %></td>
-            <td><%= tag.authors.pluck(:email).join( ", " ) %></td>
+            <td>
+                <% tag.authors.each do |author| %>
+                    <%= link_to author.name, author, class: "hover:underline" %>
+                <% end %>
+            </td>
         </tr>
     <% end  %>
 </table>

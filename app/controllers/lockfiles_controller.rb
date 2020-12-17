@@ -1,4 +1,10 @@
 class LockfilesController < ApplicationController
+  def index
+    flash.now[:error] = "This is a debug screen"
+
+    @lockfiles = Lockfile.all.reorder( "created_at desc" )
+  end
+  
   def new
     @lockfile = Lockfile.new
   end
@@ -25,7 +31,7 @@ class LockfilesController < ApplicationController
   end
 
   def show
-    flash[:notice] = "Need permission checking on lockfiles#show"
+    flash.now[:notice] = "Need permission checking on lockfiles#show"
 
     @lockfile = Lockfile.find params[:id]
     @lockfile.queue_scraping

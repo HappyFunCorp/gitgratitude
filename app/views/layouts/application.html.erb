@@ -16,8 +16,13 @@
     </head>
     
     <body class="bg-gray-100 text-gray-900">
-        <nav class="bg-gray-200 text-black p-4">
+        <nav class="bg-gray-200 text-black px-4 pt-2">
             <%= link_to "Git Gratitude", root_path, class: "text-2xl font-header font-bold tracking-wider" %>
+            <%= link_to "Ecosystems", ecosystems_path, class: "mx-4 font-header hover:underline pb-2 inline-block #{controller.class.name == 'EcosystemsController' ? 'border-b-4 border-indigo-500' : ''}" %>
+            <%= link_to "Projects", projects_path, class: "mx-4 font-header hover:underline pb-2 inline-block #{controller.class.name == 'ProjectsController' ? 'border-b-4 border-indigo-500' : ''}" %>
+            <%= link_to "Repositories", repositories_path, class: "mx-4 font-header hover:underline pb-2 inline-block #{controller.class.name == 'RepositoriesController' ? 'border-b-4 border-indigo-500' : ''}" %>
+            <%= link_to "Authors", authors_path , class: "mx-4 font-header hover:underline pb-2 inline-block #{controller.class.name == 'AuthorsController' ? 'border-b-4 border-indigo-500' : '' }"%>
+            <%= link_to "Lockfiles", lockfiles_path, class: "mx-4 font-header hover:underline pb-2 inline-block #{controller.class.name == 'LockfilesController' ? 'border-b-4 border-indigo-500' : ''}" %>
         </nav>
         <% if !flash[:error].blank? %>
             <div class="max-w-screen-lg mx-auto mt-4 p-4 bg-red-200 border-l-4 border-red-600 text-red-800" role="alert">

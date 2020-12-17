@@ -1,0 +1,6 @@
+<h1 class="text-4xl" ><%= @ecosystem.name %></h1>
+
+<p class="text-xl">Top 50 Projects by downloads</p>
+
+<%= render partial: "partials/project_table", locals: { projects: @projects } %>
+    
