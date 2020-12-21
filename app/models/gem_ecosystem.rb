@@ -52,5 +52,8 @@ class GemEcosystem < Ecosystem
                   sha: version["sha"],
                   licenses: version["licenses"] )
     end
+
+    project.update( first_release: project.releases.first.created_at, latest_release: project.releases.last.created_at )
+    Project.reset_counters( project.id, :releases )
   end
 end

@@ -1,5 +1,4 @@
 <% if @repository.needs_sync? %>
-    Processing...
     <%= render partial: "partials/refresh_timer" %>
 <% end %>
 
@@ -8,7 +7,7 @@
 <% end  %>
 
 
-<h2 class="text-lg">Project Info</h2>
+<h2 class="text-lg">Repository Info</h2>
 <p><%= link_to @repository.git_url, @repository.git_url %></p>
 <p>Last git sync: <%= time_ago_nilable @repository.last_git_sync %></p>
 <p>Last analysis: <%= time_ago_nilable @repository.last_analysis %></p>

@@ -1,5 +1,5 @@
 class Release < ApplicationRecord
-  belongs_to :project
+  belongs_to :project, counter_cache: :releases_count
   belongs_to :commit, optional: true
 
   def find_tag
