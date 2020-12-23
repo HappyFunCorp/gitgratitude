@@ -14,4 +14,12 @@ class ProjectsController < ApplicationController
 
     @releases = @project.releases.reorder( "created_at desc" )
   end
+
+  def refresh
+    @project = Project.find params[:id]
+
+    ProjectSyncJob.queue @project
+
+    redirect_to @project, flash: { notice: "Refresh queued" }
+  end
 end

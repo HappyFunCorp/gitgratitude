@@ -2,6 +2,7 @@ require 'test_helper'
 
 class CommitTest < ActiveSupport::TestCase
   test "should set a working copy to a specific commit" do
+    skip
     repo = repositories :flori_json
     repo.debug = "json_id"
 

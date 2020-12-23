@@ -3,7 +3,14 @@ Rails.application.routes.draw do
 
   resources :lockfiles
   resources :ecosystems
-  resources :projects
+  resources :projects do
+    member do
+      post :refresh
+    end
+
+    resources :releases
+  end
+  
   resources :repositories
   resources :authors
 

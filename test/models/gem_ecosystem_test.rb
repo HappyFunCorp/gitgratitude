@@ -18,6 +18,7 @@ class GemEcosystemTest < ActiveSupport::TestCase
   end
   
   test "should parse out the version number" do
+    
     skip
   end
 
@@ -48,16 +49,11 @@ class GemEcosystemTest < ActiveSupport::TestCase
 
       repo.debug = "foreman"
 
-#      repo.sync_and_analyze
-
       # Make sure that we got some hashes
       foreman.releases.each do |release|
         assert !release.sha.blank?
       end
-
-      
     end
-    
   end
 
   test "should matchup tags with releases" do
