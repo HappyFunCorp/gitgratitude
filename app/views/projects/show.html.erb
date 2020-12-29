@@ -32,29 +32,35 @@
 
     <tr>
         <th>Downloads</th>
-        <td><%= @project.downloads %></td>
+        <td><%= number_to_human @project.downloads %></td>
     </tr>
 
     <tr>
         <th>Homepage</th>
-        <td><%= link_to @project.homepage, @project.homepage %></td>
+        <td><%= link_to @project.homepage, @project.homepage, class: "hover:underline" %></td>
     </tr>
+</table>
 
+<h2 class="text-xl pt-4" >Repositories</h2>
+<table class="w-full">
+    <tr>
+        <th>Git Url</th>
+        <th>Total Commits</th>
+        <th>Authors</th>
+        <th>Last Analysis</th>
+    </tr>
+    
     <% @project.repositories.each do |rep| %>
         <tr>
-            <th>Giturl</th>
-            <td><%= link_to rep.git_url, rep %></td>
-        </tr>
-
-        <tr>
-            <th>Homepage</th>
-            <td><%= rep.homepage_url %></td>
+            <td><%= link_to rep.git_url, rep, class: "hover:underline" %></td>
+            <td><%= rep.total_commits ? rep.total_commits : "na" %></td>
+            <td><%= rep.authors.count %></td>
+            <td><%= date_of( rep.last_analysis ) %></td>
         </tr>
     <% end %>
 </table>
-            
 
-<h2 class="text-xl">Releases</h2>
+<h2 class="text-xl pt-4">Releases</h2>
 
 <table class="w-full">
     <tr>
@@ -70,14 +76,20 @@
 
     <% @releases.each do |release| %>
         <tr>
-            <td><%= release.version %></td>
+            <td><%= link_to release.version, project_release_path( @project, release ), class: "hover:underline" %></td>
             <td><%= release.created_at.strftime( "%Y-%m-%d" ) %></td>
             <td><%= release.major_version %></td>
             <td><%= release.minor_version  %></td>
             <td><%= release.patch %></td>
             <td><%= number_to_human( release.download_count ) %></td>
             <td><%= release.tag %></td>
-            <td><%= release.commit_id %></td>
+            <td>
+                <% if release.commit %>
+                    <%= link_to date_of( release.commit.created_at ), repository_commit_path( release.commit.repository, release.commit ), class: "hover:underline" %>
+                <% end  %>
+            </td>
         </tr>
     <% end  %>
 </table>
+
+<%= button_to "Refresh", refresh_project_path( @project ), class: "px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:border-indigo-700 active:bg-indigo-700 transition ease-in-out duration-150" %>

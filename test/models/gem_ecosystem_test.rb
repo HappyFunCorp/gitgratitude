@@ -14,16 +14,36 @@ class GemEcosystemTest < ActiveSupport::TestCase
   end
 
   test "should update the release download counts" do
-    skip
+    gems = Ecosystem.gems
+
+    VCR.use_cassette "gems_rails_releases", record: :all do
+      project = gems.lookup_project "rails"
+
+      project.releases.create( version: "5.1.2", download_count: 123 )
+
+      gems.refresh_releases project
+
+      version = project.releases.where( version: "5.1.2" ).first
+
+      assert_not_equal 123, version.download_count
+    end
   end
   
   test "should parse out the version number" do
-    
-    skip
-  end
+    gems = Ecosystem.gems
 
-  test "populate version information" do
-    skip "todo"
+    VCR.use_cassette "gems_rails_releases", record: :all do
+      project = gems.lookup_project "rails"
+
+      gems.refresh_releases project
+
+      version = project.releases.where( version: "5.1.2" ).first
+
+      assert version
+      assert_equal 5, version.major_version
+      assert_equal 1, version.minor_version
+      assert_equal 2, version.patch
+    end
   end
 
   test "should default to the homepage url if there's no sourcecode url" do

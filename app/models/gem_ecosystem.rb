@@ -51,6 +51,7 @@ class GemEcosystem < Ecosystem
                   prerelease: version["prerelease"],
                   sha: version["sha"],
                   licenses: version["licenses"] )
+      rel.find_tag
     end
 
     project.update( first_release: project.releases.first.created_at, latest_release: project.releases.last.created_at )

@@ -1,0 +1,61 @@
+<% if @file_stats.count == 0 %>
+    <%= render partial: "partials/refresh_timer" %>
+<% end  %>
+
+<h1 class="text-4xl"><%= link_to @project.name, @project, class: "hover:underline" %>: Release <%= @release.version %></h1>
+
+<p class="py-2">Released <%= date_of( @release.created_at ) %>, <%= time_ago_in_words( @release.created_at) %> ago</p>
+
+<p class="pt-2" ><%= @release.description %></p>
+
+<p class="pt-2" >Previous tag: <%= @previous_tag.try( :version) %></p>
+
+<h2 class="text-xl pt-2">Authors</h2>
+
+<% @tag.authors.each do |author| %>
+    <%= link_to author.name, author, class: "hover:underline" %>
+<% end %>
+
+<% if @commits %>
+    <h2 class="text-xl pt-2" >Commits</h2>
+
+    <table class="w-full" >
+        <tr>
+            <th>When</th>
+            <th>Who</th>
+            <th>What</th>
+        </tr>
+        
+    <% @commits.each do |commit|%>
+        <tr>
+            <td><%= commit.created_at.strftime( "%Y-%m-%h" ) %></td>
+            <td><%= link_to commit.author.name, commit.author, class: "hover:underline" %></td>
+            <!-- TODO shouldn't hard code github style links -->
+            <td><%= link_to commit.message, "#{commit.repository.git_url}/commit/#{commit.sha}", class: "hover:underline" %></td>
+        </tr>
+    <% end %>
+    </table>
+<% end  %>
+
+
+<h2 class="text-xl pt-2">Code stats</h2>
+<table class="w-full">
+    <tr>
+        <th>Name</th>
+        <th>Language</th>
+        <th>Code</th>
+        <th>Comment</th>
+        <th>Blank</th>
+    </tr>
+
+    
+    <% @file_stats.reorder( "filename" ).each do |file| %>
+        <tr>
+            <td><%= file.filename %></td>
+            <td><%= file.language %></td>
+            <td><%= file.code_count %></td>
+            <td><%= file.comment_count %></td>
+            <td><%= file.blank_count %></td>
+        </tr>
+    <% end  %>
+</table>

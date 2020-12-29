@@ -11,7 +11,10 @@ Rails.application.routes.draw do
     resources :releases
   end
   
-  resources :repositories
+  resources :repositories do
+    resources :commits
+  end
+  
   resources :authors
 
   require 'sidekiq/web'
