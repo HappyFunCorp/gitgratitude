@@ -60,15 +60,17 @@
     <% end %>
 </table>
 
+<h2 class="text-xl pt-4">Downloads by version</h2>
+
+<%= line_chart @releases.reorder( "created_at asc" ).collect { |x| [ x.version, x.download_count ] } %>
+
+
 <h2 class="text-xl pt-4">Releases</h2>
 
 <table class="w-full">
     <tr>
         <th>Version</th>
         <th>Date</th>
-        <th>Major</th>
-        <th>Minor</th>
-        <th>Patch</th>
         <th>Downloads</th>
         <th>Tag</th>
         <th>Commit</th>
@@ -78,9 +80,6 @@
         <tr>
             <td><%= link_to release.version, project_release_path( @project, release ), class: "hover:underline" %></td>
             <td><%= release.created_at.strftime( "%Y-%m-%d" ) %></td>
-            <td><%= release.major_version %></td>
-            <td><%= release.minor_version  %></td>
-            <td><%= release.patch %></td>
             <td><%= number_to_human( release.download_count ) %></td>
             <td><%= release.tag %></td>
             <td>

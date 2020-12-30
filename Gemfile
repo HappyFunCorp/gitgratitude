@@ -63,3 +63,4 @@ gem 'sidekiq', "~> 6.1"
 gem 'gems', "~> 1.2"
 gem 'semver2', '3.4.2', require: 'semver'
 gem 'lograge'
+gem 'chartkick'

@@ -1,4 +1,4 @@
-<% if @file_stats.count == 0 %>
+<% if @refresh_please %>
     <%= render partial: "partials/refresh_timer" %>
 <% end  %>
 
@@ -8,13 +8,28 @@
 
 <p class="pt-2" ><%= @release.description %></p>
 
-<p class="pt-2" >Previous tag: <%= @previous_tag.try( :version) %></p>
+<% if @refresh_please
+    repo = @release.project.repositories.first
+    if repo && repo.total_commits && repo.total_commits > 0
+        progress = ((repo.commits.count.to_f / repo.total_commits.to_f) * 100).to_i
+        if progress < 100 %>
+           <%= render partial: "partials/progress_bar", locals: { message: "Analysing repository", percentage: progress } %>
+        <%
+        end
+    end
+end %>
 
-<h2 class="text-xl pt-2">Authors</h2>
-
-<% @tag.authors.each do |author| %>
-    <%= link_to author.name, author, class: "hover:underline" %>
+<% if @previous_tag %>
+    <p class="pt-2" >Previous tag: <%= @previous_tag.try( :version) %></p>
 <% end %>
+
+<% if @tag %>
+    <h2 class="text-xl pt-2">Authors</h2>
+
+    <% @tag.authors.each do |author| %>
+        <%= link_to author.name, author, class: "hover:underline" %>
+    <% end %>
+<% end  %>
 
 <% if @commits %>
     <h2 class="text-xl pt-2" >Commits</h2>
@@ -37,25 +52,26 @@
     </table>
 <% end  %>
 
-
-<h2 class="text-xl pt-2">Code stats</h2>
-<table class="w-full">
-    <tr>
-        <th>Name</th>
-        <th>Language</th>
-        <th>Code</th>
-        <th>Comment</th>
-        <th>Blank</th>
-    </tr>
-
-    
-    <% @file_stats.reorder( "filename" ).each do |file| %>
+<% if @file_stats %>
+    <h2 class="text-xl pt-2">Code stats</h2>
+    <table class="w-full">
         <tr>
-            <td><%= file.filename %></td>
-            <td><%= file.language %></td>
-            <td><%= file.code_count %></td>
-            <td><%= file.comment_count %></td>
-            <td><%= file.blank_count %></td>
+            <th>Name</th>
+            <th>Language</th>
+            <th>Code</th>
+            <th>Comment</th>
+            <th>Blank</th>
         </tr>
-    <% end  %>
-</table>
+        
+        
+        <% @file_stats.reorder( "filename" ).each do |file| %>
+            <tr>
+                <td><%= file.filename %></td>
+                <td><%= file.language %></td>
+                <td><%= file.code_count %></td>
+                <td><%= file.comment_count %></td>
+                <td><%= file.blank_count %></td>
+            </tr>
+        <% end  %>
+    </table>
+<% end %>

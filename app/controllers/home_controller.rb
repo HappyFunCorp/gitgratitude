@@ -7,7 +7,9 @@ class HomeController < ApplicationController
         repos: Repository.all.count,
         commits: Commit.all.count,
         tags: Tag.all.count,
-        authors: Author.all.count
+        authors: Author.all.count,
+        commit_files: CommitFile.all.count,
+        file_stats: FileStat.all.count
       }
     end
   end
