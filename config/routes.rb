@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   
   resources :repositories do
     resources :commits
+    resources :tags
   end
   
   resources :authors

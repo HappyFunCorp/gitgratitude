@@ -24,3 +24,26 @@
         </div>
     </div>
 </main>
+
+<div class="flex justify-evenly flex-wrap">
+    <%
+    [
+    [@stats[:projects], "projects"],
+    [@stats[:releases], "releases"],
+    [@stats[:repos], "repositories"],
+    [@stats[:commits], "commits"],
+    [@stats[:tags], "tags"],
+    [@stats[:authors], "authors"]
+    ].each do |s| %>
+    
+    <div class="pt-12 w-full md:w-1/3 flex-none">
+        <p class="text-4xl text-center font-bold tracking-tight text-indigo-600"><%= number_to_human s[0], units: { thousand: "K", million: "M", billion: "B"} %></p>
+        <p class="text-sm text-center text-gray-600"><%= s[1] %></p>
+    </div>
+
+    <% end  %>
+
+</div>
+
+<p class="text-sm text-gray-500 text-center pt-4" >As of <%= time_ago_in_words( @stats[:time]) %> ago</p>
+
