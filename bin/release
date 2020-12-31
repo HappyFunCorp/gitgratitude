@@ -1,3 +1,14 @@
+#!/bin/bash
+
+if [ -z "${RAILS_MASTER_KEY}" ]; then
+  . .env
+fi
+  
+if [ -z "${RAILS_MASTER_KEY}" ]; then
+  echo Please set rails master key \(tried to load it from .env\)
+  exit 1
+fi
+  
 docker build --build-arg RAILS_MASTER_KEY -f Dockerfile.web . -t registry.heroku.com/gitgratitude/web
 docker push registry.heroku.com/gitgratitude/web
 docker build --build-arg RAILS_MASTER_KEY -f Dockerfile.sidekiq . -t registry.heroku.com/gitgratitude/sidekiq

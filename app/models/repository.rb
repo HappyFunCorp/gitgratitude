@@ -1,13 +1,18 @@
 require 'fileutils'
 
 class Repository < ApplicationRecord
-  belongs_to :project
   has_many :tags, dependent: :destroy
   has_many :commits, dependent: :destroy
   has_many :authors, -> { distinct }, through: :commits
   has_many :commit_files, through: :commits
+  has_many :project_repositories, dependent: :destroy
+  has_many :projects, through: :project_repositories
 
   WORKDIR='/tmp/gratitude'
+
+  def project
+    projects.first
+  end
 
   def basedir
     return nil if id.nil?

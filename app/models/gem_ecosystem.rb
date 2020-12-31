@@ -27,7 +27,9 @@ class GemEcosystem < Ecosystem
     # TODO which are these
     if giturl
       giturl.gsub!( /\/tree\/.*/, "" )
-      repo = project.repositories.where( git_url: giturl ).first_or_create
+      repo = Repository.where( git_url: giturl ).first_or_create
+      
+      repo = project.repositories << repo #.where( git_url: giturl ).first_or_create
     end
 
     release = project.releases.where( version: info["version"] ).first

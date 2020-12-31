@@ -37,4 +37,21 @@ class ProjectTest < ActiveSupport::TestCase
 
     assert json.releases.count > 1
   end
+
+  test "Project should use an existing repo" do
+    gems = Ecosystem.gems
+    VCR.use_cassette 'gems_actionviewpack' do
+      actionview = gems.lookup_project 'actionview'
+      actionpack = gems.lookup_project 'actionpack'
+
+    end
+
+    actionview = Project.where( name: 'actionview' ).first
+    assert_not_nil actionview
+    
+    actionpack = Project.where( name: 'actionpack' ).first
+    assert_not_nil actionpack
+
+    assert_equal 1, Repository.where( git_url: 'https://github.com/rails/rails' ).count, 'Should only have one instance of rails repo'
+  end
 end

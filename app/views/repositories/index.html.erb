@@ -8,9 +8,13 @@
         <th>Commits</th>
     </tr>
 
-    <% @repositories.each do |repo| %>
+    <% @repositories.reorder( :git_url ).each do |repo| %>
         <tr>
-            <td><%= link_to repo.project.name, repository_path( repo ) %></td>
+            <td>
+                <% repo.projects.each do |project| %>
+                    <%= link_to project.name, project %>
+                <% end  %>
+            </td>
             <td><%= link_to repo.git_url, repository_path( repo ) %></td>
             <td><%= link_to repo.last_analysis || "", repository_path( repo ) %></td>
             <td><%= link_to repo.authors.count, repository_path( repo ) %></td>

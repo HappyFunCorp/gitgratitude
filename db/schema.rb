@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_195604) do
+ActiveRecord::Schema.define(version: 2020_12_31_124129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -106,6 +106,15 @@ ActiveRecord::Schema.define(version: 2020_12_21_195604) do
     t.index ["repository_id"], name: "index_lockfiles_on_repository_id"
   end
 
+  create_table "project_repositories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.uuid "repository_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_repositories_on_project_id"
+    t.index ["repository_id"], name: "index_project_repositories_on_repository_id"
+  end
+
   create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.uuid "ecosystem_id"
@@ -151,7 +160,6 @@ ActiveRecord::Schema.define(version: 2020_12_21_195604) do
   end
 
   create_table "repositories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "project_id", null: false
     t.string "git_url"
     t.string "homepage_url"
     t.string "repo_type"
@@ -160,7 +168,6 @@ ActiveRecord::Schema.define(version: 2020_12_21_195604) do
     t.datetime "last_analysis"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_repositories_on_project_id"
   end
 
   create_table "tags", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -185,7 +192,8 @@ ActiveRecord::Schema.define(version: 2020_12_21_195604) do
   add_foreign_key "lockfiles", "authors"
   add_foreign_key "lockfiles", "commits"
   add_foreign_key "lockfiles", "repositories"
-  add_foreign_key "repositories", "projects"
+  add_foreign_key "project_repositories", "projects"
+  add_foreign_key "project_repositories", "repositories"
   add_foreign_key "tags", "commits"
   add_foreign_key "tags", "repositories"
 end
