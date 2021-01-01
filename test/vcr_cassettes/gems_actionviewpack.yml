@@ -50,45 +50,134 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - 4bc1ec61-7d58-4a16-b3f3-77a549291997
+      - af73a6ec-cb25-45fc-88b7-bcb5b4a1a23e
       X-Runtime:
-      - '0.022534'
+      - '0.018047'
       Strict-Transport-Security:
       - max-age=31536000
       X-Backend:
-      - F_Rails 44.240.15.233:443
+      - F_Rails 44.237.26.162:443
       Accept-Ranges:
       - bytes
       Date:
-      - Thu, 31 Dec 2020 12:33:51 GMT
+      - Fri, 01 Jan 2021 13:01:11 GMT
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ewr18121-EWR
+      - cache-ewr18129-EWR
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
       X-Timer:
-      - S1609418031.132619,VS0,VE352
+      - S1609506071.456890,VS0,VE100
       Vary:
       - Accept-Encoding,Fastly-SSL
       Etag:
-      - '"99e81f23f0b19ec8b6ce00b879ca9817"'
+      - '"0cdad541e19b9dc50bb6bde652ad0d83"'
       Server:
       - RubyGems.org
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"name":"actionview","downloads":209431333,"version":"6.1.0","version_created_at":"2020-12-09T19:57:01.445Z","version_downloads":180982,"platform":"ruby","authors":"David
+      string: '{"name":"actionview","downloads":209502103,"version":"6.1.0","version_created_at":"2020-12-09T19:57:01.445Z","version_downloads":187867,"platform":"ruby","authors":"David
         Heinemeier Hansson","info":"Simple, battle-tested conventions and helpers
         for building web pages.","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionview/CHANGELOG.md","bug_tracker_uri":"https://github.com/rails/rails/issues","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionview","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","documentation_uri":"https://api.rubyonrails.org/v6.1.0/"},"yanked":false,"sha":"f3ab9bd93e13ace74cb131555782a12d09233cafac108c5e1dcb244e4ebac8b4","project_uri":"https://rubygems.org/gems/actionview","gem_uri":"https://rubygems.org/gems/actionview-6.1.0.gem","homepage_uri":"https://rubyonrails.org","wiki_uri":null,"documentation_uri":"https://api.rubyonrails.org/v6.1.0/","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionview","bug_tracker_uri":"https://github.com/rails/rails/issues","changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionview/CHANGELOG.md","funding_uri":null,"dependencies":{"development":[{"name":"actionpack","requirements":"=
         6.1.0"},{"name":"activemodel","requirements":"= 6.1.0"}],"runtime":[{"name":"activesupport","requirements":"=
         6.1.0"},{"name":"builder","requirements":"~\u003e 3.1"},{"name":"erubi","requirements":"~\u003e
         1.4"},{"name":"rails-dom-testing","requirements":"~\u003e 2.0"},{"name":"rails-html-sanitizer","requirements":"~\u003e
         1.1, \u003e= 1.2.0"}]}}'
-  recorded_at: Thu, 31 Dec 2020 12:33:51 GMT
+  recorded_at: Fri, 01 Jan 2021 13:01:09 GMT
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/actionview.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - c1a75eb3-2316-4587-9bbd-a243e0440448
+      X-Runtime:
+      - '0.015192'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 44.237.26.162:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 01 Jan 2021 13:01:11 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18136-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1609506072.809506,VS0,VE97
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"0cdad541e19b9dc50bb6bde652ad0d83"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"actionview","downloads":209502103,"version":"6.1.0","version_created_at":"2020-12-09T19:57:01.445Z","version_downloads":187867,"platform":"ruby","authors":"David
+        Heinemeier Hansson","info":"Simple, battle-tested conventions and helpers
+        for building web pages.","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionview/CHANGELOG.md","bug_tracker_uri":"https://github.com/rails/rails/issues","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionview","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","documentation_uri":"https://api.rubyonrails.org/v6.1.0/"},"yanked":false,"sha":"f3ab9bd93e13ace74cb131555782a12d09233cafac108c5e1dcb244e4ebac8b4","project_uri":"https://rubygems.org/gems/actionview","gem_uri":"https://rubygems.org/gems/actionview-6.1.0.gem","homepage_uri":"https://rubyonrails.org","wiki_uri":null,"documentation_uri":"https://api.rubyonrails.org/v6.1.0/","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionview","bug_tracker_uri":"https://github.com/rails/rails/issues","changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionview/CHANGELOG.md","funding_uri":null,"dependencies":{"development":[{"name":"actionpack","requirements":"=
+        6.1.0"},{"name":"activemodel","requirements":"= 6.1.0"}],"runtime":[{"name":"activesupport","requirements":"=
+        6.1.0"},{"name":"builder","requirements":"~\u003e 3.1"},{"name":"erubi","requirements":"~\u003e
+        1.4"},{"name":"rails-dom-testing","requirements":"~\u003e 2.0"},{"name":"rails-html-sanitizer","requirements":"~\u003e
+        1.1, \u003e= 1.2.0"}]}}'
+  recorded_at: Fri, 01 Jan 2021 13:01:10 GMT
 - request:
     method: get
     uri: https://rubygems.org/api/v1/gems/actionpack.json
@@ -139,38 +228,38 @@ http_interactions:
       Cache-Control:
       - max-age=0, private, must-revalidate
       X-Request-Id:
-      - b43153f8-12c5-4bce-bb93-044cb93b4086
+      - f41f39f1-6132-4dc7-8f37-4d3ff3782054
       X-Runtime:
-      - '0.020003'
+      - '0.019830'
       Strict-Transport-Security:
       - max-age=31536000
       X-Backend:
-      - F_Rails 44.240.15.233:443
+      - F_Rails 44.237.26.162:443
       Accept-Ranges:
       - bytes
       Date:
-      - Thu, 31 Dec 2020 12:33:51 GMT
+      - Fri, 01 Jan 2021 13:01:12 GMT
       Via:
       - 1.1 varnish
       X-Served-By:
-      - cache-ewr18163-EWR
+      - cache-ewr18132-EWR
       X-Cache:
       - MISS
       X-Cache-Hits:
       - '0'
       X-Timer:
-      - S1609418032.626825,VS0,VE100
+      - S1609506072.047665,VS0,VE100
       Vary:
       - Accept-Encoding,Fastly-SSL
       Etag:
-      - '"8e6a32f5f14dfa7e30c70f4c3a957579"'
+      - '"3d562e1a4b5a0e507cce4c33dcae9854"'
       Server:
       - RubyGems.org
       Transfer-Encoding:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"name":"actionpack","downloads":265300143,"version":"6.1.0","version_created_at":"2020-12-09T19:57:18.069Z","version_downloads":178175,"platform":"ruby","authors":"David
+      string: '{"name":"actionpack","downloads":265373574,"version":"6.1.0","version_created_at":"2020-12-09T19:57:18.069Z","version_downloads":184998,"platform":"ruby","authors":"David
         Heinemeier Hansson","info":"Web apps on Rails. Simple, battle-tested conventions
         for building and testing MVC web applications. Works with any Rack-compatible
         server.","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionpack/CHANGELOG.md","bug_tracker_uri":"https://github.com/rails/rails/issues","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionpack","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","documentation_uri":"https://api.rubyonrails.org/v6.1.0/"},"yanked":false,"sha":"abca49a4b988adeb4eadd241f2d479212d14c7fb7be36fd0f8660aeafb8f75d5","project_uri":"https://rubygems.org/gems/actionpack","gem_uri":"https://rubygems.org/gems/actionpack-6.1.0.gem","homepage_uri":"https://rubyonrails.org","wiki_uri":null,"documentation_uri":"https://api.rubyonrails.org/v6.1.0/","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionpack","bug_tracker_uri":"https://github.com/rails/rails/issues","changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionpack/CHANGELOG.md","funding_uri":null,"dependencies":{"development":[{"name":"activemodel","requirements":"=
@@ -178,5 +267,95 @@ http_interactions:
         6.1.0"},{"name":"rack","requirements":"~\u003e 2.0, \u003e= 2.0.9"},{"name":"rack-test","requirements":"\u003e=
         0.6.3"},{"name":"rails-dom-testing","requirements":"~\u003e 2.0"},{"name":"rails-html-sanitizer","requirements":"~\u003e
         1.0, \u003e= 1.2.0"}]}}'
-  recorded_at: Thu, 31 Dec 2020 12:33:51 GMT
+  recorded_at: Fri, 01 Jan 2021 13:01:10 GMT
+- request:
+    method: get
+    uri: https://rubygems.org/api/v1/gems/actionpack.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Gems 1.2.0
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '30'
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      Referrer-Policy:
+      - strict-origin-when-cross-origin
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET
+      Access-Control-Max-Age:
+      - '1728000'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 90408d46-a814-4ca3-951c-bcee25f77d3d
+      X-Runtime:
+      - '0.020202'
+      Strict-Transport-Security:
+      - max-age=31536000
+      X-Backend:
+      - F_Rails 54.214.179.27:443
+      Accept-Ranges:
+      - bytes
+      Date:
+      - Fri, 01 Jan 2021 13:01:12 GMT
+      Via:
+      - 1.1 varnish
+      X-Served-By:
+      - cache-ewr18135-EWR
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Timer:
+      - S1609506072.306045,VS0,VE102
+      Vary:
+      - Accept-Encoding,Fastly-SSL
+      Etag:
+      - '"3d562e1a4b5a0e507cce4c33dcae9854"'
+      Server:
+      - RubyGems.org
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"name":"actionpack","downloads":265373574,"version":"6.1.0","version_created_at":"2020-12-09T19:57:18.069Z","version_downloads":184998,"platform":"ruby","authors":"David
+        Heinemeier Hansson","info":"Web apps on Rails. Simple, battle-tested conventions
+        for building and testing MVC web applications. Works with any Rack-compatible
+        server.","licenses":["MIT"],"metadata":{"changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionpack/CHANGELOG.md","bug_tracker_uri":"https://github.com/rails/rails/issues","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionpack","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","documentation_uri":"https://api.rubyonrails.org/v6.1.0/"},"yanked":false,"sha":"abca49a4b988adeb4eadd241f2d479212d14c7fb7be36fd0f8660aeafb8f75d5","project_uri":"https://rubygems.org/gems/actionpack","gem_uri":"https://rubygems.org/gems/actionpack-6.1.0.gem","homepage_uri":"https://rubyonrails.org","wiki_uri":null,"documentation_uri":"https://api.rubyonrails.org/v6.1.0/","mailing_list_uri":"https://discuss.rubyonrails.org/c/rubyonrails-talk","source_code_uri":"https://github.com/rails/rails/tree/v6.1.0/actionpack","bug_tracker_uri":"https://github.com/rails/rails/issues","changelog_uri":"https://github.com/rails/rails/blob/v6.1.0/actionpack/CHANGELOG.md","funding_uri":null,"dependencies":{"development":[{"name":"activemodel","requirements":"=
+        6.1.0"}],"runtime":[{"name":"actionview","requirements":"= 6.1.0"},{"name":"activesupport","requirements":"=
+        6.1.0"},{"name":"rack","requirements":"~\u003e 2.0, \u003e= 2.0.9"},{"name":"rack-test","requirements":"\u003e=
+        0.6.3"},{"name":"rails-dom-testing","requirements":"~\u003e 2.0"},{"name":"rails-html-sanitizer","requirements":"~\u003e
+        1.0, \u003e= 1.2.0"}]}}'
+  recorded_at: Fri, 01 Jan 2021 13:01:10 GMT
 recorded_with: VCR 6.0.0

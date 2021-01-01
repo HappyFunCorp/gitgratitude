@@ -42,8 +42,9 @@ class ProjectTest < ActiveSupport::TestCase
     gems = Ecosystem.gems
     VCR.use_cassette 'gems_actionviewpack' do
       actionview = gems.lookup_project 'actionview'
+      gems.populate_project_info( actionview )
       actionpack = gems.lookup_project 'actionpack'
-
+      gems.populate_project_info( actionpack )
     end
 
     actionview = Project.where( name: 'actionview' ).first

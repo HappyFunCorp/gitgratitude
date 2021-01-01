@@ -75,8 +75,4 @@ class GemEcosystemTest < ActiveSupport::TestCase
       end
     end
   end
-
-  test "should matchup tags with releases" do
-    skip
-  end
 end
