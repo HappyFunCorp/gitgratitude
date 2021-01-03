@@ -25,10 +25,12 @@
         <td><%= @project.license %></td>
     </tr>
 
-    <tr>
-        <th>Latest Version</th>
-        <td><%= @project.latest_version %></td>
-    </tr>
+    <% if @project.latest_version && @project.latest_release %>
+        <tr>
+            <th>Latest Version</th>
+            <td><%= @project.latest_version %> released <%= date_of( @project.latest_release ) %>, <%= time_ago_in_words( @project.latest_release ) %> ago</td>
+        </tr>
+    <% end %>
 
     <tr>
         <th>Downloads</th>
@@ -54,7 +56,7 @@
         <tr>
             <td><%= link_to rep.git_url, rep, class: "hover:underline" %></td>
             <td><%= rep.total_commits ? rep.total_commits : "na" %></td>
-            <td><%= rep.authors.count %></td>
+            <td><%= rep.authors.count != 0 ? rep.authors.count : "" %></td>
             <td><%= date_of( rep.last_analysis ) %></td>
         </tr>
     <% end %>
@@ -76,11 +78,18 @@
         <th>Commit</th>
     </tr>
 
+    <% old_note = "" %>
     <% @releases.each do |release| %>
         <tr>
             <td><%= link_to release.version, project_release_path( @project, release ), class: "hover:underline" %></td>
             <td><%= release.created_at.strftime( "%Y-%m-%d" ) %></td>
             <td><%= number_to_human( release.download_count ) %></td>
+            <td>
+                <% if release.summary != old_note %>
+                    <%= release.summary %>
+                <% end
+                old_note = release.summary %>
+            </td>
             <td><%= release.tag %></td>
             <td>
                 <% if release.commit %>

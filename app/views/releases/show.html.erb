@@ -20,7 +20,9 @@
 end %>
 
 <% if @previous_tag %>
-    <p class="pt-2" >Previous tag: <%= @previous_tag.try( :version) %></p>
+    <p class="pt-2" >Previous tag: 
+        <%= @previous_tag.version %> released <%= date_of( @previous_tag.created_at ) %>, <%= time_ago_in_words( @previous_tag.created_at ) %> ago</td>
+    </p>
 <% end %>
 
 <% if @tag %>

@@ -3,6 +3,7 @@ class Tag < ApplicationRecord
   belongs_to :commit, optional: true
 
   before_save :find_commit
+  before_save :parse_version
 
   def self.from_tag_string repository, string
     tag = Tag.new repository_id: repository.id
@@ -41,11 +42,30 @@ class Tag < ApplicationRecord
     self.commit
   end
 
+  def parse_version
+    if major_version.nil? && !version.blank?
+      v = SemVer.parse_rubygems version
+
+      if v && v.major
+        self.major_version = v.major
+        self.minor_version = v.minor
+        self.patch = v.patch
+      end
+    end
+  end
+
   def previous_patch
     repository.tags.where( "major_version = ? and minor_version = ? and patch < ? ", major_version, minor_version, patch ).order( "patch asc" ).first
   end
 
   def previous_tag
+    tags = repository.tags.where( "major_version is not null" ).reorder( "major_version desc, minor_version desc, patch desc" ).to_a
+    tags.each_with_index do |t, idx|
+      if t.id == self.id
+        return tags[idx+1]
+      end
+    end
+
     repository.tags.reorder( "version desc" ).where( "version < ?", version ).first
   end
 

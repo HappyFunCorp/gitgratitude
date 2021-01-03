@@ -64,4 +64,20 @@ class TagTest < ActiveSupport::TestCase
     assert_nil prev_tag.previous_patch
     assert_not_nil tag.commit
   end
+
+  test "2.0.9 should be the previous tag of 2.0.10" do
+    repo = repositories :flori_json
+
+    repo.tags.create( version: "2.0.1" )
+    repo.tags.create( version: "2.0.2" )
+    repo.tags.create( version: "2.0.9" )
+    repo.tags.create( version: "2.0.10" )
+    repo.tags.create( version: "2.0.11" )
+
+    ten = repo.tags.where( version: "2.0.10" ).first
+
+    prev = ten.previous_tag
+
+    assert_equal "2.0.9", prev.version
+  end
 end
