@@ -32,6 +32,15 @@
         </tr>
     <% end %>
 
+    <% if @project.first_release %>
+        <tr>
+            <th>First released</th>
+            <td>
+                <%= date_of( @project.first_release ) %>, <%= time_ago_in_words( @project.first_release ) %> ago
+            </td>
+        </tr>
+    <% end %>
+
     <tr>
         <th>Downloads</th>
         <td><%= number_to_human @project.downloads %></td>
