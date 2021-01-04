@@ -13,4 +13,12 @@ class Project < ApplicationRecord
     ecosystem.refresh_releases self
     update( last_sync: Time.now )
   end
+
+  def highest_patch( major, minor )
+    releases.where( 'major_version = ? and minor_version = ?', major, minor ).reorder( 'patch desc' ).first
+  end
+
+  def highest_minor( major )
+    releases.where( 'major_version = ?', major ).reorder( 'minor_version desc' ).first
+  end
 end

@@ -8,7 +8,11 @@ Rails.application.routes.draw do
       post :refresh
     end
 
-    resources :releases
+    resources :releases do
+      collection do
+        get '/version/:version', to: 'releases#version', as: :version, constraints: { version: /[0-9\.]*/ }
+      end
+    end
   end
   
   resources :repositories do

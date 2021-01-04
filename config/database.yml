@@ -3,7 +3,7 @@ default: &default
   host: postgres
   username: postgres
   password: awesome_password
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
   timeout: 5000
 
 development:

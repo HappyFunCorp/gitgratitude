@@ -25,7 +25,7 @@ class GemEcosystem < Ecosystem
     end
     
     # TODO which are these
-    if giturl
+    if giturl && !giturl.blank?
       giturl.gsub!( /\/tree\/.*/, "" )
       repo = Repository.where( git_url: giturl ).first_or_create
 

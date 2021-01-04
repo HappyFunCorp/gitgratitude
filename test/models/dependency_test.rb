@@ -67,4 +67,56 @@ class DependencyTest < ActiveSupport::TestCase
 
     assert turbolinks.health.blank?, "should be blank if nothing is loaded"
   end
+
+  test "parsing major version" do
+    signet = dependencies :signet
+    signet.version = "0.13.2"
+
+    assert_equal 0, signet.major_version
+  end
+
+  test "parsing minor version" do
+    signet = dependencies :signet
+    signet.version = "0.13.2"
+
+    assert_equal 13, signet.minor_version
+  end
+
+  test "parsing patch version" do
+    signet = dependencies :signet
+    signet.version = "0.13.2"
+
+    assert_equal 2, signet.patch_version
+  end
+
+  test "patch upgradable" do
+    signet = dependencies :signet
+    signet.version = "0.13.0"
+    
+    VCR.use_cassette( "gems_signet" ) do
+      signet.find_project
+      Ecosystem.gems.refresh_releases signet.project
+    end
+
+    assert signet.project.releases.count > 1, "Should have more that one release"
+
+    assert signet.patch_upgradable?
+    assert signet.minor_upgradable?
+    refute signet.major_upgradable?
+  end
+  
+  test "minor upgradable" do
+    signet = dependencies :signet
+
+    VCR.use_cassette( "gems_signet" ) do
+      signet.find_project
+      Ecosystem.gems.refresh_releases signet.project
+    end
+
+    assert signet.project.releases.count > 1, "Should have more that one release"
+    
+    refute signet.patch_upgradable?
+    assert signet.minor_upgradable?
+    refute signet.major_upgradable?
+  end
 end

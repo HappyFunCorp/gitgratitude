@@ -48,16 +48,26 @@
             <th class="py-2 bg-indigo-100 rounded-tl-lg">Name</th>
             <th class="py-2 bg-indigo-100">Version</th>
             <th class="py-2 bg-indigo-100">Latest Version</th>
-            <th class="py-2 bg-indigo-100 rounded-tr-lg">Health</th>
+            <th class="py-2 bg-indigo-100">Major Upgrade</th>
+            <th class="py-2 bg-indigo-100">Minor Upgrade</th>
+            <th class="py-2 bg-indigo-100 rounded-tr-lg">Patch Upgrade</th>
         </tr>
     </thead>
 
     <% @out_of_date.each_with_index do |dep,i| %>
         <tr class="font-mono <%= i % 2 == 0 ? 'bg-gray-50' : '' %> <%= dep.project_id.nil? ? 'animate-pulse' : '' %>">
             <td class="px-4 py-2"><%= link_to dep.name, dep.project, class: "hover:underline" %></td>
-            <td class="px-4 py-2"><%= dep.version %></td>
-            <td class="px-4 py-2"><%= dep.latest_version %></td>
-            <td class="px-4 py-2"><%= dep.health %></td>
+            <td class="px-4 py-2"><%= link_to dep.version, version_project_releases_path( dep.project, dep.version ), class: "hover:underline" %></td>
+            <td class="px-4 py-2"><%= link_to dep.latest_version, version_project_releases_path( dep.project, dep.latest_version ), class: "hover:underline" %></td>
+            <td class="px-4 py-2">
+                <%= true_false_nil( dep.major_upgradable? ) %>
+            </td>
+            <td class="px-4 py-2">
+                <%= true_false_nil( dep.minor_upgradable? ) %>
+            </td>
+            <td class="px-4 py-2">
+                <%= true_false_nil( dep.patch_upgradable? ) %>
+            </td>
         </tr>
     <% end %>
 </table>
@@ -78,8 +88,8 @@
     <% @dependencies.each_with_index do |dep,i| %>
         <tr class="font-mono <%= i % 2 == 0 ? 'bg-gray-50' : '' %> <%= dep.project_id.nil? ? 'animate-pulse' : '' %>">
             <td class="px-4 py-2"><%= dep.name %></td>
-            <td class="px-4 py-2"><%= dep.version %></td>
-            <td class="px-4 py-2"><%= dep.latest_version %></td>
+            <td class="px-4 py-2"><%= link_to dep.version, version_project_releases_path( dep.project, dep.version ), class: "hover:underline" %></td>
+            <td class="px-4 py-2"><%= link_to dep.latest_version, version_project_releases_path( dep.project, dep.latest_version ), class: "hover:underline" %></td>
             <td class="px-4 py-2"><%= dep.health %></td>
         </tr>
     <% end %>

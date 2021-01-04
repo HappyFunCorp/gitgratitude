@@ -26,4 +26,17 @@ class ReleasesController < ApplicationController
       end
     end
   end
+
+  def version
+    @project = Project.find( params[:project_id] )
+    @version = params[:version]
+
+    release = @project.releases.where( "version = ?", @version ).first
+
+    if release
+      redirect_to project_release_path( @project, release )
+    else
+      ProjectSyncJob.queue @project
+    end
+  end
 end

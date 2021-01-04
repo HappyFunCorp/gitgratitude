@@ -9,3 +9,8 @@ tilt:
   lockfile: gratitudegems
   name: tilt
   version: "2.0.10"
+
+signet:
+  lockfile: gratitudegems
+  name: signet
+  version: "0.12.0"

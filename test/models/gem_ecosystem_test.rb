@@ -75,4 +75,16 @@ class GemEcosystemTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "hirb doesn't have a repo set in the gems metadata" do
+    gems = Ecosystem.gems
+
+    VCR.use_cassette "gems_hirb" do
+      hirb = gems.lookup_project "hirb"
+
+      repo = hirb.repositories.first
+
+      assert_nil repo
+    end
+  end
 end
