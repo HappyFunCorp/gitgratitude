@@ -1,16 +1,54 @@
-Here is my master repo
+* Overview
 
-* Folders
+This is the master repo for gitgratitude.com.
 
-projects
-eco-rubygems
-eco-npm
-forge-github
-lock-gemfile
-lock-packagelock
-lock-yarnlock
-vcs-git
-watcher
+It's deployed on a kubenetes cluster build as described
 
+1. [[https://willschenk.com/articles/2021/setting_up_knative/][Setting up knative]]
+2. [[https://willschenk.com/articles/2021/serving_a_knative_function_on_the_root/][Serving services on the root]]
+3. [[https://willschenk.com/articles/2021/next_js_with_prisma/][NextJS Knative service with Prisma]]
 
-* 
+* Deployment
+
+** Script
+There's a [[deployment.rb]] script that handles pushing out new versions.
+
+1. It builds the images with =--platform linux/amd64=
+2. Pushes the images to dockerhub
+3. does =kn service update= to activate the new version
+4. Sets up a local tunnel to the postgres instance and runs =npm prisma migrate= to sync up the database
+5. Optionally can run =npx prsima studio= over a similar tunnel
+
+** Config
+
+[[./deployment.toml][deployment.toml]] has a list of services and data around how they are deployed.
+
+* Services
+
+** projects
+NextJS app that contains the front end as well as the projects database
+
+** eco-rubygems
+ruby-base gateway to the rubygems ecosystem
+
+** TODO eco-npm
+node-based gateway to the npm ecosystem
+
+** TODO forge-github
+Issues and other project level data
+
+** lock-gemfile
+ruby-based parsing of =Gemfile.lock=
+
+** TODO lock-packagelock
+node-based parsing of =package-lock.json=
+
+** lock-yarnlock
+node-based parsing of =yarn.lock=
+
+** TODO vcs-git
+Downloading and analyising the repo
+
+** TODO watcher
+Service to monitor URLs and trigger recalculations
+
