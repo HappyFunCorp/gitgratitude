@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link'
 import Layout from 'components/layout';
 import ProjectLookup from 'components/projectlookup'
+import ProjectList from 'components/projectlist'
 import { prisma } from 'lib/prisma';
 import { Project } from '.prisma/client';
 
@@ -15,13 +16,19 @@ const Projects: NextPage = ({projects}) => {
 
 
             <ProjectLookup/>
-            {projects.length == 0 ? <p>Nothing yet</p> : <p>Here are the projects</p>}
+            <ProjectList projects={projects}/>
         </Layout>
     )
 }
 
 export const getServerSideProps = async () => {
     const projects = await prisma.project.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        homepage: true
+      },
         orderBy: [{
             latest_release: 'desc'
         }]

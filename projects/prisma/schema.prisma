@@ -20,6 +20,7 @@ model Project {
   createdAt      DateTime  @default(now())
   ecosystem_name String
   ecosystem      Ecosystem @relation(fields: [ecosystem_name], references: [name])
+  name           String
   homepage       String?
   description    String?
   project_start  DateTime?
