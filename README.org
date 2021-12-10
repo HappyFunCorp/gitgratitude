@@ -1,0 +1,16 @@
+Here is my master repo
+
+* Folders
+
+projects
+eco-rubygems
+eco-npm
+forge-github
+lock-gemfile
+lock-packagelock
+lock-yarnlock
+vcs-git
+watcher
+
+
+* 

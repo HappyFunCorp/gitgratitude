@@ -1,0 +1,22 @@
+
+[eco-rubygems]
+image = "wschenk/eco-rubygems"
+service = "eco-rubygems"
+
+[lock-gemfile]
+image = "wschenk/lock-gemfile"
+service = "lock-gemfile"
+
+[lock-packagelock]
+image = "wschenk/lock-packagelock"
+service = "lock-packagelock"
+
+[lock-yarnlock]
+image = "wschenk/lock-yarnlock"
+service = "lock-yarnlock"
+
+[projects]
+database = "postgres-postgresql"
+image = "wschenk/projects"
+schema = "database"
+service = "projects"

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker build . --platform linux/amd64 -t wschenk/rubygems && docker push wschenk/rubygems && kn service update rubygems --image wschenk/rubygems
