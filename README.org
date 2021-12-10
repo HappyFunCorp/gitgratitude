@@ -25,10 +25,10 @@ There's a [[deployment.rb]] script that handles pushing out new versions.
 
 * Services
 
-** projects
+** [[projects]]
 NextJS app that contains the front end as well as the projects database
 
-** eco-rubygems
+** [[eco-rubygems]]
 ruby-base gateway to the rubygems ecosystem
 
 ** TODO eco-npm
@@ -37,13 +37,13 @@ node-based gateway to the npm ecosystem
 ** TODO forge-github
 Issues and other project level data
 
-** lock-gemfile
+** [[lock-gemfile]]
 ruby-based parsing of =Gemfile.lock=
 
 ** TODO lock-packagelock
 node-based parsing of =package-lock.json=
 
-** lock-yarnlock
+** [[lock-yarnlock]]
 node-based parsing of =yarn.lock=
 
 ** TODO vcs-git
