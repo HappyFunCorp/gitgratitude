@@ -4,6 +4,7 @@ require 'bundler/inline'
 
 CONFIG_FILE = "deployment.toml"
 IMAGE_PREFIX = "wschenk/"
+CONFIG_MAP="gratitude-config"
 
 gemfile do
   source 'https://rubygems.org'
@@ -93,9 +94,9 @@ def deploy( config, key )
   end
 
   if system( "kn service describe #{service}" )
-    system( "kn service update #{service} --image #{config[key]["image"]}" )
+    system( "kn service update #{service} --image #{config[key]["image"]} --env-from cm:#{CONFIG_MAP}" )
   else
-    system( "kn service create #{service} --image #{config[key]["image"]}" )
+    system( "kn service create #{service} --image #{config[key]["image"]} --env-from cm:#{CONFIG_MAP}" )
   end
 end
 
@@ -194,5 +195,3 @@ when 'databaseurl'
 end
 
 write_config( config )
-
-

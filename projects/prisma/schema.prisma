@@ -16,7 +16,7 @@ model Ecosystem {
 }
 
 model Project {
-  id             Int       @id @default(autoincrement())
+  id             String    @id @default(uuid())
   createdAt      DateTime  @default(now())
   ecosystem_name String
   ecosystem      Ecosystem @relation(fields: [ecosystem_name], references: [name])

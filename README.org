@@ -28,6 +28,10 @@ There's a [[deployment.rb]] script that handles pushing out new versions.
 ** [[projects]]
 NextJS app that contains the front end as well as the projects database
 
+** [[repositories]]
+
+NextJS that contains the frontend to the repositories
+
 ** [[eco-rubygems]]
 ruby-base gateway to the rubygems ecosystem
 

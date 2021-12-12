@@ -18,5 +18,9 @@ service = "lock-yarnlock"
 [projects]
 database = "postgres-postgresql"
 image = "wschenk/projects"
-schema = "database"
+schema = "projects"
 service = "projects"
+
+[vcs-git]
+image = "wschenk/vcs-git"
+service = "vcs-git"
