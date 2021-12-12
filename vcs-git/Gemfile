@@ -1,0 +1,15 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+gem "sqlite3", "~> 1.4"
+gem 'semver2', '3.4.2', require: 'semver'
+
+gem "aws-sdk-s3", "~> 1.100"
+
+gem "rexml", "~> 3.2"
+
+gem "sinatra", "~> 2.1"
+gem "puma", "~> 5.5"

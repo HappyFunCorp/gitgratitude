@@ -1,0 +1,18 @@
+This service is the main frontend to the sytem.  It handles ecosystems and projects.
+
+* Environment Variables
+
+| =DATABASE_URL=     | postgres database                           |
+| =ECO_RUBYGEMS_URL= | Lookup a project in the ruby gems ecosystem |
+
+* Starting
+
+#+begin_src bash
+npm run dev
+#+end_src
+
+* Migrations
+
+#+begin_src bash
+npx prisma migrate push
+#+end_src

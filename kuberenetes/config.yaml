@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gratitude-config
+data:
+  ECO_RUBYGEMS_URL: https://eco-rubygems.default.gitgratitude.com
+  

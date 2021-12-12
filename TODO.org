@@ -1,0 +1,28 @@
+* Update deployment
+** Manage knative operator
+** Manage database config
+*** Backup/restore
+** CronJobs/scheduling
+** Work with configmap better
+* Projects
+** parse lockfiles
+** download releases
+** track dependancies
+** Connect organziation
+- github connect
+- add each of the projects as private
+** subscribe to project health email
+** project heath page
+* Repositories
+** download and create sqlite database
+** create s3 space
+** repository health page
+** send update events
+** Send repo report email
+* Watcher
+** send update events
+* Eventing
+** example send and receive
+** channels vs triggers
+** pingers
+** types
