@@ -12,6 +12,23 @@ gemfile do
 end
 
 
+
+def write_test config
+  File.open("test.toml", "w") { |file| file.write TOML::Generator.new(config).body }
+end
+
+write_test( {
+  "key": {
+           value: "first",
+           array: [
+             {name: "value"},
+             {name2: "value2"} ]
+         }
+})
+
+#exit
+
+
 def ask_yn( message )
   print message
   reply = STDIN.gets.chomp
@@ -93,11 +110,30 @@ def deploy( config, key )
     end
   end
 
+  cmd = "create"
+
   if system( "kn service describe #{service}" )
-    system( "kn service update #{service} --image #{config[key]["image"]} --env-from cm:#{CONFIG_MAP}" )
-  else
-    system( "kn service create #{service} --image #{config[key]["image"]} --env-from cm:#{CONFIG_MAP}" )
+    cmd = "update"
   end
+
+  args = [
+    "kn",
+    "service",
+    cmd,
+    service,
+    '--image', config[key]["image"],
+    '--env-from', "cm:#{CONFIG_MAP}"
+  ]
+
+  args << '--cluster-local' if config[key]['cluster-local']
+  
+  if config[key]['no-tls']
+    args << '-a'
+    args << "networking.knative.dev/disableAutoTLS=true"
+  end
+
+
+  system( args.join( " " ) )
 end
 
 def database( config, key )

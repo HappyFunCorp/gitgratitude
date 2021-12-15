@@ -21,6 +21,16 @@ image = "wschenk/projects"
 schema = "projects"
 service = "projects"
 
+[ruby-echo]
+image = "wschenk/ruby-echo"
+no-tls = true
+service = "ruby-echo"
+
+[ruby-send]
+image = "wschenk/ruby-send"
+no-tls = true
+service = "ruby-send"
+
 [vcs-git]
 image = "wschenk/vcs-git"
 service = "vcs-git"
