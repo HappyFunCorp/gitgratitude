@@ -55,7 +55,7 @@ const Home: NextPage = () => {
     <Layout title="Home">
       <main className="flex flex-col p-4 justify-center items-center">
         <h1 className="text-5xl py-16 font-bold tracking-wide">
-          Welcome to <Link href="/about"><a className="text-blue-600">git gratitude!</a></Link>
+          Welcome to <Link href="https://gitgratitude.com"><a className="text-blue-600">git gratitude!</a></Link>
         </h1>
 
         { message.length > 0 && <Spinner text={message} spin={loading}/> }

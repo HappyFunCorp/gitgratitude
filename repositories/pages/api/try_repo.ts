@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const {url} = req.body;
-    console.log( `Looking up ${url}`)
+    console.log( `${url} Looking up`)
 
     try {
         const u = new URL( url );
@@ -21,6 +21,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const data = await result.blob();
+
+    console.log(`${result.url} was returned`)
 
     const resolved_url = result.url.replace( "/info/refs?service=git-upload-pack","")
 
