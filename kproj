@@ -4,6 +4,7 @@
 require 'json'
 require 'tempfile'
 require 'bundler/inline'
+require 'yaml'
 
 gemfile do
   source 'https://rubygems.org'
@@ -89,6 +90,29 @@ class Config
 end
 
 class Database
+  def self.list
+    `kubectl get svc |grep -v None| awk '/postgres/ {print $1}'`.split( /\n/ )
+  end
+
+  def self.choose_database
+    choices = list
+
+    if choices.length == 0
+      puts "No databases found"
+      exit 1
+    end
+    
+    if list.length == 1
+      return list.first
+    end
+    
+    HighLine.choose do |menu|
+      menu.prompt = "Select a database: "
+      choices.each { |c| menu.choice(c) }
+      menu.default = choices.first
+    end
+  end
+  
   def self.password( name )
     `kubectl get secret --namespace default #{name} -o jsonpath="{.data.postgresql-password}" | base64 --decode`
   end
@@ -97,18 +121,18 @@ class Database
       "postgresql://postgres:#{password(name)}@#{name}.default.svc.cluster.local:5432/#{schema}?schema=public"
   end
 
-  def self.secret( name, schema )
-    secret = "#{name}-#{schema}"
+  def self.config_map( name, schema )
+    config_map = "#{name}-#{schema}"
 
-    if system( "kubectl get secret #{secret}" )
-      puts "Found"
-    else
+    if !system( "kubectl get configmap #{config_map} > /dev/null" )
+      puts "Creating config map"
+
       t = Tempfile.create do |f|
         f.puts "DATABASE_URL=#{remote_url( name, schema )}"
         f.close
 
-        if !system( "kubectl create secret generic #{secret} --from-file=#{f.path}")
-          puts "Problem creating secret!"
+        if !system( "kubectl create configmap #{config_map} --from-env-file=#{f.path}")
+          puts "Problem creating config map!"
           exit 1
         end
       end
@@ -116,10 +140,12 @@ class Database
 
     Config['databases'] ||= {}
     Config['databases'][name] ||= {}
-    Config['databases'][name]['secret'] = secret
+    Config['databases'][name]['database_url'] ||= []
+    Config['databases'][name]['database_url'] << config_map
+    Config['databases'][name]['database_url'].uniq!
     Config.write
 
-    secret
+    config_map
   end
 
 end
@@ -134,6 +160,15 @@ class Service
       exit 1
     end
 
+    image = image_name name
+
+    if !system( "docker build #{name} -t #{image} --platform linux/amd64 && docker push #{image}" )
+      puts "Problem building, aborting"
+      exit 1
+    end
+  end
+
+  def self.image_name( name )
     if( !Config[name] )
       puts "#{name} not found"
     end
@@ -147,20 +182,15 @@ class Service
       Config.write
     end
 
-    image = Config[name]['image']
-
-    if !system( "docker build #{name} -t #{image} --platform linux/amd64 && docker push #{image}" )
-      puts "Problem building, aborting"
-      exit 1
-    end
+    Config[name]['image']
   end
 
-  def self.up( name, schema )
-    if( !(Config[name] && Config[name]['image']) )
-      puts "No image configured for #{name}"
+  def self.service_name( name )
+    if( !Config[name] )
+      puts "#{name} not found"
     end
 
-    c = Config[name]
+    Config[name] ||= {}
 
     if( !Config[name]['service'] )
       Config[name]['service'] = cli.ask( "Deploy service under what name? ") do |q|
@@ -169,42 +199,195 @@ class Service
       Config.write
     end
 
-    db_secret = nil
+    Config[name]['service']
+  end
+
+  def self.up( name, schema )
+    if( !(Config[name] && Config[name]['image']) )
+      puts "No image configured for #{name}"
+    end
+
+    service = service_name name
+    image = image_name name
+
+    c = Config[name]
     if schema
       if !c['database']
-        c['database'] = cli.ask( "Which database? " )
+        c['database'] = Database.choose_database
       end
 
-      db_secret = Database.secret( c['database'], schema )
-      c['secrets'] ||= []
-      c['secrets'] << db_secret
+      configmap = Database.config_map( c['database'], schema )
+
+      c['configmap'] ||= []
+      c['configmap'] << configmap
+      c['configmap'].uniq!
       Config.write
     end
 
-    service_name = c['service']
-    image = c['image']
+    current_instance = ServiceInstance.new( name )
 
-    cmd = service_exists?( name ) ? 'update' : 'create'
+    cmd = current_instance.exists? ? 'update' : 'create'
 
-    cmd_array = [ 'kn', 'service', cmd, service_name, '--image', image ]
+    cmd_array = [ 'kn', 'service', cmd, service, '--image', image ]
 
-    (c['secrets'] || []).each do |secret|
+    cm_add = (c['configmap'] || [])- current_instance.config_maps
+    cm_delete = current_instance.config_maps - (c['configmap'] || [])
+
+
+    cm_add.each do |config_map|
+      puts "Adding cm:#{config_map}"
       cmd_array << '--env-from'
-      cmd_array << "secret:#{secret}"
+      cmd_array << "cm:#{config_map}"
     end
 
-    puts cmd_array.join( ' ' )
-  end
+    cm_delete.each do |config_map|
+      puts "Removing cm:#{config_map}"
+      cmd_array << '--env-from'
+      cmd_array << "cm:#{config_map}-"
+    end
 
-  def self.service_exists?( service )
-    system( "kn service describe #{service}" )
+    puts "Running #{cmd_array.join( ' ' )}"
+    system( cmd_array.join( ' ' ) )
   end
 end
+
+class ServiceInstance
+  def initialize( service )
+    @exists = false
+    info = `kn service describe #{service} -o yaml`
+    if $?.exitstatus
+      @exists = true
+      @info = YAML.load( info )
+    end
+  end
+
+  def exists?; @exists; end
+  def name; @info["metadata"]["name"]; end
+  def generation;  @info["metadata"]["generation"]; end
+  def created; @info["metadata"]["creationTimestamp"]; end
+  def containers; @info["spec"]["template"]["spec"]["containers"]; end
+  def container; containers.first; end
+  def env; container["env"] || []; end
+  def config_maps
+    return [] if !exists?
+    (container['envFrom'] || []).select do |x|
+      x["configMapRef"]
+    end.collect do |x|
+      x["configMapRef"]["name"]
+    end
+  end
+  def has_sink?; env.select { |x| x["name"] == 'K_SINK' }.length > 0; end
+  def image; container["image"]; end
+  def address; @info['status']['address']['url']; end
+  def url; @info['status']['url']; end
+
+  def display
+    fmt = "%20s = %s\n"
+
+    if !exists?
+      puts "No service found"
+    else
+      [
+        ["Name", name],
+        ["Generation", generation],
+        ["Created at", created],
+        ["Image", image],
+        ["Address", address],
+        ["URL", url],
+        ["Has Sink?", has_sink?],
+        ["Config Maps", config_maps.join( " " )]
+      ].each do |e|
+        printf fmt, e[0], e[1]
+      end
+
+      env.each do |env|
+        printf fmt, env["name"], env["value"]
+      end
+    end
+  end
+end
+
+class Eventing
+  def self.create_source( service )
+    system( "kn source binding create #{service}-binding --subject Service:serving.knative.dev/v1:#{service} --sink broker:default" )
+  end
+
+  def self.delete_source( service )
+    system( "kn source binding delete #{service}-binding" )
+  end
+
+  def self.triggers( service = nil )
+    json_string = `kn triggers ls -o json`
+    if $?.exitstatus
+      JSON.parse( json_string )["items"].collect do |x|
+        {
+          "name": x["metadata"]["name"],
+          "filter": x["spec"]["filter"]["attributes"]["type"],
+          "service": x["spec"]["subscriber"]["ref"]["name"]
+        }
+      end.select do |e|
+        service ? (e[:service] == service) : true
+      end
+    else
+      {}
+    end
+  end
+
+  def self.trigger_name( service, event )
+    "#{service}-#{event}".gsub( /\./, "-" )
+  end
+  
+  def self.create_trigger( service, event )
+    puts "Creating #{trigger_name( service, event )}"
+    system( "kn trigger create #{trigger_name( service, event )} --broker default --filter type=#{event} --sink #{service}" )
+  end
+
+  def self.delete_trigger( name )
+    system( "kn trigger delete #{name}" )
+  end
+
+  def self.service( name )
+    current_instance = ServiceInstance.new( name )
+
+    if( !current_instance.exists? )
+      puts "Unable to find deployed event #{name}"
+    end
+
+    c = Config[name]
+
+    if c["binding"] && !current_instance.has_sink?
+      Eventing.create_source( service )
+    elsif !c['binding'] && current_instance.has_sink?
+      Eventing.delete_source( service )
+    else
+      puts "Binding looks good"
+    end
+
+    configured_events = c["events"] || []
+    existing_triggers = triggers( name )
+    existing_events = existing_triggers.collect { |x| x[:filter] }
+
+    (configured_events - existing_events).each do |event|
+      create_trigger( name, event )
+    end
+
+    (existing_events - configured_events).each do |event|
+      trigger_name = existing_triggers.select do |x|
+        x[:filter] == event
+      end.first[:name]
+
+      delete_trigger( trigger_name )
+    end
+  end
+end
+
 
 class DatabaseCLI < Thor
   desc "list", "List databases"
   def list
-    system( "helm ls" )
+    Database.list.each do |db|
+      puts db
+    end
   end
 
   desc "password", "get the password of a database"
@@ -212,9 +395,9 @@ class DatabaseCLI < Thor
     puts "Password is #{Database.password(reference)}"
   end
 
-  desc "secret db", "set the database secret"
-  def secret( db, schema )
-    puts Database.secret( db, schema )
+  desc "database_url db schema", "set the database secret"
+  def database_url( db, schema )
+    puts Database.config_map( db, schema )
   end
 end
 
@@ -230,10 +413,24 @@ class CLI < Thor
     Service.build name 
   end
 
-  desc "up", "Deploys a service"
+  desc "up name", "Deploys a service"
   option :schema
+  option :all
   def up( name )
     Service.up( name, options[:schema] )
+    if( options[:all] )
+      Service.events(name)
+    end
+  end
+
+  desc "eventing name", "Configures events for a service"
+  def eventing( name )
+    Eventing.service(name)
+  end
+  
+  desc "info name", "queries the cluster"
+  def info( name )
+    ServiceInstance.new( name ).display
   end
   
   desc "db", "Database functions"
