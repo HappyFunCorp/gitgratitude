@@ -77,7 +77,6 @@ const Home: NextPage = () => {
   )
 }
 
-
 export const getServerSideProps = handle({
     async post({ req}) {
       console.log( req.body )
@@ -86,8 +85,12 @@ export const getServerSideProps = handle({
       const receivedEvent = HTTP.toEvent({headers: req.headers, body: req.body })
       console.log( receivedEvent )
       return json({ message: 'Thanks for your submission!' });
+    },
+    async get() {
+      return json( {message:"ok"} )
     }
-  }
+},
+ 
 )
 
 export default Home
