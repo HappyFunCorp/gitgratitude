@@ -1,6 +1,7 @@
 import Layout from 'components/layout';
 import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
+import { prisma } from 'lib/prisma';
 
 //@ts-ignore
 const RepoDetail : NextPage = ({repo}) => {

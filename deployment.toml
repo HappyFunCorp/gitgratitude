@@ -21,6 +21,12 @@ image = "wschenk/projects"
 schema = "projects"
 service = "projects"
 
+[repositories]
+database = "postgres-postgresql"
+image = "wschenk/repositories"
+schema = "repositories"
+service = "repositories"
+
 [ruby-echo]
 image = "wschenk/ruby-echo"
 no-tls = true

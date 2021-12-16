@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
 import Layout from 'components/layout'
 import Spinner from 'components/spinner'
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
-
+import { handle, json } from 'next-runtime';
+import { HTTP } from 'cloudevents';
 
 const Home: NextPage = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -75,5 +76,18 @@ const Home: NextPage = () => {
     </Layout>
   )
 }
+
+
+export const getServerSideProps = handle({
+    async post({ req}) {
+      console.log( req.body )
+      console.log( req.headers )
+
+      const receivedEvent = HTTP.toEvent({headers: req.headers, body: req.body })
+      console.log( receivedEvent )
+      return json({ message: 'Thanks for your submission!' });
+    }
+  }
+)
 
 export default Home

@@ -1,6 +1,7 @@
 import Layout from 'components/layout';
 import type { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link';
+import { prisma } from 'lib/prisma';
 
 export default function Repositories({ repos }) {
 return(
@@ -19,6 +20,7 @@ return(
                         <td><Link href={`/repositories/${elem.id}`}><a className="text-blue-600 underline">{elem.remote}</a></Link></td>
                         <td>{elem.last_pull}</td>
                         <td>{elem.valid}</td>
+                        <td><a href={`/api/trigger_poll?id=${elem.id}`}>Trigger poll</a></td>
                     </tr>
                 ))}
             </tbody>

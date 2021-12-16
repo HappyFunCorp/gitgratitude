@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "@prisma/client": "^3.6.0",
+    "axios": "^0.24.0",
+    "cloudevents": "^5.2.0",
     "next": "12.0.7",
+    "next-runtime": "^2.3.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.21.0"
