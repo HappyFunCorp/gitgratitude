@@ -153,8 +153,6 @@ def database( config, key )
   puts "Looking up database password"
   password = `kubectl get secret --namespace default #{database} -o jsonpath="{.data.postgresql-password}" | base64 --decode`
 
-  puts "Password is #{password}"
-  puts "."
 
   localurl = "postgresql://postgres:#{password}@localhost:5433/#{schema}?schema=public"
   remoteurl = "postgresql://postgres:#{password}@#{database}.default.svc.cluster.local:5432/#{schema}?schema=public"
