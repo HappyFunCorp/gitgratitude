@@ -416,7 +416,9 @@ class CLI < Thor
   desc "up name", "Deploys a service"
   option :schema
   option :all
+  option :nobuild
   def up( name )
+    Service.build( name ) unless options[:nobuild]
     Service.up( name, options[:schema] )
     if( options[:all] )
       Service.events(name)

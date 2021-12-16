@@ -8,7 +8,7 @@ domain = "gitgratitude.com"
 image_prefix = "wschenk/"
 
 [projects]
-configmap = ["postgres-postgresql-projects"]
+configmap = ["postgres-postgresql-projects","gratitude-config"]
 database = "postgres-postgresql"
 image = "wschenk/projects"
 service = "projects"

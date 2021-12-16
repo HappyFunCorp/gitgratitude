@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: gratitude-config
 data:
-  ECO_RUBYGEMS_URL: https://eco-rubygems.default.gitgratitude.com
+  ECO_RUBYGEMS_URL: http://eco-rubygems.default.svc.cluster.local
   
