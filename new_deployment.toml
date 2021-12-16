@@ -1,0 +1,14 @@
+
+[databases.postgres-postgresql]
+secret = "postgres-postgresql-repositories"
+
+[global]
+context = "do-nyc1-gratitude"
+domain = "gitgratitude.com"
+image_prefix = "wschenk/"
+
+[repositories]
+database = "postgres-postgresql"
+image = "wschenk/repositories"
+secrets = ["postgres-postgresql-repositories"]
+service = "repositories"

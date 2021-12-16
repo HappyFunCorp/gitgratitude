@@ -1,0 +1,243 @@
+#!/usr/bin/env ruby
+# -*-Ruby-*-
+
+require 'json'
+require 'tempfile'
+require 'bundler/inline'
+
+gemfile do
+  source 'https://rubygems.org'
+  gem "toml", "~> 0.3.0"
+  gem "highline", "2.0.3"
+  gem "thor"
+end
+
+class Kubectl
+  def self.contexts
+    JSON.parse( `kubectl config view -o json` )["contexts"].collect{ |x| x['name'] }
+  end
+
+  def self.context
+    `kubectl config current-context --skip-headers=true`.chomp
+  end
+end
+  
+class Config
+  FILE="new_deployment.toml"
+
+  def self.[](key)
+    config[key]
+  end
+
+  def self.[]=(key, value)
+    config[key] = value
+  end
+
+  def self.cli
+    @cli ||= HighLine.new
+  end
+  
+  def self.config
+    begin
+      @config ||= TOML::Parser.new(File.read(FILE)).parsed
+      
+      return @config
+    rescue Errno::ENOENT
+      puts "Couldn't find file #{FILE}"
+      
+      if cli.ask( "Create? " ) == 'y'
+        return self.global_config
+      end
+      
+      exit 1
+    end
+  end
+
+  def self.write
+    File.open(FILE, "w") { |file| file.write TOML::Generator.new(@config).body }
+  end
+
+  def self.global_config
+    # Set kubectl context
+
+    @config ||= {}
+    @config["global"] ||= {}
+
+    @config["global"]["context"] = @cli.choose do |menu|
+      menu.prompt = "kubectl context we should use:  "
+      Kubectl.contexts.each { |c| menu.choice(c) }
+      menu.default = @config["global"]["context"] ||= Kubectl.context
+    end
+
+    @config["global"]["image_prefix"] = @cli.ask("Image name template prefix: ") do |q|
+      q.default = @config["global"]["image_prefix"] || "#{ENV['USER']}/"
+    end
+
+    @config["global"]["domain"] = @cli.ask("Domain: " ) do |q|
+      q.default = @config["global"]["domain"] if @config["global"]["domain"]
+    end
+
+
+    if @cli.ask( "Save? y/n" ) == 'y'
+      write
+      return @config
+    end
+
+    puts "Not saving"
+    exit 1
+  end
+end
+
+class Database
+  def self.password( name )
+    `kubectl get secret --namespace default #{name} -o jsonpath="{.data.postgresql-password}" | base64 --decode`
+  end
+
+  def self.remote_url( name, schema )
+      "postgresql://postgres:#{password(name)}@#{name}.default.svc.cluster.local:5432/#{schema}?schema=public"
+  end
+
+  def self.secret( name, schema )
+    secret = "#{name}-#{schema}"
+
+    if system( "kubectl get secret #{secret}" )
+      puts "Found"
+    else
+      t = Tempfile.create do |f|
+        f.puts "DATABASE_URL=#{remote_url( name, schema )}"
+        f.close
+
+        if !system( "kubectl create secret generic #{secret} --from-file=#{f.path}")
+          puts "Problem creating secret!"
+          exit 1
+        end
+      end
+    end
+
+    Config['databases'] ||= {}
+    Config['databases'][name] ||= {}
+    Config['databases'][name]['secret'] = secret
+    Config.write
+
+    secret
+  end
+
+end
+
+class Service
+  def self.cli; @cli ||= HighLine.new; end
+  
+  def self.build name
+
+    if !File.exists? "#{name}/Dockerfile"
+      puts "#{name}/Dockerfile not found"
+      exit 1
+    end
+
+    if( !Config[name] )
+      puts "#{name} not found"
+    end
+
+    if( !(Config[name] && Config[name]['image']) )
+      Config[name] ||= {}
+      Config[name]['image'] = cli.ask "Image name? " do |q|
+        q.default = "#{Config['global']['image_prefix']}#{name}"
+      end
+
+      Config.write
+    end
+
+    image = Config[name]['image']
+
+    if !system( "docker build #{name} -t #{image} --platform linux/amd64 && docker push #{image}" )
+      puts "Problem building, aborting"
+      exit 1
+    end
+  end
+
+  def self.up( name, schema )
+    if( !(Config[name] && Config[name]['image']) )
+      puts "No image configured for #{name}"
+    end
+
+    c = Config[name]
+
+    if( !Config[name]['service'] )
+      Config[name]['service'] = cli.ask( "Deploy service under what name? ") do |q|
+        q.default = name
+      end
+      Config.write
+    end
+
+    db_secret = nil
+    if schema
+      if !c['database']
+        c['database'] = cli.ask( "Which database? " )
+      end
+
+      db_secret = Database.secret( c['database'], schema )
+      c['secrets'] ||= []
+      c['secrets'] << db_secret
+      Config.write
+    end
+
+    service_name = c['service']
+    image = c['image']
+
+    cmd = service_exists?( name ) ? 'update' : 'create'
+
+    cmd_array = [ 'kn', 'service', cmd, service_name, '--image', image ]
+
+    (c['secrets'] || []).each do |secret|
+      cmd_array << '--env-from'
+      cmd_array << "secret:#{secret}"
+    end
+
+    puts cmd_array.join( ' ' )
+  end
+
+  def self.service_exists?( service )
+    system( "kn service describe #{service}" )
+  end
+end
+
+class DatabaseCLI < Thor
+  desc "list", "List databases"
+  def list
+    system( "helm ls" )
+  end
+
+  desc "password", "get the password of a database"
+  def password( reference )
+    puts "Password is #{Database.password(reference)}"
+  end
+
+  desc "secret db", "set the database secret"
+  def secret( db, schema )
+    puts Database.secret( db, schema )
+  end
+end
+
+class CLI < Thor
+  desc "doctor", "Sync the state of the cluster"
+  def doctor
+
+    pp Config.config
+  end
+
+  desc "build", "Builds a service"
+  def build( name )
+    Service.build name 
+  end
+
+  desc "up", "Deploys a service"
+  option :schema
+  def up( name )
+    Service.up( name, options[:schema] )
+  end
+  
+  desc "db", "Database functions"
+  subcommand "db", DatabaseCLI
+end
+
+CLI.start(ARGV)
