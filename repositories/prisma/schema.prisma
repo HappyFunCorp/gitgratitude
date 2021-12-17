@@ -11,10 +11,13 @@ datasource db {
 }
 
 model Repository {
-  id           String       @id @default(uuid())
-  remote       String
-  private      Boolean      @default(false)
-  valid        Boolean?
-  last_pull    DateTime?
-  ref_bytes    Bytes?
+  id              String       @id @default(uuid())
+  remote          String       @unique
+  private         Boolean      @default(false)
+  valid           Boolean?
+  last_proccessed DateTime?
+  duration        Int?
+  ref_bytes       Bytes?
+  summary_db_url  String?
+  log_url         String?
 }

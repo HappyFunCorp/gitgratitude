@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { CloudEvent, HTTP } from 'cloudevents';
-import axios from 'axios';
 import { prisma } from 'lib/prisma';
+import { sendGitProcess } from 'lib/events';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const {id} = req.body;
@@ -11,15 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log( `Looking for ${repo.remote}` )
 
     if( process.env.K_SINK ) {
-        const ce = new CloudEvent( {type: 'git.process', source: '/repositories', data: { remote: repo.remote  }})
-        const message = HTTP.binary( ce );
-
-        axios(process.env.K_SINK, {
-            method: "post",
-            data: message.body,
-            // @ts-ignore
-            headers: message.headers,
-        });
+        sendGitProcess( {remote: repo.remote} );
 
         res.status(200).json( {message: 'Sent'})
     } else {

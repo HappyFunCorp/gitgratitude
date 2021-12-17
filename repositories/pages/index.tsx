@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from 'next/router';
 import { handle, json } from 'next-runtime';
 import { HTTP } from 'cloudevents';
+import { processEvent } from 'lib/events';
 
 const Home: NextPage = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -79,12 +80,10 @@ const Home: NextPage = () => {
 
 export const getServerSideProps = handle({
     async post({ req}) {
-      console.log( req.body )
-      console.log( req.headers )
-
-      const receivedEvent = HTTP.toEvent({headers: req.headers, body: req.body })
-      console.log( receivedEvent )
-      return json({ message: 'Thanks for your submission!' });
+      // @ts-ignore
+      const result = processEvent( HTTP.toEvent({headers: req.headers, body: req.body } ) )
+  
+      return json(result);
     },
     async get() {
       return json( {message:"ok"} )
