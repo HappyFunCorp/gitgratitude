@@ -3,7 +3,8 @@
 ** Manage database config
 *** Backup/restore
 ** CronJobs/scheduling
-** Work with configmap better
+** DONE Work with configmap better
+CLOSED: [2021-12-16 Thu 09:22]
 * Projects
 ** parse lockfiles
 ** download releases
@@ -21,8 +22,13 @@
 ** Send repo report email
 * Watcher
 ** send update events
-* Eventing
-** example send and receive
-** channels vs triggers
-** pingers
-** types
+* DONE Eventing
+CLOSED: [2021-12-16 Thu 09:23]
+** DONE example send and receive
+CLOSED: [2021-12-16 Thu 09:23]
+** DONE channels vs triggers
+CLOSED: [2021-12-16 Thu 09:23]
+** DONE pingers
+CLOSED: [2021-12-16 Thu 09:23]
+** DONE types
+CLOSED: [2021-12-16 Thu 09:23]

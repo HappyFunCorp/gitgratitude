@@ -11,7 +11,8 @@ It's deployed on a kubenetes cluster build as described
 * Deployment
 
 ** Script
-There's a [[deployment.rb]] script that handles pushing out new versions.
+There's a [[deployment.rb]] and [[kproj]] script that handles pushing out new
+versions.  Eventually moving over to the kproj script.
 
 1. It builds the images with =--platform linux/amd64=
 2. Pushes the images to dockerhub
@@ -21,7 +22,56 @@ There's a [[deployment.rb]] script that handles pushing out new versions.
 
 ** Config
 
-[[./deployment.toml][deployment.toml]] has a list of services and data around how they are deployed.
+[[./deployment.toml][deployment.toml]] has a list of services and data around how they are
+deployed.
+
+Block storage is in
+
+[[kubernetes/workspace.yaml]]
+
+#+begin_src bash :results output
+  kubectl apply -f kubernetes/workspace.yaml
+#+end_src
+
+#+RESULTS:
+: persistentvolumeclaim/git-workspace created
+
+And then attach the volume to the =vcs-git= service:
+
+#+begin_src bash :results output
+  kn service update vcs-git --mount /workspace=git-workspace --env WORK_VOLUME=/workspace
+#+end_src
+
+#+RESULTS:
+
+** PGAdmin
+
+#+begin_src bash :results output
+  kubectl apply -f kubernetes/pgadmin.yaml
+#+end_src
+
+Get the password:
+
+#+begin_src bash 
+  kubectl get secret --namespace default postgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode | pbcopy
+#+end_src
+
+Then start up a port forwarder:
+
+#+begin_src bash
+  kubectl port-forward svc/pgadmin-service 4000:80
+#+end_src
+
+Once you are done, you can kill =pgadmin=
+
+#+begin_src bash :results output
+  kubectl delete -f kubernetes/pgadmin.yaml
+#+end_src
+
+#+RESULTS:
+: configmap "pgadmin-config" deleted
+: service "pgadmin-service" deleted
+: statefulset.apps "pgadmin" deleted
 
 * Services
 

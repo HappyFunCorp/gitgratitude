@@ -1,6 +1,6 @@
 
 [databases.postgres-postgresql]
-database_url = ["postgres-postgresql-repositories","postgres-postgresql-projects"]
+database_url = ["postgres-postgresql-repositories"]
 
 [global]
 context = "do-nyc1-gratitude"
@@ -15,15 +15,15 @@ service = "projects"
 
 [repositories]
 binding = true
+configmap = ["postgres-postgresql-repositories","gratitude-config"]
 database = "postgres-postgresql"
-image = "wschenk/repositories"
-secrets = ["postgres-postgresql-repositories"]
-service = "repositories"
 events = ["git.done"]
+image = "wschenk/repositories"
+service = "repositories"
 
 [vcs-git]
 binding = true
-database = "postgres-postgresql"
+configmap = ["gratitude-config","s3-access"]
+events = ["git.process"]
 image = "wschenk/vcs-git"
 service = "vcs-git"
-events = ["git.process" ]

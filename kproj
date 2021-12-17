@@ -255,19 +255,22 @@ class ServiceInstance
   def initialize( service )
     @exists = false
     info = `kn service describe #{service} -o yaml`
-    if $?.exitstatus
+    if info != ""
+      puts "Exists"
       @exists = true
       @info = YAML.load( info )
+    else
+      puts "Does not exist"
     end
   end
 
   def exists?; @exists; end
-  def name; @info["metadata"]["name"]; end
-  def generation;  @info["metadata"]["generation"]; end
-  def created; @info["metadata"]["creationTimestamp"]; end
-  def containers; @info["spec"]["template"]["spec"]["containers"]; end
-  def container; containers.first; end
-  def env; container["env"] || []; end
+  def name; @exists && @info["metadata"]["name"]; end
+  def generation; @exists &&  @info["metadata"]["generation"]; end
+  def created; @exists && @info["metadata"]["creationTimestamp"]; end
+  def containers; @exists && @info["spec"]["template"]["spec"]["containers"]; end
+  def container; @exists && containers.first; end
+  def env; @exists && container["env"] || []; end
   def config_maps
     return [] if !exists?
     (container['envFrom'] || []).select do |x|
@@ -276,10 +279,10 @@ class ServiceInstance
       x["configMapRef"]["name"]
     end
   end
-  def has_sink?; env.select { |x| x["name"] == 'K_SINK' }.length > 0; end
-  def image; container["image"]; end
-  def address; @info['status']['address']['url']; end
-  def url; @info['status']['url']; end
+  def has_sink?; @exists && env.select { |x| x["name"] == 'K_SINK' }.length > 0; end
+  def image; @exists && container["image"]; end
+  def address; @exists && @info['status']['address']['url']; end
+  def url; @exists && @info['status']['url']; end
 
   def display
     fmt = "%20s = %s\n"
