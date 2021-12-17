@@ -3,10 +3,11 @@ require 'sinatra'
 require "cloud_events"
 require "net/http"
 require "uri"
+require_relative './git_processor'
 
 def send_message( type, data )
   event = CloudEvents::Event.create spec_version:      "1.0",
-                                    id:                "1234-1234-1234",
+                                    id:                SecureRandom.uuid,
                                     source:            "/vcs-git",
                                     type:              type,
                                     data_content_type: "application/json",
@@ -27,9 +28,13 @@ post "/" do
   logger.info "Received CloudEvent: #{event.to_h}"
 
   if event['type'] == 'git.process'
-    puts "Got a process event with data = #{event['data']}"
+    if event['data']['remote']
+      result = GitProcessor.new( event['data']['remote'] ).process
 
-    send_message( 'git.done', event['data'] )
+      send_message( 'git.done', result )
+    else
+      puts "Got message without a remote #{event.to_h}"
+    end
   else
     puts "Unknown event type #{event['type']}"
   end

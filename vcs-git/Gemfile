@@ -11,3 +11,6 @@ gem "rexml", "~> 3.2"
 gem "sinatra", "~> 2.1"
 gem "puma", "~> 5.5"
 gem "cloud_events", "~> 0.6.0"
+gem "dotenv", "~> 2.7"
+
+gem "securerandom", "~> 0.1.1"

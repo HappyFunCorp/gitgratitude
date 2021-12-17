@@ -8,7 +8,7 @@ WORK_VOLUME=ENV['WORK_VOLUME'] || "./workspace"
 
 class VolumeManager
   def initialize( dir = WORK_VOLUME )
-    puts "Starting volume manager on #{dir}"
+    puts "#{Time.now} Workdir #{dir}"
     @dir = dir
   end
 
@@ -31,13 +31,13 @@ class VolumeManager
     existing = Dir.glob( "#{@dir}/*/#{digest}" ).select { |d| d != path }.first
 
     if existing
-      puts "Found #{existing}, moving to #{path}"
+      puts "#{Time.now} Found #{existing}, moving to #{path}"
       FileUtils.mv( existing, path )
     end
 
     FileUtils.mkdir_p path
 
-    puts "Returning #{path} for #{url} at #{t}"
+    gc
     
     path
   end
@@ -46,17 +46,19 @@ class VolumeManager
     entries = Dir.entries(@dir).select { |x| x[0] != '.' }
 
     (entries - last_x_days(keep_days)).each do |dir|
+      puts "{Time.now} Removing #{@dir}/#{dir}"
       system "rm -rf #{@dir}/#{dir}"
     end
   end
 end
 
-def write_file( file )
-  puts "Writing to #{file}"
-  system( "cp /Users/wschenk/pixel6downloads/FEMAwood_gas_generator.pdf #{file}" )
-end
 
 if __FILE__ == $0
+
+  def write_file( file )
+    puts "Writing to #{file}"
+    system( "cp /Users/wschenk/pixel6downloads/FEMAwood_gas_generator.pdf #{file}" )
+  end
 
   v = VolumeManager.new
 

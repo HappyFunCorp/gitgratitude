@@ -18,6 +18,7 @@ GEM
     aws-sigv4 (1.2.4)
       aws-eventstream (~> 1, >= 1.0.2)
     cloud_events (0.6.0)
+    dotenv (2.7.6)
     jmespath (1.4.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
@@ -29,6 +30,7 @@ GEM
       rack
     rexml (3.2.5)
     ruby2_keywords (0.0.5)
+    securerandom (0.1.1)
     semver2 (3.4.2)
     sinatra (2.1.0)
       mustermann (~> 1.0)
@@ -44,8 +46,10 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk-s3 (~> 1.100)
   cloud_events (~> 0.6.0)
+  dotenv (~> 2.7)
   puma (~> 5.5)
   rexml (~> 3.2)
+  securerandom (~> 0.1.1)
   semver2 (= 3.4.2)
   sinatra (~> 2.1)
   sqlite3 (~> 1.4)
