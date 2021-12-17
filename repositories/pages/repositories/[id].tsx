@@ -65,7 +65,6 @@ export const getServerSideProps : GetServerSideProps = async (context) => {
       repo.last_proccessed = `${r.getFullYear()}/${r.getMonth()}/${r.getDay()} ${r.getHours()}:${r.getMinutes()}`
     }
 
-    console.log( repo.last_proccessed )
     return {
       props: {
         repo,

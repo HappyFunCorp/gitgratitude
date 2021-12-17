@@ -23,7 +23,7 @@ return(
                 {repos.map( (elem) => (
                     <tr key={elem.id}>
                         <td><Link href={`/repositories/${elem.id}`}><a className="text-blue-600 underline">{elem.remote}</a></Link></td>
-                        <td>{elem.last_proccessed.toString()}</td>
+                        <td>{elem.last_proccessed}</td>
                         <td>{elem.valid}</td>
                         <td><a href={`/api/trigger_poll?id=${elem.id}`}>Trigger poll</a></td>
                     </tr>

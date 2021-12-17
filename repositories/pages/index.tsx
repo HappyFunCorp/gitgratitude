@@ -81,7 +81,7 @@ const Home: NextPage = () => {
 export const getServerSideProps = handle({
     async post({ req}) {
       // @ts-ignore
-      const result = processEvent( HTTP.toEvent({headers: req.headers, body: req.body } ) )
+      const result = await processEvent( HTTP.toEvent({headers: req.headers, body: req.body } ) )
   
       return json(result);
     },
