@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # -*-Ruby-*-
 
+require 'sqlite3'
 require_relative './volume_manager.rb'
 require_relative './upload.rb'
 
@@ -57,6 +58,8 @@ class GitProcessor
     Uploader.upload( ret[:database], "#{ret[:outkey]}.sqlite" )
     Uploader.upload( ret[:log], "#{ret[:outkey]}.log" )
 
+    
+    add_stats( ret )
     ret[:upload_end] = Time.now
     puts "#{ret[:upload_end]} #{@repo} Uploaded"
 
@@ -65,7 +68,27 @@ class GitProcessor
     
     ret
   end
-    
+
+  def add_stats(r)
+    begin
+      db = SQLite3::Database.new r[:database]
+
+      last_commit = db.execute( "select author_when from commits order by author_when desc limit 1" ).first
+
+      if last_commit
+        r[:last_changed] = last_commit.first
+      end
+
+      first_commit = db.execute( "select author_when, id from commits order by author_when asc limit 1" ).first
+
+      if first_commit
+        r[:created] = first_commit[0]
+        r[:root_sha] = first_commit[1]
+      end
+    ensure
+      db.close
+    end
+  end    
 end
 
 if __FILE__ == $0

@@ -1,6 +1,7 @@
 import { prisma } from 'lib/prisma';
 import { Buffer } from 'buffer';
 import { Repository } from '.prisma/client';
+import md5 from 'blueimp-md5';
 
 export async function validGitData(data: Blob) {
     const dataAsString = await data.text();
@@ -15,7 +16,9 @@ export async function createRepo( url: string, data: Blob ) {
     if( repository == null ) {
         console.log( `${url} not found, creating`)
         const bytes = await data.arrayBuffer()
-        repository = await prisma.repository.create( {data: { remote: url, ref_bytes: Buffer.from(bytes) }} )
+
+        const hash = md5(bytes);
+        repository = await prisma.repository.create( {data: { remote: url, refs_hash: hash}} )
     } else {
         console.log( `${url} found`)
     }
@@ -23,35 +26,22 @@ export async function createRepo( url: string, data: Blob ) {
     return repository;
 }
 
-/*
-export async function syncProjectFromJson( ecoName: string, projectJson ) {
-    console.log( `Updating ${ecoName}/${projectJson.name}`)
 
-    let ecosystem = await prisma.ecosystem.findFirst( {where: { name: ecoName } } )
-
-    if( ecosystem == null ) {
-        ecosystem = await prisma.ecosystem.create( {data: {name: ecoName } } )
-    }
-
-    const existingProject = await prisma.project.findFirst( {
-        where: {name: projectJson.name, ecosystem: ecosystem }
-    })
-
-    const data = {
-        ecosystem_name: ecosystem.name,
-        name: projectJson.name,
-        homepage: projectJson.homepage,
-        description: projectJson.description 
-    }
-
-    if( existingProject ) {
-        const response = await prisma.project.update( 
-            {
-                where: {id: existingProject.id},
-                data: data
-            })
-    } else {
-        await prisma.project.create({ data: data })
-    }
+export function convertDates(repo: Repository) {
+    // @ts-ignore
+    repo.last_changed = convertDate( repo.last_changed );
+    
+    // @ts-ignore
+    repo.created = convertDate( repo.created );
+    
+    // @ts-ignore
+    repo.last_proccessed = convertDate( repo.last_proccessed );
 }
-*/
+
+function convertDate( d: Date ):String {
+    if(d) {
+        return `${d.getFullYear()}/${d.getMonth()}/${d.getDay()} ${d.getHours()}:${d.getMinutes()}`
+    } 
+
+    return null;
+}

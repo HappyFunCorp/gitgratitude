@@ -12,7 +12,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if( process.env.K_SINK ) {
         sendGitProcess( {remote: repo.remote} );
 
-        res.status(200).json( {message: 'Sent'})
+//        res.status(200).json( {message: 'Sent'})
+        res.redirect( `/repositories/${repo.id}?poll=true`)
     } else {
         res.status(500).json( {message: 'K_SINK not set' } )
     }

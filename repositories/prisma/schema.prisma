@@ -15,9 +15,12 @@ model Repository {
   remote          String       @unique
   private         Boolean      @default(false)
   valid           Boolean?
+  root_sha        String?
+  created         DateTime?
+  last_changed    DateTime?
   last_proccessed DateTime?
   duration        Int?
-  ref_bytes       Bytes?
+  refs_hash       String?
   summary_db_url  String?
   log_url         String?
 }

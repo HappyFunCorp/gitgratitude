@@ -3,6 +3,8 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { prisma } from 'lib/prisma';
 import { Repository } from '@prisma/client';
+import { convertDates } from 'lib/repositories';
+import Link from 'next/link';
 
 type Props = {
   repo?: Repository
@@ -11,6 +13,7 @@ type Props = {
 const RepoDetail = ({repo}: Props) => {
 
     return <Layout title="Repository">
+      <Link href="/repositories"><a className="text-blue-600">Back &larr;</a></Link>
       <table>
         <tr>
           <th>ID</th>
@@ -21,8 +24,17 @@ const RepoDetail = ({repo}: Props) => {
           <td><a href={repo.remote}>{repo.remote}</a></td>
         </tr>
         <tr>
+          <th>Created</th>
+          <td>{repo.created}</td>
+        </tr>
+        <tr>
           <th>Last Processed</th>
           <td>{repo.last_proccessed}</td>
+        </tr>
+
+        <tr>
+          <th>Last Changed</th>
+          <td>{repo.last_changed}</td>
         </tr>
         <tr>
           <th>Duration</th>
@@ -50,6 +62,8 @@ export const getServerSideProps : GetServerSideProps = async (context) => {
         private: true,
         valid: true,
         last_proccessed: true,
+        last_changed: true,
+        created: true,
         duration: true,
         summary_db_url: true,
         log_url: true
@@ -58,13 +72,8 @@ export const getServerSideProps : GetServerSideProps = async (context) => {
       where: {id: id }
     })
 
-    if( repo && repo.last_proccessed ) {
-      const r = repo.last_proccessed
-
-      // @ts-ignore
-      repo.last_proccessed = `${r.getFullYear()}/${r.getMonth()}/${r.getDay()} ${r.getHours()}:${r.getMinutes()}`
-    }
-
+    convertDates( repo );
+    
     return {
       props: {
         repo,

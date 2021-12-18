@@ -16,6 +16,9 @@ export type GitDone = {
     outkey: string,
     time_start: string,
     time_end: string,
+    last_changed: string,
+    created: string,
+    root_sha: string,
     upload_end: string
   };
 
@@ -36,6 +39,8 @@ export async function processGitDone( gitDone:GitDone ) {
     console.log( new Date( gitDone.time_start ) )
 
     const last_proccessed = new Date( gitDone.time_start )
+    const last_changed = new Date( gitDone.last_changed )
+    const created = new Date( gitDone.created );
     const end_time = new Date( gitDone.time_end );
     const duration = (end_time.getTime() - last_proccessed.getTime()) / 1000
 
@@ -44,14 +49,20 @@ export async function processGitDone( gitDone:GitDone ) {
         update: {
             summary_db_url: gitDone.database,
             log_url: gitDone.log,
-            last_proccessed: last_proccessed.toDateString(),
+            last_proccessed: last_proccessed,
+            last_changed,
+            created,
+            root_sha: gitDone.root_sha,
             duration,
         },
         create: {
             remote: gitDone.repo,
             summary_db_url: gitDone.database,
             log_url: gitDone.log,
-            last_proccessed: last_proccessed.toDateString(),
+            last_proccessed: last_proccessed,
+            last_changed,
+            created,
+            root_sha: gitDone.root_sha,
             duration
         }
     } )
