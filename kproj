@@ -139,15 +139,82 @@ class Database
     end
 
     Config['databases'] ||= {}
-    Config['databases'][name] ||= {}
-    Config['databases'][name]['database_url'] ||= []
-    Config['databases'][name]['database_url'] << config_map
-    Config['databases'][name]['database_url'].uniq!
+    Config['databases'][schema] ||= {}
+    Config['databases'][schema]['config_map'] = config_map
     Config.write
 
     config_map
   end
 
+  def self.update( service )
+    schema = Config[service]['schema']
+
+    if !schema
+      puts "#{service}: no schema found"
+
+      # TODO remove configmap if exists on the service
+    else
+      puts "#{service}: getting database config map"
+      
+      Config['databases'] ||= {}
+      c = Config['databases']
+    
+      c[schema] ||= {}
+
+      # Create the schema if defined
+      c[schema]['database'] ||= Database.choose_database
+      c[schema]['config_map'] ||= Database.config_map( c[schema]['database'], schema )
+
+      Config[service]['config_maps'] ||= []
+      Config[service]['config_maps'] << c[schema]['config_map'] 
+      Config[service]['config_maps'].uniq!
+      Config.write
+
+      migrate( service )
+    end
+  end
+
+  def self.database_forwarder( service, schema )
+    schema = Config[service]['schema']
+    database = Config['databases'][schema]['database']
+
+    puts "#{database}: Looking up password"
+    password = `kubectl get secret --namespace default #{database} -o jsonpath="{.data.postgresql-password}" | base64 --decode`
+
+    localurl = "postgresql://postgres:#{password}@localhost:5433/#{schema}?schema=public"
+    remoteurl = "postgresql://postgres:#{password}@#{database}.default.svc.cluster.local:5432/#{schema}?schema=public"
+
+    puts "#{database}: Starting port forwarder..."
+    pid = spawn( "kubectl port-forward svc/#{database} 5433:5432" )
+    
+    puts "#{database}: Waiting 1 second"
+    sleep 1
+
+    sub = fork do
+      Dir.chdir(service)
+
+      yield localurl, remoteurl
+    end
+
+    Process.wait sub
+    Process.kill "TERM", pid
+
+    puts "#{database}: Waiting for port forwarder to stop"
+    Process.wait pid    
+  end
+
+  def self.migrate( service )
+    if Config[service]['schema']
+      database_forwarder( service, Config[service]['schema'] ) do |local, remote|
+        cmd = "npx prisma migrate deploy"
+        puts "#{service}: Running #{cmd}"
+        migrate = spawn( { "DATABASE_URL" => local }, cmd )
+        Process.wait migrate
+      end
+    else
+      puts "#{service}: No schema defined"
+    end
+  end
 end
 
 class Service
@@ -202,27 +269,11 @@ class Service
     Config[name]['service']
   end
 
-  def self.up( name, schema )
-    if( !(Config[name] && Config[name]['image']) )
-      puts "No image configured for #{name}"
-    end
-
+  def self.update( name )
     service = service_name name
     image = image_name name
 
     c = Config[name]
-    if schema
-      if !c['database']
-        c['database'] = Database.choose_database
-      end
-
-      configmap = Database.config_map( c['database'], schema )
-
-      c['configmap'] ||= []
-      c['configmap'] << configmap
-      c['configmap'].uniq!
-      Config.write
-    end
 
     current_instance = ServiceInstance.new( name )
 
@@ -230,23 +281,22 @@ class Service
 
     cmd_array = [ 'kn', 'service', cmd, service, '--image', image ]
 
-    cm_add = (c['configmap'] || [])- current_instance.config_maps
-    cm_delete = current_instance.config_maps - (c['configmap'] || [])
-
+    cm_add = (c['config_maps'] || [])- current_instance.config_maps
+    cm_delete = current_instance.config_maps - (c['config_maps'] || [])
 
     cm_add.each do |config_map|
-      puts "Adding cm:#{config_map}"
+      puts "#{service} Adding cm:#{config_map}"
       cmd_array << '--env-from'
       cmd_array << "cm:#{config_map}"
     end
 
     cm_delete.each do |config_map|
-      puts "Removing cm:#{config_map}"
+      puts "#{service} Removing cm:#{config_map}"
       cmd_array << '--env-from'
       cmd_array << "cm:#{config_map}-"
     end
 
-    puts "Running #{cmd_array.join( ' ' )}"
+    puts "\nRunning #{cmd_array.join( ' ' )}"
     system( cmd_array.join( ' ' ) )
   end
 end
@@ -256,7 +306,7 @@ class ServiceInstance
     @exists = false
     info = `kn service describe #{service} -o yaml`
     if info != ""
-      puts "Exists"
+      puts "#{service}: Found deployed service"
       @exists = true
       @info = YAML.load( info )
     else
@@ -312,10 +362,12 @@ end
 
 class Eventing
   def self.create_source( service )
+    puts "#{service}: Creating #{service}-binding"
     system( "kn source binding create #{service}-binding --subject Service:serving.knative.dev/v1:#{service} --sink broker:default" )
   end
 
   def self.delete_source( service )
+    puts "#{service}: Deleting #{service}-binding"
     system( "kn source binding delete #{service}-binding" )
   end
 
@@ -341,19 +393,20 @@ class Eventing
   end
   
   def self.create_trigger( service, event )
-    puts "Creating #{trigger_name( service, event )}"
+    puts "#{service}: Creating #{trigger_name( service, event )}"
     system( "kn trigger create #{trigger_name( service, event )} --broker default --filter type=#{event} --sink #{service}" )
   end
 
   def self.delete_trigger( name )
+    puts "#{service}: Deleting #{trigger_name( service, event )}"
     system( "kn trigger delete #{name}" )
   end
 
-  def self.service( name )
+  def self.update( name )
     current_instance = ServiceInstance.new( name )
 
     if( !current_instance.exists? )
-      puts "Unable to find deployed event #{name}"
+      puts "Eventing.update: Unable to find deployed event #{name}"
     end
 
     c = Config[name]
@@ -362,8 +415,6 @@ class Eventing
       Eventing.create_source( service )
     elsif !c['binding'] && current_instance.has_sink?
       Eventing.delete_source( service )
-    else
-      puts "Binding looks good"
     end
 
     configured_events = c["events"] || []
@@ -416,21 +467,17 @@ class CLI < Thor
     Service.build name 
   end
 
-  desc "up name", "Deploys a service"
-  option :schema
-  option :all
-  option :nobuild
-  def up( name )
-    Service.build( name ) unless options[:nobuild]
-    Service.up( name, options[:schema] )
-    if( options[:all] )
-      Service.events(name)
-    end
+  desc "update", "Pushes configuration to server"
+  def update( name )
+    Database.update( name )
+    Service.update( name )
+    Eventing.update( name )
   end
 
-  desc "eventing name", "Configures events for a service"
-  def eventing( name )
-    Eventing.service(name)
+  desc "up name", "Deploys a service"
+  def up( name )
+    Service.build( name ) unless options[:nobuild]
+    update( name )
   end
   
   desc "info name", "queries the cluster"
