@@ -11,14 +11,53 @@ It's deployed on a kubenetes cluster build as described
 * Deployment
 
 ** Script
-There's a [[deployment.rb]] and [[kproj]] script that handles pushing out new
-versions.  Eventually moving over to the kproj script.
+There's a [[kproj]] script that handles pushing out new versions.
 
 1. It builds the images with =--platform linux/amd64=
 2. Pushes the images to dockerhub
 3. does =kn service update= to activate the new version
 4. Sets up a local tunnel to the postgres instance and runs =npm prisma migrate= to sync up the database
 5. Optionally can run =npx prsima studio= over a similar tunnel
+
+*** Usage
+
+There's a =database= section and a =global= section which will be managed
+automatically.  To add or configure a service, add a stanza with the
+same name as a directory.  If that directory has a =Dockerfile= it in,
+it will be considered a deployable service.
+
+Example:
+
+#+begin_src toml
+[repositories]
+binding = true
+config_maps = ["postgres-postgresql-repositories"]
+events = ["git.done"]
+image = "wschenk/repositories"
+schema = "repositories"
+service = "repositories"
+#+end_src
+
+| Name        | Description                                                                    |
+| =binding=     | Setup a =K_SINK= to send events to the default broker                            |
+| =config_maps= | Which config maps should be injected into the environment                      |
+| =events=      | List of events that trigger this service                                       |
+| =image=       | Tag of the image to build locally and deploy remotely                          |
+| =schema=      | Database schema to use, config map will be created with a correct =DATABASE_URL= |
+| =service=     | The name of the remote service                                                 |
+
+Commands are:
+
+#+begin_src bash
+  ./kproj --help
+  kproj build           # Builds a service
+  kproj db              # Database functions
+  kproj doctor          # Sync the state of the cluster
+  kproj help [COMMAND]  # Describe available commands or one specific command
+  kproj info name       # queries the cluster
+  kproj up name         # Deploys a service
+  kproj update          # Pushes configuration to server
+#+end_src
 
 ** Config
 
