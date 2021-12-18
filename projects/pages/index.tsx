@@ -14,6 +14,8 @@ const Home: NextPage = () => {
         <div className="flex flex-center w-full  items-center justify-around max-w-screen-lg flex-wrap pt-4">
           <Card href="/about" title="About" description="What's all this then?"/>
           <Card href="/projects" title="Projects" description="Lookup a project"/>
+          <Card href="https://repositories.default.gitgratitude.com" title="Repositories" description="Look at a repo"/>
+          
         </div>
       </main>
     </Layout>
