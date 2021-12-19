@@ -44,7 +44,7 @@ export function ResultTable( {results} ) {
                 </tr>
             </thead>
             <tbody>
-                {results[0].values.map( (r) => <tr>
+                {results[0].values.map( (r) => <tr key={r}>
                     {r.map( (v) => <td key={v}>{v}</td> )}
                 </tr>)}
             </tbody>

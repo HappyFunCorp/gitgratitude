@@ -3,20 +3,39 @@ import { useEffect, useState } from "react"
 export function useDB(data) {
     const [engine, setEngine] = useState(null)
     const [db, setDB] = useState(null)
-    // Only run this in the browser
-    if (typeof window !== 'undefined') {
-        useEffect( () => {
+    const [windowWatcher,setWindowWatcher] = useState(false);
+
+    useEffect( () => {
+        if( window ) {
+            console.log("Running in a browser, checking for loadSQL" )
+        
+            const timer = setInterval( () => {
+                console.log( "Polling..." );
+
+                // @ts-ignore
+                if( window.loadSQL ) {
+                    console.log("Clearing timer")
+                    clearInterval( timer );
+                    setWindowWatcher(true)
+                }
+            }, 500)
+        }
+    }, [])
+
+    useEffect( () => {
+        console.log( "Looking for loadSQL")
+        // @ts-ignore
+        if( window.loadSQL ) {
             console.log( "Should try initSQLJS")
             // @ts-ignore
             window.loadSQL().then( (db) => {
                 console.log( "I have the database" )
                 setEngine( db )
             })
-
-            return () => {} 
-        }, [] )
-    }
-
+        }
+        return () => {}
+    }, [windowWatcher] )
+    
     useEffect( () => {
         if( engine && data ) {
             console.log( "Starting up the engine")

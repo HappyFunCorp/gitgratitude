@@ -6,6 +6,7 @@ import { Repository } from '@prisma/client';
 import { convertDates } from 'lib/repositories';
 import Link from 'next/link';
 import initSqlJS from 'sql.js/dist/sql-wasm'
+import Script from 'next/script';
 import Browser from 'components/browser';
 
 type Props = {
@@ -14,6 +15,8 @@ type Props = {
 
 const RepoDetail = ({repo}: Props) => {
     return <Layout title="Repository">
+
+      <Script type="module" strategy='beforeInteractive' src="/sql-loader.js"/>
       <Link href="/repositories"><a className="text-blue-600">Back &larr;</a></Link>
       <table>
         <tbody>
