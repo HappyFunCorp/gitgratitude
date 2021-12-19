@@ -16,7 +16,8 @@
     "next-runtime": "^2.3.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hook-form": "^7.21.0"
+    "react-hook-form": "^7.21.0",
+    "sql.js": "^1.6.2"
   },
   "devDependencies": {
     "@types/node": "16.11.12",

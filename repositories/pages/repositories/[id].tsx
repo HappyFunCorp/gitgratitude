@@ -5,16 +5,18 @@ import { prisma } from 'lib/prisma';
 import { Repository } from '@prisma/client';
 import { convertDates } from 'lib/repositories';
 import Link from 'next/link';
+import initSqlJS from 'sql.js/dist/sql-wasm'
+import Browser from 'components/browser';
 
 type Props = {
   repo?: Repository
 }
 
 const RepoDetail = ({repo}: Props) => {
-
     return <Layout title="Repository">
       <Link href="/repositories"><a className="text-blue-600">Back &larr;</a></Link>
       <table>
+        <tbody>
         <tr>
           <th>ID</th>
           <td>{repo.id}</td>
@@ -48,7 +50,10 @@ const RepoDetail = ({repo}: Props) => {
           <th>Log</th>
           <td><a href={repo.log_url}>{repo.log_url}</a></td>
         </tr>
+        </tbody>
       </table>
+
+      <Browser sqlliteURL={repo.summary_db_url}/>
     </Layout>
 }
 

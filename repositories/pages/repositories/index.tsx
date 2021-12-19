@@ -25,12 +25,12 @@ return(
             <tbody>
                 {repos.map( (elem) => (
                     <tr key={elem.id}>
-                        <td><Link href={`/repositories/${elem.id}`}><a className="text-blue-600 underline">{elem.remote}</a></Link></td>
+                        <td><Link href={`/repositories/${elem.id}`}><a className="text-blue-600 dark:text-blue-200 underline">{elem.remote}</a></Link></td>
                         <td>{elem.last_changed}</td>
                         <td>{elem.last_proccessed}</td>
                         <td>{elem.created}</td>
                         <td>{elem.valid}</td>
-                        <td><a className="bg-blue-600 text-white px-4 py-2 rounded" href={`/api/trigger_poll?id=${elem.id}`}>Trigger poll</a></td>
+                        <td><a className="bg-blue-600 text-white px-4 py-2 rounded mt-2 inline-block" href={`/api/trigger_poll?id=${elem.id}`}>Trigger poll</a></td>
                     </tr>
                 ))}
             </tbody>

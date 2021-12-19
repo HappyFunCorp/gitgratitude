@@ -68,7 +68,7 @@ const Home: NextPage = () => {
               type="text" 
               {...register( 'url' )} 
               placeholder="Remote URL"
-              className="py-1 px-4 border-2 rounded border-blue-600 w-64"/>
+              className="py-1 px-4 border-2 rounded border-blue-600 w-64 dark:text-blue-900"/>
             <button type="submit"
               className="mx-4 py-2 px-4 bg-blue-600 text-white rounded">Look for repo</button>
           </form>
