@@ -10,7 +10,7 @@ export default function Browser( {sqlliteURL}) {
     const data = useBinaryFile( sqlliteURL )
     const db = useDB(data);
     const [query, setQuery] = useState( "SELECT name FROM  sqlite_schema WHERE type ='table' AND name NOT LIKE 'sqlite_%';" )
-    const results = useDBQuery( db, data, query )
+    const results = useDBQuery( db, query )
 
     if( !data ) return <p>Loading database file ...</p>
     if( !db ) return <p>Loading database engine ...</p>

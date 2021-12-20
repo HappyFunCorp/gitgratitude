@@ -50,11 +50,11 @@ export function useDB(data) {
     return db
 }
 
-export function useDBQuery( db, data, query ) {
+export function useDBQuery( db, query ) {
     const [results, setResults] = useState(null)
 
     useEffect( () => {
-        if( db && data ) {
+        if( db ) {
             console.log( `Running query ${query}`)
             const r = db.exec(query)
             console.log(r)
@@ -62,7 +62,7 @@ export function useDBQuery( db, data, query ) {
             window.results = r;
             setResults( r )
         }
-    }, [db, data, query])
+    }, [db, query])
 
     return results;
 }

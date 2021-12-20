@@ -5,7 +5,6 @@ import { prisma } from 'lib/prisma';
 import { Repository } from '@prisma/client';
 import { convertDates } from 'lib/repositories';
 import Link from 'next/link';
-import initSqlJS from 'sql.js/dist/sql-wasm'
 import Script from 'next/script';
 import Browser from 'components/browser';
 

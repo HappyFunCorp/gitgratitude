@@ -72,6 +72,7 @@ export async function processGitDone( gitDone:GitDone ) {
     }
 
 export function sendGitProcess( repo: GitProcess ) {
+    console.log( `sending git.process for ${repo.remote}` )
     const ce = new CloudEvent( {type: 'git.process', source: '/repositories', data: { remote: repo.remote  }})
     const message = HTTP.binary( ce );
 

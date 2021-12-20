@@ -12,6 +12,8 @@ type Props = {
 export default function Repositories({ repos }:Props) {
 return(
     <Layout title="Repositories">
+        <Link href="/"><a className="text-blue-600">Back &larr;</a></Link>
+
         <table className="w-full">
             <thead>
                 <tr>
