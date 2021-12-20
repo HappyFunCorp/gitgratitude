@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from 'lib/prisma';
-import { sendGitProcess } from 'lib/events';
+import { sendGitProcess, sendWatchURL } from 'lib/events';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const id = req.query.id;
@@ -11,6 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if( process.env.K_SINK ) {
             sendGitProcess( {remote: repo.remote} );
+            sendWatchURL( {url: repo.remote} )
 
             res.redirect( `/repositories/${repo.id}?poll=true`)
         } else {

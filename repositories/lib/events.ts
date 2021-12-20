@@ -1,8 +1,10 @@
-import { Repository } from "@prisma/client";
 import axios from "axios";
 import { CloudEvent, HTTP } from "cloudevents";
 import { prisma } from 'lib/prisma';
-import { start } from "repl";
+
+export type WatchURL = {
+    url: string
+}
 
 export type GitProcess = {
     remote: string
@@ -73,7 +75,21 @@ export async function processGitDone( gitDone:GitDone ) {
 
 export function sendGitProcess( repo: GitProcess ) {
     console.log( `sending git.process for ${repo.remote}` )
-    const ce = new CloudEvent( {type: 'git.process', source: '/repositories', data: { remote: repo.remote  }})
+    const ce = new CloudEvent( {type: 'git.process', source: '/repositories', data: repo })
+    const message = HTTP.binary( ce );
+
+    axios(process.env.K_SINK, {
+        method: "post",
+        data: message.body,
+        // @ts-ignore
+        headers: message.headers,
+    });
+}
+
+export function sendWatchURL( url: WatchURL ) {
+    console.log( `sending url.watch for ${url.url}` )
+
+    const ce = new CloudEvent( {type: 'url.watch', source: '/repositories', data: url})
     const message = HTTP.binary( ce );
 
     axios(process.env.K_SINK, {

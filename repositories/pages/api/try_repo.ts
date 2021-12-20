@@ -1,7 +1,7 @@
 import { URL } from 'url'
 import { validGitData, createRepo } from 'lib/repositories';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { sendGitProcess } from 'lib/events';
+import { sendGitProcess, sendWatchURL } from 'lib/events';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const {url} = req.body;
@@ -32,6 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if( process.env.K_SINK ) {
             sendGitProcess( {remote: repo.remote} );
+            sendWatchURL( {url: result.url} )
         }
 
         res.status(200).json( {error: false, message: "Found it!", id: repo.id} )
