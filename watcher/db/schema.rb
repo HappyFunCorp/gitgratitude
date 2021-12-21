@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_12_21_054609) do
   enable_extension "plpgsql"
 
   create_table "poll_responses", force: :cascade do |t|
-    t.bigint "urls_id"
+    t.bigint "url_id"
     t.boolean "data_changed"
     t.boolean "redirect"
     t.string "status"
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(version: 2021_12_21_054609) do
     t.string "md5"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["urls_id"], name: "index_poll_responses_on_urls_id"
+    t.index ["url_id"], name: "index_poll_responses_on_url_id"
   end
 
   create_table "urls", force: :cascade do |t|
     t.string "url", null: false
     t.datetime "last_poll"
-    t.datetime "last_modifed"
+    t.datetime "last_modified"
     t.integer "last_status"
     t.string "last_etag"
     t.string "last_md5"
@@ -38,5 +38,5 @@ ActiveRecord::Schema.define(version: 2021_12_21_054609) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "poll_responses", "urls", column: "urls_id"
+  add_foreign_key "poll_responses", "urls"
 end

@@ -1,6 +1,7 @@
 require 'active_record'
 require 'net/http'
 require 'digest'
+require_relative './upload.rb'
 
 begin
   require 'dotenv/load'
@@ -23,7 +24,8 @@ class PollResponse < ActiveRecord::Base
         last_modified: url.last_modified,
         changed: data_changed,
         etag: etag,
-        poll_time: created_at
+        poll_time: created_at,
+        storage_key: storage_key
         }
     end
 
@@ -83,6 +85,7 @@ class PollResponse < ActiveRecord::Base
             poll_response.md5 = Digest::MD5.hexdigest( response.body )
             url.last_md5 = poll_response.md5
 
+            poll_response.storage_key = Uploader.upload_blob( response.body, poll_response.md5 )
             poll_response.save
         end
 
@@ -106,12 +109,12 @@ if __FILE__ == $0
 
     ActiveRecord::Base.logger.level = 0
 
-    u = PollResponse.poll "asdfadsf"
+    pr = PollResponse.poll "https://willschenk.com/"
 
-    p u
+    p pr
 
-    u = PollResponse.poll "https://willschenk.com/"
+    pr = PollResponse.poll "https://happyfuncorp.com"
 
-    p u
-    p u.url
+    p pr
+
 end

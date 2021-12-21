@@ -1,6 +1,6 @@
 require 'sinatra'
 require "cloud_events"
-require_relative "./models.rb"
+require_relative "./poller.rb"
 
 get '/' do
   JSON.generate( PollResponse.order( "created_at desc" ).limit(20).collect{ |o| o.to_json_hash } )
@@ -39,7 +39,7 @@ def send_message( type, data )
 end
 
 def do_poll( url )
-  result = PollResult.poll( event['data']['url'] )
+  result = PollResponse.poll url
 
   if( result.data_changed )
     send_message( 'url.changed', result.to_json_hash )
