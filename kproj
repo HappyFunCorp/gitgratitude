@@ -450,6 +450,11 @@ class DatabaseCLI < Thor
     puts "Password is #{Database.password(reference)}"
   end
 
+  desc "migrate name", "runs the db migration"
+  def migrate( service )
+    Database.migrate( service )
+  end
+
   desc "database_url db schema", "set the database secret"
   def database_url( db, schema )
     puts Database.config_map( db, schema )

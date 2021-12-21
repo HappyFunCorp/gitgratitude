@@ -39,7 +39,7 @@ service = "vcs-git"
 
 [watcher]
 binding = true
-config_maps = ["postgres-postgresql-watcher"]
+config_maps = ["postgres-postgresql-watcher","s3-access"]
 events = ["url.watch"]
 image = "wschenk/watcher"
 migrate = "rake db:migrate"
