@@ -1,7 +1,11 @@
 require 'active_record'
-require 'dotenv/load'
 require 'net/http'
 require 'digest'
+
+begin
+  require 'dotenv/load'
+rescue LoadError
+end
 
 class Url < ActiveRecord::Base
     establish_connection

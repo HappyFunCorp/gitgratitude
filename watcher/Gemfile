@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem "puma", "~> 5.5"
 gem "sinatra", "~> 2.1"
 gem "cloud_events", "~> 0.6.0"
-gem "activerecord", "~> 7.0"
 gem "pg", "~> 1.2"
 gem "activerecord", "~> 7.0"
 gem "rake", "~> 13.0"

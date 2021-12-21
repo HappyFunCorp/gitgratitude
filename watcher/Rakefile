@@ -1,7 +1,11 @@
 # From https://gist.github.com/Rhoxio/ee9a855088c53d447f2eb888bd9d09a4
 require "active_record"
 require "fileutils"
-require "dotenv/load"
+begin
+  require 'dotenv/load'
+rescue LoadError
+end
+
 
 FileUtils.mkdir_p "db/migrate"
 
@@ -24,7 +28,7 @@ namespace :db do
   end
 
   desc "Migrate the database"
-  task :migrate do
+  task :migrate => [:create] do
     connection
     ActiveRecord::Tasks::DatabaseTasks.migrate
   end
