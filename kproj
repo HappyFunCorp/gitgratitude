@@ -147,6 +147,7 @@ class Database
   end
 
   def self.update( service )
+    return if !Config[service]
     schema = Config[service]['schema']
 
     if !schema
@@ -412,9 +413,9 @@ class Eventing
     c = Config[name]
 
     if c["binding"] && !current_instance.has_sink?
-      Eventing.create_source( service )
+      Eventing.create_source( name )
     elsif !c['binding'] && current_instance.has_sink?
-      Eventing.delete_source( service )
+      Eventing.delete_source( name )
     end
 
     configured_events = c["events"] || []
@@ -475,6 +476,7 @@ class CLI < Thor
   end
 
   desc "up name", "Deploys a service"
+  option :nobuild
   def up( name )
     Service.build( name ) unless options[:nobuild]
     update( name )
@@ -483,6 +485,28 @@ class CLI < Thor
   desc "info name", "queries the cluster"
   def info( name )
     ServiceInstance.new( name ).display
+  end
+
+  desc "trigger_add name event", "add a trigger to the service"
+  def trigger_add( name, event )
+    info = ServiceInstance.new(name)
+
+    if !info.exists?
+      puts "#{name} not found"
+      exit 1
+    end
+
+    c = Config[name]
+
+    p c
+
+    c["binding"] = true
+    c["events"] ||= []
+    c["events"] << event
+    c["events"].uniq!
+
+    Config.write
+    Eventing.update( name )
   end
   
   desc "db", "Database functions"

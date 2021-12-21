@@ -32,3 +32,9 @@ config_maps = ["s3-access"]
 events = ["git.process"]
 image = "wschenk/vcs-git"
 service = "vcs-git"
+
+[watcher]
+binding = true
+events = ["url.watch"]
+image = "wschenk/watcher"
+service = "watcher"
