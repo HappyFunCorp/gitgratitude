@@ -1,0 +1,61 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    activemodel (7.0.0)
+      activesupport (= 7.0.0)
+    activerecord (7.0.0)
+      activemodel (= 7.0.0)
+      activesupport (= 7.0.0)
+    activesupport (7.0.0)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+    cloud_events (0.6.0)
+    concurrent-ruby (1.1.9)
+    i18n (1.8.11)
+      concurrent-ruby (~> 1.0)
+    io-wait (0.2.1)
+    minitest (5.15.0)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
+    net-http (0.2.0)
+      net-protocol
+      uri
+    net-protocol (0.1.2)
+      io-wait
+      timeout
+    nio4r (2.5.8)
+    pg (1.2.3)
+    puma (5.5.2)
+      nio4r (~> 2.0)
+    rack (2.2.3)
+    rack-protection (2.1.0)
+      rack
+    rake (13.0.6)
+    ruby2_keywords (0.0.5)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
+    tilt (2.0.10)
+    timeout (0.2.0)
+    tzinfo (2.0.4)
+      concurrent-ruby (~> 1.0)
+    uri (0.11.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  activerecord (~> 7.0)
+  cloud_events (~> 0.6.0)
+  net-http (~> 0.2.0)
+  pg (~> 1.2)
+  puma (~> 5.5)
+  rake (~> 13.0)
+  sinatra (~> 2.1)
+
+BUNDLED WITH
+   2.2.33

@@ -1,0 +1,2 @@
+# Logfile created on 2021-12-21 06:53:23 -0500 by logger.rb/v1.4.3
+D, [2021-12-21T06:53:23.141491 #87085] DEBUG -- :   [1m[36mUrl Load (0.8ms)[0m  [1m[34mSELECT "urls".* FROM "urls" ORDER BY "urls"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
