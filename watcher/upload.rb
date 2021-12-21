@@ -1,7 +1,11 @@
 #!/usr/bin/env ruby
 
-require 'dotenv'
-Dotenv.load
+begin
+  require 'dotenv'
+  Dotenv.load
+rescue LoadError
+end
+
 require 'aws-sdk-s3'
 require 'digest'
 
