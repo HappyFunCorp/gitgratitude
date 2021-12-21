@@ -7,6 +7,10 @@ database = "postgres-postgresql"
 config_map = "postgres-postgresql-repositories"
 database = "postgres-postgresql"
 
+[databases.watcher]
+config_map = "postgres-postgresql-watcher"
+database = "postgres-postgresql"
+
 [global]
 context = "do-nyc1-gratitude"
 domain = "gitgratitude.com"
@@ -35,6 +39,9 @@ service = "vcs-git"
 
 [watcher]
 binding = true
+config_maps = ["postgres-postgresql-watcher"]
 events = ["url.watch"]
 image = "wschenk/watcher"
+migrate = "rake db:migrate"
+schema = "watcher"
 service = "watcher"

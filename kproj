@@ -207,7 +207,7 @@ class Database
   def self.migrate( service )
     if Config[service]['schema']
       database_forwarder( service, Config[service]['schema'] ) do |local, remote|
-        cmd = "npx prisma migrate deploy"
+        cmd = Config[service]['migrate'] || "npx prisma migrate deploy"
         puts "#{service}: Running #{cmd}"
         migrate = spawn( { "DATABASE_URL" => local }, cmd )
         Process.wait migrate
