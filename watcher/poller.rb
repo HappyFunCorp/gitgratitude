@@ -46,14 +46,14 @@ class PollResponse < ActiveRecord::Base
         if( response.is_a?( Net::HTTPRedirection ) && !response.is_a?( Net::HTTPNotModified ) )
             poll_response.redirect = true
 
-            puts "Redirect #{response.code} to #{response['Location']}"
+            puts "#{uri} Redirect #{response.code} to #{response['Location']}"
             uri = URI( response['Location'] )
 
-            puts "response code #{response.code}"
+            puts "#{uri} Response code #{response.code}"
             puts response.class
         
             if( response.is_a?( Net::HTTPMovedPermanently ) || response.is_a?( Net::HTTPPermanentRedirect ) )
-                puts "Perm redirect"
+                puts "#{uri} Perm redirect"
                 url = Url.where( url: uri.to_s ).first || Url.new( url: uri.to_s )
             end
         
@@ -63,15 +63,20 @@ class PollResponse < ActiveRecord::Base
         poll_response.status = response.code
         poll_response.etag = response['etag']
 
+        if( response['content-type'] )
+          ct = response['content-type'].split( /;\s*/ )
+          poll_response.content_type = ct[0]
+          poll_response.charset = ct[1]
+        end
+
         poll_response.url = url
         url.last_poll = Time.now
         url.last_modified = response['last-modified'] if response['last-modified']
         url.last_etag = response['etag']
 
         if( response.is_a? Net::HTTPNotModified )
-            puts "Not modified"
+            puts "#{uri} Not modified"
             
-            puts "ETAG: #{response['etag']}"
             poll_response.data_changed = false
             
             poll_response.save
@@ -80,7 +85,7 @@ class PollResponse < ActiveRecord::Base
 
         if response.is_a?(Net::HTTPSuccess)
             poll_response.data_changed = true
-            puts "Success"
+            puts "#{uri} Success and modified"
 
             poll_response.md5 = Digest::MD5.hexdigest( response.body )
             url.last_md5 = poll_response.md5
@@ -97,9 +102,9 @@ class PollResponse < ActiveRecord::Base
         headers['If-Modified-Since'] = modified.rfc2822 if modified
         headers['If-None-Match'] = etag if modified
 
-        puts "Making request to #{uri}"
+        puts "#{uri} Making request"
         response = Net::HTTP.get_response(uri, headers)
-        puts "Done"
+        puts "#{uri} Done"
         response
     end
 end
