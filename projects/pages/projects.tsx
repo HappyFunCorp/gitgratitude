@@ -27,11 +27,12 @@ export const getServerSideProps = async () => {
         id: true,
         name: true,
         description: true,
+        git: true,
         homepage: true
       },
-        orderBy: [{
-            latest_release: 'desc'
-        }]
+      orderBy: [{
+        latest_release: 'desc'
+      }]
     })
   
     console.log(projects);

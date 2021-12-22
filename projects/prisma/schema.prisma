@@ -22,9 +22,29 @@ model Project {
   ecosystem      Ecosystem @relation(fields: [ecosystem_name], references: [name])
   name           String
   homepage       String?
+  summary        String?
   description    String?
-  project_start  DateTime?
+  git            String?
   first_release  DateTime?
   latest_release DateTime?
   latest_version String?
+  Release        Release[]
+}
+
+model Release {
+  id             String    @id @default(uuid())
+  project_id     String
+  project        Project   @relation(fields: [project_id], references: [id])
+  version        String
+  major          Int?
+  minor          Int?
+  patch          Int?
+  prerelease     Boolean?
+  suffix         String?
+  released       DateTime?
+  summary        String?
+  description    String?
+  sha            String?
+  license        String?
+  download_count Int?
 }

@@ -6,11 +6,11 @@ export default function ProjectList({projects}) {
     }
 
     return (
-        <table>
+        <table className="w-full">
             <tbody>
-            <tr><th>Name</th><th>Homepage</th><th>Description</th></tr>
+            <tr><th>Name</th><th>Homepage</th><th>Repository</th><th>Description</th></tr>
             { projects.map( (e) =>
-            <tr key={e.id}><td>{e.name}</td><td>{e.homepage}</td><td>{e.description}</td></tr>
+            <tr key={e.id}><td>{e.name}</td><td>{e.homepage}</td><td>{e.git}</td><td>{e.description}</td></tr>
             )}
             </tbody>
         </table>

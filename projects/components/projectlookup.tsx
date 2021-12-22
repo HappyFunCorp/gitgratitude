@@ -22,9 +22,16 @@ export default function ProjectLookup({}) {
                 method: 'POST',
             });
 
+            console.log( "Got response")
             setWorking( false );
             if( !response.ok ) {
-                setStatus( `Bad server response: ${response.statusText}`)
+                console.log( response.headers['content-type'] )
+                if( response.headers['content-type'] == 'application/json' ) {
+                    const json = await response.json();
+                    setStatus( json.message )
+                } else {
+                    setStatus( `Bad server response: ${response.statusText}`)
+                }
             } else {
                 setStatus("Got a response")
                 const data = await response.json();
