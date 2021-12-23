@@ -1,42 +1,56 @@
 
+[backup]
+image = "wschenk/backup"
+service = "backup"
+service_type = "job"
+
+[databases.projects]
+config_map = "postgres-postgresql-projects"
+database = "postgres-postgresql"
+
+[databases.repositories]
+config_map = "postgres-postgresql-repositories"
+database = "postgres-postgresql"
+
+[databases.watcher]
+config_map = "postgres-postgresql-watcher"
+database = "postgres-postgresql"
+
 [eco-rubygems]
 image = "wschenk/eco-rubygems"
 service = "eco-rubygems"
 
-[lock-gemfile]
-image = "wschenk/lock-gemfile"
-service = "lock-gemfile"
-
-[lock-packagelock]
-image = "wschenk/lock-packagelock"
-service = "lock-packagelock"
-
-[lock-yarnlock]
-image = "wschenk/lock-yarnlock"
-service = "lock-yarnlock"
+[global]
+context = "do-nyc1-gratitude"
+domain = "gitgratitude.com"
+image_prefix = "wschenk/"
 
 [projects]
-database = "postgres-postgresql"
+config_maps = ["gratitude-config","postgres-postgresql-projects"]
 image = "wschenk/projects"
 schema = "projects"
 service = "projects"
 
 [repositories]
-database = "postgres-postgresql"
+binding = true
+config_maps = ["postgres-postgresql-repositories"]
+events = ["git.done"]
 image = "wschenk/repositories"
 schema = "repositories"
 service = "repositories"
 
-[ruby-echo]
-image = "wschenk/ruby-echo"
-no-tls = true
-service = "ruby-echo"
-
-[ruby-send]
-image = "wschenk/ruby-send"
-no-tls = true
-service = "ruby-send"
-
 [vcs-git]
+binding = true
+config_maps = ["s3-access"]
+events = ["git.process"]
 image = "wschenk/vcs-git"
 service = "vcs-git"
+
+[watcher]
+binding = true
+config_maps = ["postgres-postgresql-watcher","s3-access"]
+events = ["url.watch"]
+image = "wschenk/watcher"
+migrate = "rake db:migrate"
+schema = "watcher"
+service = "watcher"

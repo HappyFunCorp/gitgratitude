@@ -29,13 +29,14 @@ it will be considered a deployable service.
 Example:
 
 #+begin_src toml
-[repositories]
+[watcher]
 binding = true
-config_maps = ["postgres-postgresql-repositories"]
-events = ["git.done"]
-image = "wschenk/repositories"
-schema = "repositories"
-service = "repositories"
+config_maps = ["postgres-postgresql-watcher","s3-access"]
+events = ["url.watch"]
+image = "wschenk/watcher"
+migrate = "rake db:migrate"
+schema = "watcher"
+service = "watcher"
 #+end_src
 
 | Name        | Description                                                                    |
@@ -43,20 +44,33 @@ service = "repositories"
 | =config_maps= | Which config maps should be injected into the environment                      |
 | =events=      | List of events that trigger this service                                       |
 | =image=       | Tag of the image to build locally and deploy remotely                          |
+| =migrate=     | command to use to update the database                                          |
 | =schema=      | Database schema to use, config map will be created with a correct =DATABASE_URL= |
 | =service=     | The name of the remote service                                                 |
 
 Commands are:
 
 #+begin_src bash
-  ./kproj --help
-  kproj build           # Builds a service
-  kproj db              # Database functions
-  kproj doctor          # Sync the state of the cluster
-  kproj help [COMMAND]  # Describe available commands or one specific command
-  kproj info name       # queries the cluster
-  kproj up name         # Deploys a service
-  kproj update          # Pushes configuration to server
+  ./kproj help
+  Commands:
+    kproj build                   # Builds a service
+    kproj db                      # Database functions
+    kproj doctor                  # Sync the state of the cluster
+    kproj help [COMMAND]          # Describe available commands or one specific command
+    kproj info name               # queries the cluster
+    kproj trigger_add name event  # add a trigger to the service
+    kproj up name                 # Deploys a service
+    kproj update                  # Pushes configuration to server
+
+  ./kproj db help
+  Commands:
+    kproj db database_url db schema  # set the database secret
+    kproj db dbs                     # List databases
+    kproj db help [COMMAND]          # Describe subcommands or one specific subcommand
+    kproj db job                     # Create the backup job
+    kproj db migrate name            # runs the db migration
+    kproj db password                # get the password of a database
+    kproj db schemas                 # List defined schemas
 #+end_src
 
 ** Config
@@ -64,24 +78,7 @@ Commands are:
 [[./deployment.toml][deployment.toml]] has a list of services and data around how they are
 deployed.
 
-Block storage is in
-
-[[kubernetes/workspace.yaml]]
-
-#+begin_src bash :results output
-  kubectl apply -f kubernetes/workspace.yaml
-#+end_src
-
-#+RESULTS:
-: persistentvolumeclaim/git-workspace created
-
-And then attach the volume to the =vcs-git= service:
-
-#+begin_src bash :results output
-  kn service update vcs-git --mount /workspace=git-workspace --env WORK_VOLUME=/workspace
-#+end_src
-
-#+RESULTS:
+[[kubernetes]] directory contains other services not deployed by =kn=.
 
 ** PGAdmin
 
@@ -121,8 +118,17 @@ NextJS app that contains the front end as well as the projects database
 
 NextJS that contains the frontend to the repositories
 
+| =git.done=    | receives | a repository has been updated |
+| =url.watch=   | sends    | watch for changes on this url |
+| =git.process= | sends    | process a repository          |
+
+
 ** [[eco-rubygems]]
 ruby-base gateway to the rubygems ecosystem
+
+Usage
+
+GET /?package=rails
 
 ** TODO eco-npm
 node-based gateway to the npm ecosystem
@@ -139,9 +145,24 @@ node-based parsing of =package-lock.json=
 ** [[lock-yarnlock]]
 node-based parsing of =yarn.lock=
 
-** TODO vcs-git
+** [[vcs-git]]
 Downloading and analyising the repo
 
-** TODO watcher
+*** Events
+
+| =git.process= | receives | pulls the repository and creates the database |
+| =git.done=    | sends    | finished processing the repository            |
+
+
+** [[watcher]]
+
 Service to monitor URLs and trigger recalculations
+
+*** Events
+
+TODO: specify in url.watch if we want to store in S3 or not
+
+| =url.watch=   | receives | the url to watch                                 |
+| =url.changed= | sends    | A watched url has changed, data uploaded into S3 |
+
 

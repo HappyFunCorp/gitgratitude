@@ -1,11 +1,20 @@
 * Update deployment
+** DONE Doctor command to see the state of the system
+CLOSED: [2021-12-23 Thu 08:11]
+** Reconsile differences
 ** Manage knative operator
-** Manage database config
-*** Backup/restore
-** CronJobs/scheduling
+** DONE Manage database config
+CLOSED: [2021-12-23 Thu 08:10]
+*** DONE Backup/restore
+CLOSED: [2021-12-23 Thu 08:10]
+** DONE CronJobs/scheduling
+CLOSED: [2021-12-23 Thu 08:10]
 ** DONE Work with configmap better
 CLOSED: [2021-12-16 Thu 09:22]
 * Projects
+** DONE rubygems project lookup
+CLOSED: [2021-12-23 Thu 08:11]
+** npm project lookup
 ** parse lockfiles
 ** download releases
 ** track dependancies
@@ -14,14 +23,18 @@ CLOSED: [2021-12-16 Thu 09:22]
 - add each of the projects as private
 ** subscribe to project health email
 ** project heath page
+ 
 * Repositories
-** download and create sqlite database
-** create s3 space
+** DONE download and create sqlite database
+CLOSED: [2021-12-23 Thu 08:10]
+** DONE create s3 space
+CLOSED: [2021-12-23 Thu 08:10]
 ** repository health page
 ** send update events
 ** Send repo report email
 * Watcher
-** send update events
+** DONE send update events
+CLOSED: [2021-12-23 Thu 08:10]
 * DONE Eventing
 CLOSED: [2021-12-16 Thu 09:23]
 ** DONE example send and receive

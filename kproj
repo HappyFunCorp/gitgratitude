@@ -83,7 +83,7 @@ class Kubectl
 end
   
 class Config
-  FILE="new_deployment.toml"
+  FILE="deployment.toml"
 
   def self.[](key)
     config[key]
