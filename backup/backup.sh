@@ -19,4 +19,6 @@ else
   AWS_ARGS="--endpoint-url https://${AWS_END_POINT}"
 fi
 
+date +"%Y-%m-%dT%H:%M:%SZ"
+
 cat ${PGNAME}.sql.gz | aws $AWS_ARGS s3 cp - s3://$BUCKET_NAME/backups/${PGNAME}_$(date +"%Y-%m-%dT%H:%M:%SZ").sql.gz || exit 2
