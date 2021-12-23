@@ -21,6 +21,65 @@ class Kubectl
   def self.context
     `kubectl config current-context --skip-headers=true`.chomp
   end
+
+  def self.knative_operator
+    return deployment_status( 'knative-operator', 'operator.knative.dev/release' )
+  end
+
+  def self.knative_serving
+    return crd_status( 'knative-serving', 'knativeservings.operator.knative.dev', 'operator.knative.dev/release' )
+  end
+
+  def self.knative_eventing
+    return crd_status( 'knative-eventing', 'knativeeventings.operator.knative.dev', 'operator.knative.dev/release' )
+  end
+
+  def self.cert_manager
+    return deployment_status 'cert-manager -n cert-manager', 'helm.sh/chart'
+  end
+
+  def self.postgres
+    return stateful_set_status 'postgres-postgresql', 'helm.sh/chart'
+  end
+
+  def self.deployment_status deployment, version_label
+    data = YAML.load( `kubectl get deployment #{deployment} -o yaml` )
+
+    return {defined:false, name: deployment} if !data
+
+    results = {
+      defined: true,
+      name: data['metadata']['name'],
+      readyReplicas: data['status']['readyReplicas'],
+      version: data['metadata']['labels'][version_label]
+    }
+  end
+
+  def self.stateful_set_status deployment, version_label
+    data = YAML.load( `kubectl get statefulsets #{deployment} -o yaml` )
+
+    return {defined:false, name: deployment} if !data
+
+    results = {
+      defined: true,
+      name: data['metadata']['name'],
+      readyReplicas: data['status']['readyReplicas'],
+      version: data['metadata']['labels'][version_label]
+    }
+  end
+
+  def self.crd_status crd, crd_key, version_label
+    data = YAML.load( `kubectl get crd #{crd_key} -o yaml` )
+
+    return {defined:false, name: crd} if !data
+
+    results = {
+      defined: true,
+      name: crd,
+      readyReplicas: data['status']['conditions'].collect { |x| "#{x['reason']}: #{x['status']}" }.join( ", " ),
+      version: data['metadata']['labels'][version_label]
+    }
+  end
 end
   
 class Config
@@ -276,6 +335,11 @@ class Service
 
     c = Config[name]
 
+    if( c['service_type'] == 'job' )
+      job_update( name )
+      return
+    end
+
     current_instance = ServiceInstance.new( name )
 
     cmd = current_instance.exists? ? 'update' : 'create'
@@ -299,6 +363,68 @@ class Service
 
     puts "\nRunning #{cmd_array.join( ' ' )}"
     system( cmd_array.join( ' ' ) )
+  end
+
+  def self.job_update( name )
+    file = "kubernetes/#{name}.yaml"
+    
+    puts "Creating backup job in #{file}"
+
+    job = {
+      apiVersion: "batch/v1",
+      kind: "CronJob",
+      metadata: {
+        name: "postgres-backup"
+      },
+      spec: {
+        schedule: "@daily",
+        jobTemplate: { 
+          spec: {
+            template: {
+              spec: {
+                containers: [
+                  {
+                    name: "backup",
+                    image: "wschenk/backup",
+                    imagePullPolicy: "Always"
+                  }],
+                restartPolicy: "Never"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    spec = job[:spec][:jobTemplate][:spec][:template][:spec][:containers].first
+
+    spec['envFrom'] ||= []
+    spec['envFrom'] << {
+      configMapRef: {
+        name: "s3-access"
+      }
+    }
+
+    Config['databases'].keys.each do |schema|
+      puts schema
+      spec['env'] ||= []
+      spec['env'] << {
+        name: "#{schema.upcase}_DATABASE_URL",
+        valueFrom: {
+          configMapKeyRef: {
+            name: Config['databases'][schema]['config_map'],
+            key: "DATABASE_URL"
+          }
+        }
+      }
+    end
+      
+    
+    File.open( file, "w" ) do |out|
+      out.write( YAML.dump( job ).gsub( /^(\s*):/, '\1' ).gsub( /(- ):/, '\1')  )
+    end
+
+    system( "kubectl apply -f #{file}" )
   end
 end
 
@@ -438,10 +564,17 @@ end
 
 
 class DatabaseCLI < Thor
-  desc "list", "List databases"
-  def list
+  desc "dbs", "List databases"
+  def dbs
     Database.list.each do |db|
       puts db
+    end
+  end
+
+  desc "schemas", "List defined schemas"
+  def schemas
+    Config['databases'].each do |d|
+      p d
     end
   end
 
@@ -459,13 +592,28 @@ class DatabaseCLI < Thor
   def database_url( db, schema )
     puts Database.config_map( db, schema )
   end
+
+  desc "job", "Create the backup job"
+  def job
+    Database.backup_job
+  end
 end
 
 class CLI < Thor
   desc "doctor", "Sync the state of the cluster"
   def doctor
+    fmt = "%-20s %-20s %s\n"
 
-    pp Config.config
+    printf fmt, "NAME", "VERSION", "READY REPLICAS"
+
+    [ Kubectl.knative_operator,
+      Kubectl.knative_serving,
+      Kubectl.knative_eventing,
+      Kubectl.cert_manager,
+      Kubectl.postgres
+    ].each do |status|
+      printf fmt, status[:name], status[:version], status[:readyReplicas]
+    end
   end
 
   desc "build", "Builds a service"

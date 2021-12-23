@@ -1,4 +1,9 @@
 
+[backup]
+image = "wschenk/backup"
+service = "backup"
+service_type = "job"
+
 [databases.projects]
 config_map = "postgres-postgresql-projects"
 database = "postgres-postgresql"
