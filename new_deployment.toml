@@ -11,6 +11,10 @@ database = "postgres-postgresql"
 config_map = "postgres-postgresql-watcher"
 database = "postgres-postgresql"
 
+[eco-rubygems]
+image = "wschenk/eco-rubygems"
+service = "eco-rubygems"
+
 [global]
 context = "do-nyc1-gratitude"
 domain = "gitgratitude.com"
