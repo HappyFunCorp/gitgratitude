@@ -14,7 +14,10 @@ CLOSED: [2021-12-16 Thu 09:22]
 * Projects
 ** DONE rubygems project lookup
 CLOSED: [2021-12-23 Thu 08:11]
-** npm project lookup
+** DONE npm project lookup
+CLOSED: [2021-12-23 Thu 17:14]
+** npm version parsing
+** adding contributors to gem lookup
 ** parse lockfiles
 ** download releases
 ** track dependancies

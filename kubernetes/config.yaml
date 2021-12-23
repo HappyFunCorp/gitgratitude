@@ -4,4 +4,5 @@ metadata:
   name: gratitude-config
 data:
   ECO_RUBYGEMS_URL: http://eco-rubygems.default.svc.cluster.local
+  ECO_NPM_URL: http://eco-npm.default.svc.cluster.local
   

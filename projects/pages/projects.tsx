@@ -25,6 +25,7 @@ export const getServerSideProps = async () => {
     const projects = await prisma.project.findMany({
       select: {
         id: true,
+        ecosystem_name: true,
         name: true,
         description: true,
         git: true,
