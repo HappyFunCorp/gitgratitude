@@ -44,7 +44,3 @@ get '/keys' do
   ENV.keys.collect { |key| "#{key}=#{ENV[key]}" }.join( "\n" )
 end
 
-
-#get '/:project_name' do |project_name|
-#  Handler.new.run( project_name )
-#end
