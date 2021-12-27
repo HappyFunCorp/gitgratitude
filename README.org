@@ -8,8 +8,16 @@ It's deployed on a kubenetes cluster build as described
 2. [[https://willschenk.com/articles/2021/serving_a_knative_function_on_the_root/][Serving services on the root]]
 3. [[https://willschenk.com/articles/2021/next_js_with_prisma/][NextJS Knative service with Prisma]]
 
-* Deployment
+* Development
 
+** Database
+
+#+begin_src bash
+  docker run -d -e POSTGRES_PASSWORD=awesome_password -p 5432:5432 postgres
+#+end_src
+
+
+* Deployment
 ** Script
 There's a [[kproj]] script that handles pushing out new versions.
 

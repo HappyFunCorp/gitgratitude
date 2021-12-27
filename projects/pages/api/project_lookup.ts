@@ -1,13 +1,17 @@
+import { Ecosystem, lookupEcosystem } from "lib/ecosystem";
 import { syncProjectFromJson } from "lib/projects";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { ecosystem, name } = req.body;
-  console.log(`Looking up ${ecosystem}/${name}`);
 
-  if (ecosystem == "rubygems" && process.env.ECO_RUBYGEMS_URL) {
-    doRequest(res, ecosystem, name, process.env.ECO_RUBYGEMS_URL);
-  } else if (ecosystem == "npm" && process.env.ECO_NPM_URL) {
-    doRequest(res, ecosystem, name, process.env.ECO_NPM_URL);
+  const eco = lookupEcosystem(ecosystem);
+
+  if (eco) {
+    doRequest(res, eco, name);
   } else {
     res
       .status(200)
@@ -15,8 +19,13 @@ export default async function handler(req, res) {
   }
 }
 
-async function doRequest(res, ecosystem, name, endpoint) {
-  const url = new URL(endpoint);
+async function doRequest(
+  res: NextApiResponse,
+  ecosystem: Ecosystem,
+  name: string
+) {
+  console.log(`Looking up ${ecosystem.name}/${name}`);
+  const url = new URL(ecosystem.package_endpoint);
   url.searchParams.append("package", name);
   const response = await fetch(url.href);
   if (response.ok) {

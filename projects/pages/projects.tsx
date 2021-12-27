@@ -5,7 +5,6 @@ import Layout from "components/layout";
 import ProjectLookup from "components/projectlookup";
 import ProjectList from "components/projectlist";
 import { prisma } from "lib/prisma";
-import { Project } from ".prisma/client";
 
 // @ts-ignore
 const Projects: NextPage = ({ projects }) => {
@@ -26,7 +25,7 @@ export const getServerSideProps = async () => {
   const projects = await prisma.project.findMany({
     select: {
       id: true,
-      ecosystem_name: true,
+      ecosystem: true,
       name: true,
       description: true,
       git: true,

@@ -17,7 +17,7 @@ export default function ProjectList({ projects }) {
         </tr>
         {projects.map((e) => (
           <tr key={e.id}>
-            <td>{e.ecosystem_name}</td>
+            <td>{e.ecosystem}</td>
             <td>{e.name}</td>
             <td>{e.homepage}</td>
             <td>{e.git}</td>

@@ -1,21 +1,18 @@
 import { prisma } from "lib/prisma";
-import { Ecosystem, Project } from ".prisma/client";
+import { Project } from ".prisma/client";
+import { Ecosystem, lookupEcosystem } from "./ecosystem";
 
-export async function syncProjectFromJson(ecoName: string, projectJson) {
-  console.log(`Updating ${ecoName}/${projectJson.name}`);
+export async function syncProjectFromJson(ecoName: Ecosystem, projectJson) {
+  console.log(`Updating ${ecoName.name}/${projectJson.name}`);
 
-  const ecosystem = await prisma.ecosystem.upsert({
-    where: { name: ecoName },
-    create: { name: ecoName },
-    update: { name: ecoName },
-  });
+  const ecosystem = lookupEcosystem(ecoName.name);
 
   const existingProject = await prisma.project.findFirst({
-    where: { name: projectJson.name, ecosystem: ecosystem },
+    where: { name: projectJson.name, ecosystem: ecosystem.enum },
   });
 
   const data = {
-    ecosystem_name: ecosystem.name,
+    ecosystem: ecosystem.enum,
     name: projectJson.name,
     homepage: projectJson.homepage,
     description: projectJson.description,
@@ -99,5 +96,11 @@ async function syncReleases(project: Project, projectJson: any) {
   return project;
 }
 function integerOrNil(value: string) {
-  return parseInt(value);
+  const ret = parseInt(value);
+
+  if (!ret || ret === NaN) {
+    return null;
+  }
+
+  return ret;
 }

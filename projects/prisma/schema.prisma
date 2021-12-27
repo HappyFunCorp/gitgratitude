@@ -10,16 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Ecosystem {
-  name    String    @unique
-  Project Project[]
-}
-
 model Project {
-  id             String    @id @default(uuid())
-  createdAt      DateTime  @default(now())
-  ecosystem_name String
-  ecosystem      Ecosystem @relation(fields: [ecosystem_name], references: [name])
+  id             String        @id @default(uuid())
+  createdAt      DateTime      @default(now())
+  ecosystem      EcosystemName
   name           String
   homepage       String?
   summary        String?
@@ -29,6 +23,7 @@ model Project {
   latest_release DateTime?
   latest_version String?
   Release        Release[]
+  Dependancy     Dependancy[]
 }
 
 model Release {
@@ -47,4 +42,40 @@ model Release {
   sha            String?
   license        String?
   download_count Int?
+}
+
+model Lockfile {
+  id          String        @id @default(uuid())
+  file_type   LockfileType
+  ecosystem   EcosystemName
+  name        String
+  valid       Boolean?
+  parsed      Boolean       @default(false)
+  data        Bytes
+  uploadedAt  DateTime?
+  processedAt DateTime?
+  Dependancy  Dependancy[]
+}
+
+model Dependancy {
+  id              String    @id @default(uuid())
+  lockfile_id     String
+  lockfile        Lockfile  @relation(fields: [lockfile_id], references: [id])
+  project_id      String?
+  project         Project?  @relation(fields: [project_id], references: [id])
+  name            String
+  version         String
+  current_version String
+  synced          DateTime?
+}
+
+enum EcosystemName {
+  rubygems
+  npm
+}
+
+enum LockfileType {
+  gemfile
+  yarn
+  npm
 }
