@@ -246,6 +246,10 @@ node-based parsing of =yarn.lock=
 ** [[vcs-git]]
 Downloading and analyising the repo
 
+*** Work outstanding
+- [ ] look for special files to fingerprint the repo (code of conduct, etc)
+- [ ] private repositories
+
 *** Required ENV
 
 | =K_SINK=                | url to post events to                                         |
@@ -265,10 +269,11 @@ Downloading and analyising the repo
 
 Service to monitor URLs and trigger recalculations
 
-*** TODO
-**** specify in url.watch if we want to store in S3 or not
-**** trigger poll based on ping events
-**** better history of frequency changes
+*** Work outstanding
+
+- [ ] specify in url.watch if we want to store in S3 or not
+- [ ] trigger poll based on ping events
+- [ ] better history of frequency changes
 
 *** Required ENV
 
