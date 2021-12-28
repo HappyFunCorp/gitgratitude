@@ -1,10 +1,11 @@
 require 'sinatra'
-require_relative './handler.rb'
+require 'sinatra/json'
+require_relative './gemfile_lock_parser.rb'
 
 get '/' do
-  "Hello there!"
+  "Part of <a href='https://gitgratitude.com'>gitgratitude</a>"
 end
 
-get '/:project_name' do |project_name|
-  Handler.new.run( project_name )
+post '/' do
+  json GemfileLockParser.parse( request.body.read )
 end
