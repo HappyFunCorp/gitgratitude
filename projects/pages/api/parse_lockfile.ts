@@ -2,16 +2,21 @@ import axios from "axios";
 import { lookupParser } from "lib/ecosystem";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "lib/prisma";
+import { syncLockfileFromJson } from "lib/lockfiles";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id } = req.body;
+  const { id } = req.query;
+  if (!id) {
+    res.status(404).json({ message: "No lockfile id" });
+  }
   const lockfile = await prisma.lockfile.findFirst({
-    where: { id },
-    select: { id: true, name: true, data: true },
+    where: { id: `${id}` },
   });
+
+  console.log(`Working on ${id}`);
 
   if (!lockfile) {
     res.status(404).json({ id, message: "Lockfile not found" });
@@ -26,19 +31,26 @@ export default async function handler(
       .json({ id, message: `Parser for ${lockfile.name} not found` });
     return;
   }
-  console.log(lockfile);
 
   const data = lockfile.data;
-  console.log("Do we have data?");
-  console.log(data);
 
-  console.log(`Calling ${parser.parser_endpoint}`);
-  const response = await axios(parser.parser_endpoint, {
+  console.log(`Calling ${parser.parser_endpoint} for ${lockfile.name}`);
+
+  const response = await fetch(parser.parser_endpoint, {
     method: "post",
-    data: data,
+    body: data,
   });
 
-  // console.log(response);
+  if (!response.ok) {
+    res
+      .status(response.status)
+      .json({ id, message: "Error from parsing service" });
+    return;
+  }
+
+  const lockfileJson = await response.json();
+
+  await syncLockfileFromJson(lockfile, lockfileJson);
 
   res.status(200).json({ id: id, message: "Parsing" });
 }

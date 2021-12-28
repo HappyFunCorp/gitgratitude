@@ -65,7 +65,7 @@ model Dependancy {
   project         Project?  @relation(fields: [project_id], references: [id])
   name            String
   version         String
-  current_version String
+  current_version String?
   synced          DateTime?
 }
 

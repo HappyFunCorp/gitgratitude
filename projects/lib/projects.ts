@@ -2,7 +2,10 @@ import { prisma } from "lib/prisma";
 import { Project } from ".prisma/client";
 import { Ecosystem, lookupEcosystem } from "./ecosystem";
 
-export async function syncProjectFromJson(ecoName: Ecosystem, projectJson) {
+export async function syncProjectFromJson(
+  ecoName: Ecosystem,
+  projectJson
+): Promise<Project | null> {
   console.log(`Updating ${ecoName.name}/${projectJson.name}`);
 
   const ecosystem = lookupEcosystem(ecoName.name);
@@ -25,10 +28,12 @@ export async function syncProjectFromJson(ecoName: Ecosystem, projectJson) {
       where: { id: existingProject.id },
       data: data,
     });
-    syncReleases(project, projectJson);
+    await syncReleases(project, projectJson);
+    return existingProject;
   } else {
     const project = await prisma.project.create({ data: data });
-    syncReleases(project, projectJson);
+    await syncReleases(project, projectJson);
+    return project;
   }
 }
 
@@ -69,7 +74,7 @@ async function syncReleases(project: Project, projectJson: any) {
   const first_release = await prisma.release.findFirst({
     select: { released: true },
     where: { project },
-    orderBy: { released: "asc" },
+    orderBy: { released: "desc" },
   });
 
   if (first_release) {
@@ -81,7 +86,7 @@ async function syncReleases(project: Project, projectJson: any) {
 
   const latest_release = await prisma.release.findFirst({
     select: { released: true, version: true },
-    orderBy: { released: "desc" },
+    orderBy: { released: "asc" },
   });
 
   if (latest_release) {
@@ -103,4 +108,29 @@ function integerOrNil(value: string) {
   }
 
   return ret;
+}
+
+export async function returnOrLookupProject(
+  ecosystem: Ecosystem,
+  name: string
+) {
+  const project = await prisma.project.findFirst({
+    where: { ecosystem: ecosystem.enum, name },
+  });
+
+  if (project) {
+    return project;
+  }
+
+  console.log(`Looking up ${ecosystem.name}/${name}`);
+  const url = new URL(ecosystem.package_endpoint);
+  url.searchParams.append("package", name);
+  const response = await fetch(url.href);
+  if (response.ok) {
+    const json = await response.json();
+    const project = await syncProjectFromJson(ecosystem, json);
+    return project;
+  }
+
+  return null;
 }
