@@ -29,6 +29,10 @@ context = "do-nyc1-gratitude"
 domain = "gitgratitude.com"
 image_prefix = "wschenk/"
 
+[lock-gemfile]
+image = "wschenk/lock-gemfile"
+service = "lock-gemfile"
+
 [projects]
 config_maps = ["gratitude-config","postgres-postgresql-projects"]
 image = "wschenk/projects"

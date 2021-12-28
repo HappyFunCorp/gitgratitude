@@ -8,6 +8,10 @@ It's deployed on a kubenetes cluster build as described
 2. [[https://willschenk.com/articles/2021/serving_a_knative_function_on_the_root/][Serving services on the root]]
 3. [[https://willschenk.com/articles/2021/next_js_with_prisma/][NextJS Knative service with Prisma]]
 
+* Current Status
+
+In active development
+
 * Development
 
 ** Database
@@ -117,35 +121,121 @@ Once you are done, you can kill =pgadmin=
 : service "pgadmin-service" deleted
 : statefulset.apps "pgadmin" deleted
 
+* JSON Schemas
+
+** Project Lookup (eco-*)
+
+=GET /?package=name=
+
+#+begin_src typescript
+export type Project = {
+  name: string;
+  homepage?: string;
+  description?: string;
+  git?: string;
+  keywords?: string[];
+  participants?: Participant[];
+  licenses?: string[];
+  releases: Release[]
+};
+
+export type Release = {
+  version: string;
+  released?: string;
+  summary?: string;
+  description?: string;
+  licenses?: string[];
+  download_count?: number;
+  major?: number;
+  minor?: number;
+  patch?: number;
+  suffix?: string;
+  prerelease?: boolean;
+};
+
+export type Participant = {
+  username?: string;
+  name?: string;
+  email: string;
+  type: string;
+};
+#+end_src
+
+** Lockfile parsing (lock-*)
+
+
+
 * Services
 
 ** [[projects]]
 NextJS app that contains the front end as well as the projects database
 
+*** Required ENV
+
+Mostly referenced in =lib/ecosystem.ts=
+
+| =DATABASE_URL=         | connect string to postgres |
+| =ECO_RUBYGEMS_URL=     | url to eco-rubygems        |
+| =ECO_NPM_URL=          | url to eco-npm             |
+| =LOCK_GEMFILE_URL=     | url to lock-gemfile        |
+| =LOCK_YARNLOCK_URL=    | url to lock-yarnlock       |
+| =LOCK_PACKAGELOCK_URL= | url to lock-packagelock    |
+
+
+
 ** [[repositories]]
 
 NextJS that contains the frontend to the repositories
+*** Required ENV
 
+| =DATABASE_URL= | connect string to postgres |
+| =K_SINK=       | url to post events to      |
+
+*** Events
 | =git.done=    | receives | a repository has been updated |
 | =url.watch=   | sends    | watch for changes on this url |
 | =git.process= | sends    | process a repository          |
 
 
 ** [[eco-rubygems]]
-ruby-base gateway to the rubygems ecosystem
+ruby-based gateway to the rubygems ecosystem
 
-Usage
+Uses =project schema= as a resposne
 
-GET /?package=rails
+*** Required ENV
 
-** TODO eco-npm
+/none/
+
+*** Events
+
+/none/
+
+** [[eco-npm]]
 node-based gateway to the npm ecosystem
+
+Uses =project schema= as a resposne
+
+*** Required ENV
+
+/none/
+
+*** Events
+
+/none/
 
 ** TODO forge-github
 Issues and other project level data
 
 ** [[lock-gemfile]]
 ruby-based parsing of =Gemfile.lock=
+
+*** Required ENV
+
+/none/
+
+*** Events
+
+/none/
 
 ** TODO lock-packagelock
 node-based parsing of =package-lock.json=
@@ -155,6 +245,15 @@ node-based parsing of =yarn.lock=
 
 ** [[vcs-git]]
 Downloading and analyising the repo
+
+*** Required ENV
+
+| =K_SINK=                | url to post events to                                         |
+| =AWS_ACCESS_KEY_ID=     | aws access id key                                             |
+| =AWS_SECRET_ACCESS_KEY= | aws secret                                                    |
+| =AWS_END_POINT=         | aws end point                                                 |
+| =BUCKET_NAME=           | bucket name, e..g =storage.gitgratitude.com=                    |
+| =STORAGE_URL=           | external url to bucket, e.h. =https://storage.gitgratitude.com= |
 
 *** Events
 
@@ -166,9 +265,21 @@ Downloading and analyising the repo
 
 Service to monitor URLs and trigger recalculations
 
-*** Events
+*** TODO
+**** specify in url.watch if we want to store in S3 or not
+**** trigger poll based on ping events
+**** better history of frequency changes
 
-TODO: specify in url.watch if we want to store in S3 or not
+*** Required ENV
+
+| =K_SINK=                | url to post events to                                         |
+| =AWS_ACCESS_KEY_ID=     | aws access id key                                             |
+| =AWS_SECRET_ACCESS_KEY= | aws secret                                                    |
+| =AWS_END_POINT=         | aws end point                                                 |
+| =BUCKET_NAME=           | bucket name, e..g =storage.gitgratitude.com=                    |
+
+
+*** Events
 
 | =url.watch=   | receives | the url to watch                                 |
 | =url.changed= | sends    | A watched url has changed, data uploaded into S3 |
