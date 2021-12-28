@@ -2,3 +2,4 @@
 node_modules
 spaces.org
 .DS_Store
+watcher.go

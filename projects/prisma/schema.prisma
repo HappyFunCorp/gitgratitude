@@ -51,7 +51,7 @@ model Lockfile {
   name        String
   valid       Boolean?
   parsed      Boolean       @default(false)
-  data        Bytes
+  data        String // Sigh
   uploadedAt  DateTime?
   processedAt DateTime?
   Dependancy  Dependancy[]

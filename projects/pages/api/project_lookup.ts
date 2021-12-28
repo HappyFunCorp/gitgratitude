@@ -11,7 +11,7 @@ export default async function handler(
   const eco = lookupEcosystem(ecosystem);
 
   if (eco) {
-    doRequest(res, eco, name);
+    doPackageRequest(res, eco, name);
   } else {
     res
       .status(200)
@@ -19,7 +19,7 @@ export default async function handler(
   }
 }
 
-async function doRequest(
+async function doPackageRequest(
   res: NextApiResponse,
   ecosystem: Ecosystem,
   name: string

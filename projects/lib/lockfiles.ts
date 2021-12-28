@@ -1,22 +1,10 @@
 import fs from "fs";
 import { Lockfile } from "@prisma/client";
 import { File } from "next-runtime/runtime/body-parser";
-import tmp from "tmp";
 import { lookupParser } from "./ecosystem";
+import { prisma } from "lib/prisma";
 
-export async function tryLockFile(
-  file: File,
-  stream: NodeJS.ReadableStream
-): Promise<Lockfile> {
-  const tmpobj = tmp.fileSync();
-
-  console.log(`Writing to ${tmpobj.name}`);
-  stream.pipe(fs.createWriteStream(tmpobj.name));
-  const fileData = fs.readFileSync(tmpobj.name);
-
-  console.log(`Should remove ${tmpobj.name}`);
-  // tmpobj.removeCallback();
-
+export async function tryLockFile(file: File): Promise<Lockfile | null> {
   const parser = lookupParser(file.name);
 
   if (!parser) {
@@ -24,19 +12,23 @@ export async function tryLockFile(
     return null;
   }
 
+  const contents = fs.readFileSync(file.path).toString();
+
   const lockfileData = {
     name: file.name,
     ecosystem: parser.ecosystem,
     file_type: parser.file_type,
     valid: true,
     parsed: false,
-    data: fileData,
+    data: contents,
     uploadedAt: new Date(),
   };
 
   const lockfile = await prisma.lockfile.create({
     data: lockfileData,
   });
+
+  console.log(`Lockfile ${lockfile.id} stored`);
 
   return lockfile;
 }

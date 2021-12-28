@@ -20,19 +20,24 @@ export default function Lockfiles({ message }) {
   );
 }
 
-export const getServerSideProps = handle({
-  async upload({ file, stream }) {
-    const lockfile = await tryLockFile(file, stream);
+type PageProps = any;
 
-    if (lockfile) {
-      console.log(`Redirecting to /lockfiles/${lockfile.id}`);
-      return redirect(`/lockfiles/${lockfile.id}`);
-    } else {
-      console.log(`No lockfile`);
-      return json({ message: "Unable to parse lockfile" });
-    }
-  },
+export const getServerSideProps = handle<PageProps>({
+  uploadDir: "/tmp",
+
   async get({ params, query }) {
     return json({ message: "Select a file to upload" });
+  },
+
+  async post({ req: { body } }) {
+    // @ts-expect-error
+    const file: File = body.file;
+    const lockfile = await tryLockFile(file);
+
+    if (lockfile) {
+      return redirect(`/lockfiles/${lockfile.id}`);
+    } else {
+      return json({ message: "Unable to parse lockfile" });
+    }
   },
 });
