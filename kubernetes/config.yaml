@@ -5,4 +5,6 @@ metadata:
 data:
   ECO_RUBYGEMS_URL: http://eco-rubygems.default.svc.cluster.local
   ECO_NPM_URL: http://eco-npm.default.svc.cluster.local
-  
+  LOCK_GEMFILE_URL: http://lock-gemfile.default.svc.cluster.local
+  LOCK_YARNLOCK_URL: http://lock-yarnlock.default.svc.cluster.local
+  LOCK_PACKAGELOCK_URL: http://lock-packagelock.default.svc.cluster.local
