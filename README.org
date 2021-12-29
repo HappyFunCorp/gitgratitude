@@ -166,37 +166,6 @@ export type Participant = {
 
 
 * Services
-
-** [[projects]]
-NextJS app that contains the front end as well as the projects database
-
-*** Required ENV
-
-Mostly referenced in =lib/ecosystem.ts=
-
-| =DATABASE_URL=         | connect string to postgres |
-| =ECO_RUBYGEMS_URL=     | url to eco-rubygems        |
-| =ECO_NPM_URL=          | url to eco-npm             |
-| =LOCK_GEMFILE_URL=     | url to lock-gemfile        |
-| =LOCK_YARNLOCK_URL=    | url to lock-yarnlock       |
-| =LOCK_PACKAGELOCK_URL= | url to lock-packagelock    |
-
-
-
-** [[repositories]]
-
-NextJS that contains the frontend to the repositories
-*** Required ENV
-
-| =DATABASE_URL= | connect string to postgres |
-| =K_SINK=       | url to post events to      |
-
-*** Events
-| =git.done=    | receives | a repository has been updated |
-| =url.watch=   | sends    | watch for changes on this url |
-| =git.process= | sends    | process a repository          |
-
-
 ** [[eco-rubygems]]
 ruby-based gateway to the rubygems ecosystem
 
@@ -242,6 +211,35 @@ node-based parsing of =package-lock.json=
 
 ** [[lock-yarnlock]]
 node-based parsing of =yarn.lock=
+** TODO [[notifier]]
+ruby service to handle sending emails and slack notifications
+** [[projects]]
+NextJS app that contains the front end as well as the projects database
+
+*** Required ENV
+
+Mostly referenced in =lib/ecosystem.ts=
+
+| =DATABASE_URL=         | connect string to postgres |
+| =ECO_RUBYGEMS_URL=     | url to eco-rubygems        |
+| =ECO_NPM_URL=          | url to eco-npm             |
+| =LOCK_GEMFILE_URL=     | url to lock-gemfile        |
+| =LOCK_YARNLOCK_URL=    | url to lock-yarnlock       |
+| =LOCK_PACKAGELOCK_URL= | url to lock-packagelock    |
+
+
+** [[repositories]]
+
+NextJS that contains the frontend to the repositories
+*** Required ENV
+
+| =DATABASE_URL= | connect string to postgres |
+| =K_SINK=       | url to post events to      |
+
+*** Events
+| =git.done=    | receives | a repository has been updated |
+| =url.watch=   | sends    | watch for changes on this url |
+| =git.process= | sends    | process a repository          |
 
 ** [[vcs-git]]
 Downloading and analyising the repo
@@ -263,7 +261,6 @@ Downloading and analyising the repo
 
 | =git.process= | receives | pulls the repository and creates the database |
 | =git.done=    | sends    | finished processing the repository            |
-
 
 ** [[watcher]]
 
@@ -288,5 +285,4 @@ Service to monitor URLs and trigger recalculations
 
 | =url.watch=   | receives | the url to watch                                 |
 | =url.changed= | sends    | A watched url has changed, data uploaded into S3 |
-
 

@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+# gem "rails"
+
+gem "mailgun-ruby", "~> 1.2"
+
+gem "sinatra", "~> 2.1"
+gem "puma", "~> 5.5"
+gem "cloud_events", "~> 0.6.0"
+gem "pg", "~> 1.2"
+gem "activerecord", "~> 7.0"
+gem "rexml", "~> 3.2"
+gem "rake", "~> 13.0"
+
+gem "sinatra-contrib", "~> 2.1"
+
+gem "slack-ruby-client", "~> 1.0"
