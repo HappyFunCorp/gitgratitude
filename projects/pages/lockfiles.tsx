@@ -12,7 +12,7 @@ export default function Lockfiles({ message }) {
   return (
     <Layout title="Lockfiles">
       <Link href="/">
-        <a className="text-blue-600">Back &larr;</a>
+        <a className="link-style">Back &larr;</a>
       </Link>
 
       <UploadFile />

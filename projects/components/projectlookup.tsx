@@ -1,8 +1,13 @@
 import { EcosystemName } from "@prisma/client";
+import { Ecosystem } from "lib/ecosystem";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function ProjectLookup({}) {
+type Props = {
+  ecosystem?: Ecosystem;
+};
+
+export default function ProjectLookup({ ecosystem }: Props) {
   const {
     register,
     handleSubmit,

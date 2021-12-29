@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .main-title {
+    @apply text-5xl py-8 font-bold tracking-wide;
+  }
+
+  .link-style {
+    @apply text-blue-600 underline hover:text-blue-800  hover:shadow-md hover:no-underline;
+  }
+}

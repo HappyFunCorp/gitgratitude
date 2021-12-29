@@ -12,10 +12,10 @@ export default function LockfileDetail({ lockfile }: Props) {
   return (
     <Layout title="Lockfiles">
       <Link href="/lockfiles">
-        <a className="text-blue-600">Back &larr;</a>
+        <a className="link-style">Back &larr;</a>
       </Link>
 
-      <h1 className="text-5xl py-4 font-bold tracking-wide">{lockfile.name}</h1>
+      <h1 className="main-title">{lockfile.name}</h1>
       <p>FileType: {lockfile.file_type}</p>
       <p>Ecosystem: {lockfile.ecosystem}</p>
       <p>Valid? {lockfile.valid ? "Yes" : "No"}</p>
