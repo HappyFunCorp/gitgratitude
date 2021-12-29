@@ -166,6 +166,25 @@ export type Participant = {
 
 
 * Services
+** [[backup]]
+
+Cronjob, defined in [[kubernetes/backup.yaml]] that copies the databases
+into s3 buckets
+
+A bit hacked together as far as [[kproj]] is concerned, database urls are
+manually added if =service = job=
+
+Run =./kproj up backup= after you create a new schema to regenerate the
+=yaml= file and apply it
+
+*** Required ENV 
+
+| =AWS_ACCESS_KEY_ID=     | aws access id key                                                |
+| =AWS_SECRET_ACCESS_KEY= | aws secret                                                       |
+| =AWS_END_POINT=         | aws end point                                                    |
+| =BUCKET_NAME=           | bucket name, e..g =storage.gitgratitude.com=                       |
+| =*_DATABASE_URL=        | will loop over each entry in the enviroment matching the pattern |
+
 ** [[eco-rubygems]]
 ruby-based gateway to the rubygems ecosystem
 
