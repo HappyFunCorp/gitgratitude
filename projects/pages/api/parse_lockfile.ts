@@ -39,12 +39,17 @@ export default async function handler(
   const response = await fetch(parser.parser_endpoint, {
     method: "post",
     body: data,
+    headers: new Headers({ "content-type": "application/json" }),
   });
 
+  console.log(response);
   if (!response.ok) {
-    res
-      .status(response.status)
-      .json({ id, message: "Error from parsing service" });
+    res.status(response.status).json({
+      id,
+      message: "Error from parsing service",
+      status: response.status,
+      statusText: response.statusText,
+    });
     return;
   }
 

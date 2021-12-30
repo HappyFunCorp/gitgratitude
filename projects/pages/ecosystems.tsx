@@ -40,7 +40,8 @@ export const getServerSideProps = async () => {
     _count: true,
   });
 
-  console.log(ecosystems);
+  // console.log(ecosystems);
+
   return {
     props: {
       ecosystems,
