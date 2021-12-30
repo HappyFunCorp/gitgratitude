@@ -33,6 +33,10 @@ image_prefix = "wschenk/"
 image = "wschenk/lock-gemfile"
 service = "lock-gemfile"
 
+[lock-packagelock]
+image = "wschenk/lock-packagelock"
+service = "lock-packagelock"
+
 [projects]
 config_maps = ["gratitude-config","postgres-postgresql-projects"]
 image = "wschenk/projects"
