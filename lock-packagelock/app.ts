@@ -6,8 +6,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(bodyParser.raw({ limit: "1M" }));
+// app.use(bodyParser.json());
+app.use(bodyParser.raw({ type: "*/*", limit: "5000kb" }));
 
 app.get("/", (req, res) => {
   console.log("Got get on root");
@@ -16,13 +16,11 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   console.log("Attempting to parse...");
-  const body = req.body;
-
-  // console.log(body);
+  const body = JSON.parse(req.body.toString());
 
   const lockfile = parsePackageLock(body);
 
-  console.log("parsed");
+  console.log("...parsed");
 
   res.status(200).json(lockfile);
 });

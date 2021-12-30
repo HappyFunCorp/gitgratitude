@@ -1,22 +1,22 @@
 import { readFileSync } from "fs";
 
 export type Lockfile = {
-  dependancies: Dependancy[];
+  dependencies: Dependency[];
 };
-export type Dependancy = {
+export type Dependency = {
   name: string;
   version: string;
 };
 
 export function parsePackageLock(lockfile: any) {
-  const dependancies = new Array<Dependancy>();
+  const dependencies = new Array<Dependency>();
 
   for (const d of Object.keys(lockfile.packages)) {
     const name = d.replace("node_modules/", "");
-    dependancies.push({ name, version: lockfile.packages[d].version });
+    dependencies.push({ name, version: lockfile.packages[d].version });
   }
 
-  return { dependancies };
+  return { dependencies };
 }
 
 if (__filename === process.argv[1]) {
