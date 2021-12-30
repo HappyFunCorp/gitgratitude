@@ -42,7 +42,6 @@ export default async function handler(
     headers: new Headers({ "content-type": "application/json" }),
   });
 
-  console.log(response);
   if (!response.ok) {
     res.status(response.status).json({
       id,
