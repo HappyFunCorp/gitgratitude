@@ -1,8 +1,8 @@
 FROM node:alpine
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package* ./
-RUN npm install --frozen-lockfile --production --ignore-scripts --prefer-offline
+COPY package* yarn.lock ./
+RUN yarn --frozen-lockfile
 
 COPY . .
 

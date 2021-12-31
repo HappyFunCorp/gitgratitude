@@ -37,6 +37,9 @@ service = "lock-gemfile"
 image = "wschenk/lock-packagelock"
 service = "lock-packagelock"
 
+[lock-yarnlock]
+image = "wschenk/lock-yarnlock"
+
 [projects]
 config_maps = ["gratitude-config","postgres-postgresql-projects"]
 image = "wschenk/projects"

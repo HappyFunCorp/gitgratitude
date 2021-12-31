@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "body-parser": "^1.19.1",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "axios": "^0.24.0"
   }
 }
