@@ -8,6 +8,6 @@
   }
 
   .link-style {
-    @apply text-blue-600 underline hover:text-blue-800  hover:shadow-md hover:no-underline;
+    @apply text-blue-600 underline hover:text-blue-800 hover:no-underline;
   }
 }

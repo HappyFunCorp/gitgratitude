@@ -2,31 +2,39 @@ import Layout from "components/layout";
 import Link from "next/link";
 import { handle, json, redirect } from "next-runtime";
 import UploadFile from "components/uploadfile";
-import { tryLockFile } from "lib/lockfiles";
+import {
+  LockfileListDTO,
+  lockfileListWithCounts,
+  tryLockFile,
+} from "lib/lockfiles";
+import { prisma } from "lib/prisma";
+import { Lockfile } from "@prisma/client";
+import LockfileList from "components/lockfile_list";
 
-export default function Lockfiles({ message }) {
-  if (!message) {
-    return <p>{message}</p>;
-  }
+type PageProps = { lockfiles?: LockfileListDTO[]; message?: string };
 
+export default function Lockfiles({ message, lockfiles }) {
   return (
     <Layout title="Lockfiles">
       <Link href="/">
         <a className="link-style">Back &larr;</a>
       </Link>
 
+      <h1 className="main-title">Lockfiles</h1>
+
       <UploadFile />
+
+      <LockfileList lockfiles={lockfiles} title="Recent Lockfiles" />
     </Layout>
   );
 }
 
-type PageProps = any;
-
 export const getServerSideProps = handle<PageProps>({
   uploadDir: "/tmp",
 
-  async get({ params, query }) {
-    return json({ message: "Select a file to upload" });
+  async get() {
+    const lockfiles = await lockfileListWithCounts();
+    return json({ message: "Hi", lockfiles });
   },
 
   async post({ req: { body } }) {

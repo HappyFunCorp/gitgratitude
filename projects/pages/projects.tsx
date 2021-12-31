@@ -1,14 +1,13 @@
-import type { NextPage } from "next";
 import React from "react";
 import Link from "next/link";
 import Layout from "components/layout";
-import ProjectLookup from "components/projectlookup";
-import ProjectList from "components/projectlist";
-import { prisma } from "lib/prisma";
+import ProjectLookup from "components/project_lookup";
+import ProjectList from "components/project_list";
 import { Project } from "@prisma/client";
+import { lookupProjects, ProjectListDTO } from "lib/projects";
 
 type Props = {
-  projects: Project[];
+  projects: ProjectListDTO[];
 };
 
 export default function Projects({ projects }: Props) {
@@ -26,21 +25,7 @@ export default function Projects({ projects }: Props) {
 }
 
 export const getServerSideProps = async () => {
-  const projects = await prisma.project.findMany({
-    select: {
-      id: true,
-      ecosystem: true,
-      name: true,
-      description: true,
-      git: true,
-      homepage: true,
-    },
-    orderBy: [
-      {
-        latest_release: "desc",
-      },
-    ],
-  });
+  const projects = await lookupProjects();
 
   return {
     props: {

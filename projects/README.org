@@ -8,6 +8,8 @@ This service is the main frontend to the sytem.  It handles ecosystems and proje
 * Starting
 
 #+begin_src bash
+npm ci
+npx prisma migrate dev
 npm run dev
 #+end_src
 

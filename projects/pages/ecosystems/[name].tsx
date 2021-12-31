@@ -2,27 +2,27 @@ import type { GetServerSideProps, NextPage } from "next";
 import React from "react";
 import Link from "next/link";
 import Layout from "components/layout";
-import ProjectLookup from "components/projectlookup";
-import ProjectList from "components/projectlist";
+import ProjectLookup from "components/project_lookup";
+import ProjectList from "components/project_list";
 import { prisma } from "lib/prisma";
 import { Ecosystem, lookupEcosystem } from "lib/ecosystem";
-import { Project } from "@prisma/client";
+import { lookupProjects, ProjectListDTO } from "lib/projects";
 
 type Props = {
   ecosystem: Ecosystem;
-  projects: Project[];
+  projects: ProjectListDTO[];
 };
 
 export default function Projects({ ecosystem, projects }: Props) {
   return (
     <Layout title="Projects">
       <Link href="/ecosystems">
-        <a className="link-style">Back &larr;</a>
+        <a className="link-style">Back to ecosystems &larr;</a>
       </Link>
       <h1 className="main-title">{ecosystem.name} packages</h1>
 
       <ProjectLookup ecosystem={ecosystem} />
-      <ProjectList projects={projects} />
+      <ProjectList ecosystem={ecosystem} projects={projects} />
     </Layout>
   );
 }
@@ -32,22 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const ecosystem = lookupEcosystem(`${name}`);
 
-  const projects = await prisma.project.findMany({
-    select: {
-      id: true,
-      ecosystem: true,
-      name: true,
-      description: true,
-      git: true,
-      homepage: true,
-    },
-    where: { ecosystem: ecosystem.enum },
-    orderBy: [
-      {
-        latest_release: "desc",
-      },
-    ],
-  });
+  const projects = await lookupProjects(ecosystem);
 
   return {
     props: {

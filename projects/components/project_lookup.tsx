@@ -65,14 +65,23 @@ export default function ProjectLookup({ ecosystem }: Props) {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="py-4">
-        <select
-          {...register("ecosystem")}
-          className="px-2 py-1 border-solid border-2 border-blue-600 rounded"
-          name="ecosystem"
-        >
-          <option value="rubygems">Ruby</option>
-          <option value="npm">Node</option>
-        </select>
+        {ecosystem ? (
+          <input
+            type="hidden"
+            name="ecosystem"
+            value={ecosystem.name}
+            {...register("ecosystem")}
+          />
+        ) : (
+          <select
+            {...register("ecosystem")}
+            className="px-2 py-1 border-solid border-2 border-blue-600 rounded"
+            name="ecosystem"
+          >
+            <option value="rubygems">Ruby</option>
+            <option value="npm">Node</option>
+          </select>
+        )}
         <input
           {...register("name")}
           className="mx-2 px-2 py-1"

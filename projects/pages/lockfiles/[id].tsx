@@ -3,6 +3,7 @@ import Layout from "components/layout";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { prisma } from "lib/prisma";
+import { convertDates } from "lib/lockfiles";
 
 type Props = {
   lockfile: Lockfile;
@@ -33,6 +34,7 @@ export default function LockfileDetail({ lockfile }: Props) {
     </Layout>
   );
 }
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params.id;
 
@@ -55,19 +57,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return { props: { lockfile } };
 };
-
-function convertDates(lockfile: Lockfile) {
-  // @ts-expect-error
-  lockfile.uploadedAt = convertDate(lockfile.uploadedAt);
-
-  // @ts-expect-error
-  lockfile.processedAt = convertDate(lockfile.processedAt);
-}
-
-function convertDate(d: Date): String | null {
-  if (d) {
-    return `${d.getFullYear()}/${d.getMonth()}/${d.getDay()} ${d.getHours()}:${d.getMinutes()}`;
-  }
-
-  return null;
-}
