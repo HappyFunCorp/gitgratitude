@@ -1,6 +1,6 @@
-import bodyParser from "body-parser";
-import express from "express";
-import { parsePackageLock } from "./parsePackageLock";
+const bodyParser = require("body-parser");
+const express = require("express");
+const { parsePackageLock } = require("./arb");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -14,11 +14,12 @@ app.get("/", (req, res) => {
   res.send("Part of <a href='https://gitgratitude.com'>gitgratitude.com</a>!");
 });
 
-app.post("/", (req, res) => {
+app.post("/", async (req, res) => {
   console.log("Attempting to parse...");
-  const body = JSON.parse(req.body.toString());
 
-  const lockfile = parsePackageLock(body);
+  // const body = JSON.parse(req.body.toString());
+
+  const lockfile = await parsePackageLock(req.body.toString());
 
   console.log("...parsed");
 

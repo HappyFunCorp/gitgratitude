@@ -1,5 +1,7 @@
 import { readFileSync } from "fs";
 
+// TODO Remove unused file
+
 export type Lockfile = {
   dependencies: Dependency[];
 };
