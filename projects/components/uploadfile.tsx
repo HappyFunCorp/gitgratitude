@@ -49,7 +49,7 @@ export default function UploadFile(props) {
             />
           </svg>
           <div className="flex text-sm text-gray-600">
-            <label className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+            <label className="relative cursor-pointer bg-white dark:bg-slate-900 rounded-md font-medium text-blue-600 dark:text-blue-400 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
               <span>Upload a file</span>
 
               <input name="file" {...getInputProps()} />

@@ -8,6 +8,10 @@
   }
 
   .link-style {
-    @apply text-blue-600 underline hover:text-blue-800 hover:no-underline;
+    @apply text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-500 hover:no-underline;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-br from-blue-400 to-blue-600 text-white rounded hover:to-blue-900 hover:drop-shadow py-1 px-4;
   }
 }

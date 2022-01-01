@@ -1,11 +1,16 @@
-import { Project } from "@prisma/client";
+import { Project, Release } from "@prisma/client";
 import Layout from "components/layout";
+import ProjectRefresh from "components/project_refresh";
 import ReleaseList from "components/release_list";
 import { convertDate } from "lib/lockfiles";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 
-export default function ProjectPage({ project }) {
+type Props = {
+  project: Project;
+  releases: Release[];
+};
+export default function ProjectPage({ project, releases }: Props) {
   return (
     <Layout title="Project detail page">
       <Link href={`/ecosystems/${project.ecosystem}`}>
@@ -39,10 +44,23 @@ export default function ProjectPage({ project }) {
             <th>Repo</th>
             <td>{project.git}</td>
           </tr>
+          <tr>
+            <th>Latest Release</th>
+            <td>{project.latest_release}</td>
+          </tr>
+          <tr>
+            <th>Latest Version</th>
+            <td>{project.latest_version}</td>
+          </tr>
+          <tr>
+            <th>First Released</th>
+            <td>{project.first_release}</td>
+          </tr>
         </tbody>
       </table>
 
-      <ReleaseList releases={project.Release} />
+      <ProjectRefresh project={project} />
+      <ReleaseList releases={releases} />
     </Layout>
   );
 }
@@ -63,7 +81,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       first_release: true,
       latest_release: true,
       latest_version: true,
-      Release: true,
     },
     // @ts-ignore
     where: { id: id },
@@ -72,7 +89,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // console.log(project);
   convertProjectDates(project);
 
-  return { props: { project } };
+  const releases = await prisma.release.findMany({
+    select: { id: true, version: true, released: true, sha: true },
+    where: { project_id: project.id },
+    orderBy: { released: "desc" },
+  });
+
+  // @ts-expect-error
+  convertReleaseDates(releases);
+
+  return { props: { project, releases } };
 };
 
 function convertProjectDates(project: Project) {
@@ -81,9 +107,11 @@ function convertProjectDates(project: Project) {
 
   // @ts-expect-error
   project.latest_release = convertDate(project.latest_release);
+}
 
-  // @ts-expect-error
-  for (const r of project.Release) {
+function convertReleaseDates(releases: Release[]) {
+  for (const r of releases) {
+    // @ts-expect-error
     r.released = convertDate(r.released);
   }
 }

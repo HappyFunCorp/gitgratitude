@@ -75,7 +75,7 @@ export default function ProjectLookup({ ecosystem }: Props) {
         ) : (
           <select
             {...register("ecosystem")}
-            className="px-2 py-1 border-solid border-2 border-blue-600 rounded"
+            className="px-2 py-1 border-solid border-2 border-blue-600 dark:bg-slate-900 rounded"
             name="ecosystem"
           >
             <option value="rubygems">Ruby</option>
@@ -84,15 +84,12 @@ export default function ProjectLookup({ ecosystem }: Props) {
         )}
         <input
           {...register("name")}
-          className="mx-2 px-2 py-1"
+          className="mx-2 px-2 py-1 dark:text-slate-900"
           type="text"
           placeholder="Project Name"
         />
 
-        <button
-          type="submit"
-          className="px-2 py-1 bg-blue-600 text-white rounded"
-        >
+        <button type="submit" className="btn-primary">
           {working ? "Searching..." : "Search"}
         </button>
       </form>

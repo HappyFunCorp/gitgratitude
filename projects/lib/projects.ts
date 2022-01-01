@@ -46,7 +46,7 @@ async function syncReleases(project: Project, projectJson: any) {
 
     const data = {
       version: releaseJson.version,
-      released: releaseJson.created_at,
+      released: releaseJson.released,
       summary: releaseJson.summary,
       description: releaseJson.description,
       license: JSON.stringify(releaseJson.licenses),
@@ -74,8 +74,8 @@ async function syncReleases(project: Project, projectJson: any) {
 
   const first_release = await prisma.release.findFirst({
     select: { released: true },
-    where: { project },
-    orderBy: { released: "desc" },
+    where: { project_id: project.id },
+    orderBy: { released: "asc" },
   });
 
   if (first_release) {
@@ -86,8 +86,9 @@ async function syncReleases(project: Project, projectJson: any) {
   }
 
   const latest_release = await prisma.release.findFirst({
+    where: { project_id: project.id },
     select: { released: true, version: true },
-    orderBy: { released: "asc" },
+    orderBy: { released: "desc" },
   });
 
   if (latest_release) {

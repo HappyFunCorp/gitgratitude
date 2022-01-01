@@ -1,15 +1,18 @@
-import { Lockfile } from "@prisma/client";
+import { Dependancy, Lockfile } from "@prisma/client";
 import Layout from "components/layout";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { prisma } from "lib/prisma";
 import { convertDates } from "lib/lockfiles";
+import ProjectLink from "components/project_link";
+import ReleaseLink from "components/release_link";
 
 type Props = {
   lockfile: Lockfile;
+  dependencies?: Dependancy[];
 };
 
-export default function LockfileDetail({ lockfile }: Props) {
+export default function LockfileDetail({ lockfile, dependencies }: Props) {
   return (
     <Layout title="Lockfiles">
       <Link href="/lockfiles">
@@ -26,11 +29,40 @@ export default function LockfileDetail({ lockfile }: Props) {
       <p>
         <a
           href={`/api/parse_lockfile?id=${lockfile.id}`}
-          className="bg-blue-600 text-white rounded hover:bg-blue-700 py-1 px-2"
+          className="btn-primary inline-block"
         >
           Parse it
         </a>
       </p>
+      <p>Dependancies: {dependencies.length}</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Specified Version</th>
+            <th>Current Version</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dependencies.map((d) => (
+            <tr key={d.id}>
+              <td>
+                <ProjectLink name={d.name} project_id={d.project_id} />
+              </td>
+              <td>
+                <ReleaseLink project_id={d.project_id} version={d.version} />
+              </td>
+              <td>
+                <ReleaseLink
+                  project_id={d.project_id}
+                  version={d.current_version}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </Layout>
   );
 }
@@ -55,5 +87,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   convertDates(lockfile);
 
-  return { props: { lockfile } };
+  const dependencies = await prisma.dependancy.findMany({
+    select: {
+      name: true,
+      version: true,
+      current_version: true,
+      project_id: true,
+    },
+    where: {
+      lockfile_id: lockfile.id,
+    },
+    orderBy: { name: "asc" },
+  });
+
+  return { props: { lockfile, dependencies } };
 };
