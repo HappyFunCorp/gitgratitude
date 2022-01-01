@@ -39,7 +39,7 @@ class GemLookup
 
       data = {
         version: version["number"],
-        created_at: version["created_at"],
+        released: version["created_at"],
         summary: version["summary"],
         description: version["description"],
         download_count: version["downloads_count"],

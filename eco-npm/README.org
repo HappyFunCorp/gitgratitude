@@ -1,0 +1,6 @@
+
+#+begin_src bash :results output
+  curl http:/eco-npm.default.gitgratitude.com/?package=express | jq
+#+end_src
+
+
