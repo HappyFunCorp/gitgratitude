@@ -7,8 +7,6 @@ import {
   lockfileListWithCounts,
   tryLockFile,
 } from "lib/lockfiles";
-import { prisma } from "lib/prisma";
-import { Lockfile } from "@prisma/client";
 import LockfileList from "components/lockfile_list";
 
 type PageProps = { lockfiles?: LockfileListDTO[]; message?: string };

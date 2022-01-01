@@ -3,7 +3,6 @@ import Link from "next/link";
 import Layout from "components/layout";
 import ProjectLookup from "components/project_lookup";
 import ProjectList from "components/project_list";
-import { Project } from "@prisma/client";
 import { lookupProjects, ProjectListDTO } from "lib/projects";
 
 type Props = {

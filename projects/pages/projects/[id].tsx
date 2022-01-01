@@ -5,6 +5,7 @@ import ReleaseList from "components/release_list";
 import { convertDate } from "lib/lockfiles";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import { prisma } from "lib/prisma";
 
 type Props = {
   project: Project;

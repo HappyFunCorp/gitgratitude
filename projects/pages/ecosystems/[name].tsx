@@ -4,7 +4,6 @@ import Link from "next/link";
 import Layout from "components/layout";
 import ProjectLookup from "components/project_lookup";
 import ProjectList from "components/project_list";
-import { prisma } from "lib/prisma";
 import { Ecosystem, lookupEcosystem } from "lib/ecosystem";
 import { lookupProjects, ProjectListDTO } from "lib/projects";
 
