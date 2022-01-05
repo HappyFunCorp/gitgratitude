@@ -225,8 +225,13 @@ ruby-based parsing of =Gemfile.lock=
 
 /none/
 
-** TODO lock-packagelock
+** [[lock-packagelock]]
+
 node-based parsing of =package-lock.json=
+
+** [[lock-podlock]]
+
+ruby-based parsing of =Podlock.lock=
 
 ** [[lock-yarnlock]]
 node-based parsing of =yarn.lock=

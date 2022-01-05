@@ -37,6 +37,10 @@ service = "lock-gemfile"
 image = "wschenk/lock-packagelock"
 service = "lock-packagelock"
 
+[lock-podlock]
+image = "wschenk/lock-podlock"
+service = "lock-podlock"
+
 [lock-yarnlock]
 image = "wschenk/lock-yarnlock"
 service = "lock-yarnlock"
