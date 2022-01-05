@@ -28,6 +28,12 @@ export function lookupEcosystem(name: string): Ecosystem | null {
         package_endpoint: process.env.ECO_NPM_URL,
         enum: EcosystemName.npm,
       };
+    case EcosystemName.cocoapods:
+      return {
+        name,
+        package_endpoint: process.env.ECO_COCOAPOD_URL,
+        enum: EcosystemName.cocoapods,
+      };
     default:
       console.log(`Unknown ecosystem ${name}`);
   }
@@ -53,6 +59,12 @@ export function lookupParser(filename: string): Parser | null {
         parser_endpoint: process.env.LOCK_PACKAGELOCK_URL,
         ecosystem: EcosystemName.npm,
         file_type: LockfileType.npm,
+      };
+    case "Podfile.lock":
+      return {
+        parser_endpoint: process.env.LOCK_PODLOCK_URL,
+        ecosystem: EcosystemName.cocoapods,
+        file_type: LockfileType.podlock,
       };
     default:
       console.log(`Unknown lockfile ${filename}`);

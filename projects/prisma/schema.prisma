@@ -72,10 +72,12 @@ model Dependancy {
 enum EcosystemName {
   rubygems
   npm
+  cocoapods
 }
 
 enum LockfileType {
   gemfile
   yarn
   npm
+  podlock
 }
