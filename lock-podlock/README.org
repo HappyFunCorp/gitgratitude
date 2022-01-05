@@ -1,0 +1,3 @@
+* Test
+
+curl --data-binary @Podfile.lock http://localhost:4567 | jq .
