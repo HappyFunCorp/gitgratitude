@@ -6,6 +6,7 @@ import { prisma } from "lib/prisma";
 import { convertDates } from "lib/lockfiles";
 import ProjectLink from "components/project_link";
 import ReleaseLink from "components/release_link";
+import LockfileRefresh from "components/lockfile_refresh";
 
 type Props = {
   lockfile: Lockfile;
@@ -34,6 +35,9 @@ export default function LockfileDetail({ lockfile, dependencies }: Props) {
           Parse it
         </a>
       </p>
+
+      <LockfileRefresh lockfile={lockfile} />
+
       <p>Dependancies: {dependencies.length}</p>
 
       <table>
