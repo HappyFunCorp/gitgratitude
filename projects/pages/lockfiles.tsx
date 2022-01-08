@@ -2,16 +2,15 @@ import Layout from "components/layout";
 import Link from "next/link";
 import { handle, json, redirect } from "next-runtime";
 import UploadFile from "components/uploadfile";
-import {
-  LockfileListDTO,
-  lockfileListWithCounts,
-  tryLockFile,
-} from "lib/lockfiles";
+import { tryLockFile } from "lib/lockfiles";
 import LockfileList from "components/lockfile_list";
+import { useLockfileList } from "lib/hooks";
 
-type PageProps = { lockfiles?: LockfileListDTO[]; message?: string };
+type PageProps = { message?: string };
 
-export default function Lockfiles({ message, lockfiles }) {
+export default function Lockfiles({ message }) {
+  const [lockfiles] = useLockfileList();
+
   return (
     <Layout title="Lockfiles">
       <Link href="/">
@@ -22,7 +21,9 @@ export default function Lockfiles({ message, lockfiles }) {
 
       <UploadFile />
 
-      <LockfileList lockfiles={lockfiles} title="Recent Lockfiles" />
+      {lockfiles && (
+        <LockfileList lockfiles={lockfiles} title="Recent Lockfiles" />
+      )}
     </Layout>
   );
 }
@@ -31,8 +32,7 @@ export const getServerSideProps = handle<PageProps>({
   uploadDir: "/tmp",
 
   async get() {
-    const lockfiles = await lockfileListWithCounts();
-    return json({ message: "Hi", lockfiles });
+    return json({ message: "Hi" });
   },
 
   async post({ req: { body } }) {

@@ -1,18 +1,31 @@
+import { Release } from "@prisma/client";
+import { Strftime } from "./strftime";
+
 export default function ReleaseList({ releases }) {
   return (
-    <table className="w-full">
+    <table className="w-full table-auto">
       <thead>
         <tr>
-          <th>Version</th>
-          <th>Released</th>
-          <th>sha</th>
+          <th className="text-left">Released</th>
+          <th className="text-left">Version</th>
+          <th className="text-left">Major</th>
+          <th className="text-left">Minor</th>
+          <th className="text-left">Patch</th>
+          <th className="text-left">Special</th>
+          <th className="text-left">sha</th>
         </tr>
       </thead>
       <tbody>
-        {releases.map((r) => (
-          <tr key={r}>
+        {releases.map((r: Release) => (
+          <tr key={r.id}>
+            <td>
+              <Strftime date={r.released} />
+            </td>
             <td>{r.version}</td>
-            <td>{r.released}</td>
+            <td>{r.major}</td>
+            <td>{r.minor}</td>
+            <td>{r.patch}</td>
+            <td>{r.prerelease}</td>
             <td>{r.sha}</td>
           </tr>
         ))}

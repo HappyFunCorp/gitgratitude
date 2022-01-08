@@ -9,3 +9,13 @@ export async function streamToBuffer(
 
   return Buffer.concat(chunks);
 }
+
+export function convertDate(d: Date): number | null {
+  if (d) {
+    return d.getTime() / 1000;
+    // return strftime("%Y/%m/%d %H:%M", d);
+    // return `${d.getFullYear()}/${d.getMonth()}/${d.getDay()} ${d.getHours()}:${d.getMinutes()}`;
+  }
+
+  return null;
+}

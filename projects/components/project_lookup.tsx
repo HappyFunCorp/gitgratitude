@@ -2,6 +2,7 @@ import { EcosystemName } from "@prisma/client";
 import { Ecosystem } from "lib/ecosystem";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import ProjectLink from "./project_link";
 
 type Props = {
   ecosystem?: Ecosystem;
@@ -36,10 +37,8 @@ export default function ProjectLookup({ ecosystem }: Props) {
         }
       );
 
-      console.log("Got response");
       setWorking(false);
       if (!response.ok) {
-        console.log(response.headers["content-type"]);
         if (response.headers["content-type"] == "application/json") {
           const json = await response.json();
           setStatus(json.message);
@@ -98,10 +97,16 @@ export default function ProjectLookup({ ecosystem }: Props) {
         <dl>
           <dt>Name</dt>
           <dd>
-            {
-              // @ts-ignore
-              project.name
-            }
+            <ProjectLink
+              name={
+                // @ts-expect-error
+                project.name
+              }
+              project_id={
+                // @ts-expect-error
+                project.id
+              }
+            />
           </dd>
           <dt>Description</dt>
           <dd>

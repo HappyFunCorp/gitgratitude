@@ -1,7 +1,7 @@
 import { Lockfile } from "@prisma/client";
+import useInterval from "lib/hooks";
 import { useState } from "react";
 import Progress from "./progress";
-import useInterval from "./use_interval";
 
 type Props = {
   lockfile: Lockfile;
@@ -15,16 +15,24 @@ export default function LockfileRefresh({ lockfile }: Props) {
   const onClick = () => {
     setProgress(0);
     setRefreshing(true);
+    fetch(`/api/parse_lockfile?id=${lockfile.id}`).then((response) => {
+      console.log(response);
+      setRefreshing(false);
+    });
   };
 
   useInterval(() => {
     if (refreshing) {
-      setProgress(progress + 1);
-      if (progress >= depCount) {
-        setRefreshing(false);
-      }
+      // console.log("Calling status");
+      fetch(`/api/lockfile_status?id=${lockfile.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // console.log(data);
+          setDepCount(data.count);
+          setProgress(data.processed);
+        });
     }
-  }, 50);
+  }, 500);
 
   if (!refreshing) {
     return (

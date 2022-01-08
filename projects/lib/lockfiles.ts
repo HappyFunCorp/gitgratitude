@@ -1,5 +1,5 @@
 import fs from "fs";
-import { EcosystemName, Lockfile } from "@prisma/client";
+import { Lockfile } from "@prisma/client";
 import { File } from "next-runtime/runtime/body-parser";
 import { lookupEcosystem, lookupParser } from "./ecosystem";
 import { prisma } from "lib/prisma";
@@ -35,24 +35,24 @@ export async function tryLockFile(file: File): Promise<Lockfile | null> {
 }
 
 export async function syncLockfileFromJson(lockfile: Lockfile, json) {
-  console.log(json);
+  // await prisma.$executeRaw`UPDATE dependencies SET current_version = projects.latest_version WHERE dependencies.lockfile_id = ${lockfile.id} and dependencies.project_id = projects.id;`;
 
   console.log("Creating dependancies from json");
   console.log(`Found ${json.dependencies.length}`);
   for (const d of json.dependencies) {
-    const dependancy = await prisma.dependancy.findFirst({
+    const dependancy = await prisma.dependency.findFirst({
       where: { lockfile, name: d.name },
     });
 
     if (dependancy) {
       console.log(`Updating ${d.name} version`);
-      await prisma.dependancy.update({
+      await prisma.dependency.update({
         where: { id: dependancy.id },
         data: { version: d.version },
       });
     } else {
       console.log(`creating ${d.name}`);
-      await prisma.dependancy.create({
+      await prisma.dependency.create({
         data: {
           lockfile_id: lockfile.id,
           name: d.name,
@@ -64,7 +64,7 @@ export async function syncLockfileFromJson(lockfile: Lockfile, json) {
 
   const ecosystem = lookupEcosystem(lockfile.ecosystem);
 
-  const dependancies = await prisma.dependancy.findMany({
+  const dependancies = await prisma.dependency.findMany({
     where: { lockfile_id: lockfile.id },
   });
 
@@ -78,9 +78,10 @@ export async function syncLockfileFromJson(lockfile: Lockfile, json) {
       const data = {
         project_id: project.id,
         current_version: project.latest_version,
+        synced: new Date(),
       };
 
-      await prisma.dependancy.update({ where: { id: d.id }, data: data });
+      await prisma.dependency.update({ where: { id: d.id }, data: data });
     } else {
       console.log(`Couldn't find dependancy for ${ecosystem.name}/${d.name}`);
     }
@@ -97,71 +98,4 @@ export async function syncLockfileFromJson(lockfile: Lockfile, json) {
   });
 
   console.log("Done parsing");
-}
-
-export type LockfileListDTO = {
-  uploadedAt: string;
-  id: string;
-  ecosystem: EcosystemName;
-  name: string;
-  valid: boolean;
-  parsed: boolean;
-  processedAt: string;
-  dependacies: number;
-};
-
-export async function lockfileListWithCounts(): Promise<LockfileListDTO[]> {
-  const lockfiles = await prisma.lockfile.findMany({
-    orderBy: {
-      uploadedAt: "desc",
-    },
-    take: 10,
-    select: {
-      id: true,
-      name: true,
-      ecosystem: true,
-      valid: true,
-      parsed: true,
-      uploadedAt: true,
-      processedAt: true,
-      _count: {
-        select: {
-          Dependancy: true,
-        },
-      },
-    },
-  });
-
-  const ret = new Array<LockfileListDTO>();
-
-  lockfiles.map((e) => {
-    ret.push({
-      id: e.id,
-      name: e.name,
-      ecosystem: e.ecosystem,
-      valid: e.valid,
-      parsed: e.parsed,
-      uploadedAt: convertDate(e.uploadedAt),
-      processedAt: convertDate(e.processedAt),
-      dependacies: e._count.Dependancy,
-    });
-  });
-
-  return ret;
-}
-
-export function convertDates(lockfile: Lockfile) {
-  // @ts-expect-error
-  lockfile.uploadedAt = convertDate(lockfile.uploadedAt);
-
-  // @ts-expect-error
-  lockfile.processedAt = convertDate(lockfile.processedAt);
-}
-
-export function convertDate(d: Date): string | null {
-  if (d) {
-    return `${d.getFullYear()}/${d.getMonth()}/${d.getDay()} ${d.getHours()}:${d.getMinutes()}`;
-  }
-
-  return null;
 }

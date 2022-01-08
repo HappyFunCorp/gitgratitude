@@ -2,16 +2,26 @@ import { Project, Release } from "@prisma/client";
 import Layout from "components/layout";
 import ProjectRefresh from "components/project_refresh";
 import ReleaseList from "components/release_list";
-import { convertDate } from "lib/lockfiles";
-import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { prisma } from "lib/prisma";
+import { GetServerSideProps } from "next";
+import { useProject, useReleases } from "lib/hooks";
+import { Strftime } from "components/strftime";
 
 type Props = {
-  project: Project;
-  releases: Release[];
+  id: number;
 };
-export default function ProjectPage({ project, releases }: Props) {
+
+export default function ProjectPage({ id }: Props) {
+  const [project, setProject] = useProject(id);
+  const [releases] = useReleases(project);
+
+  if (!project) {
+    return (
+      <Layout title="Project detail page">
+        <p className="main-title">Loading</p>
+      </Layout>
+    );
+  }
   return (
     <Layout title="Project detail page">
       <Link href={`/ecosystems/${project.ecosystem}`}>
@@ -47,21 +57,32 @@ export default function ProjectPage({ project, releases }: Props) {
           </tr>
           <tr>
             <th>Latest Release</th>
-            <td>{project.latest_release}</td>
+            <td>
+              <Strftime date={project.latest_release} />
+            </td>
           </tr>
           <tr>
             <th>Latest Version</th>
-            <td>{project.latest_version}</td>
+            <td className="font-mono">{project.latest_version}</td>
           </tr>
           <tr>
             <th>First Released</th>
-            <td>{project.first_release}</td>
+            <td>
+              <Strftime date={project.first_release} />
+            </td>
+          </tr>
+          <tr>
+            <th>Last Synced</th>
+            <td>
+              <Strftime date={project.last_synced} />
+            </td>
           </tr>
         </tbody>
       </table>
 
-      <ProjectRefresh project={project} />
-      <ReleaseList releases={releases} />
+      <ProjectRefresh project={project} setProject={setProject} />
+
+      {releases && <ReleaseList releases={releases} />}
     </Layout>
   );
 }
@@ -69,50 +90,5 @@ export default function ProjectPage({ project, releases }: Props) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.params.id;
 
-  console.log(`Looking up project ${id}`);
-  const project = await prisma.project.findFirst({
-    select: {
-      id: true,
-      name: true,
-      ecosystem: true,
-      homepage: true,
-      summary: true,
-      description: true,
-      git: true,
-      first_release: true,
-      latest_release: true,
-      latest_version: true,
-    },
-    // @ts-ignore
-    where: { id: id },
-  });
-
-  // console.log(project);
-  convertProjectDates(project);
-
-  const releases = await prisma.release.findMany({
-    select: { id: true, version: true, released: true, sha: true },
-    where: { project_id: project.id },
-    orderBy: { released: "desc" },
-  });
-
-  // @ts-expect-error
-  convertReleaseDates(releases);
-
-  return { props: { project, releases } };
+  return { props: { id } };
 };
-
-function convertProjectDates(project: Project) {
-  // @ts-expect-error
-  project.first_release = convertDate(project.first_release);
-
-  // @ts-expect-error
-  project.latest_release = convertDate(project.latest_release);
-}
-
-function convertReleaseDates(releases: Release[]) {
-  for (const r of releases) {
-    // @ts-expect-error
-    r.released = convertDate(r.released);
-  }
-}

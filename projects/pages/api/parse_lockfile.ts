@@ -1,4 +1,3 @@
-import axios from "axios";
 import { lookupParser } from "lib/ecosystem";
 import { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "lib/prisma";
@@ -43,6 +42,7 @@ export default async function handler(
   });
 
   if (!response.ok) {
+    console.log(response.statusText);
     res.status(response.status).json({
       id,
       message: "Error from parsing service",

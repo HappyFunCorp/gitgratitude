@@ -2,8 +2,7 @@ This service is the main frontend to the sytem.  It handles ecosystems and proje
 
 * Environment Variables
 
-| =DATABASE_URL=     | postgres database                           |
-| =ECO_RUBYGEMS_URL= | Lookup a project in the ruby gems ecosystem |
+Defined in [[../README.org]]
 
 * Starting
 
@@ -19,4 +18,6 @@ npm run dev
 npx prisma migrate push
 #+end_src
 
-* 
+* Logic
+
+Lockfile is uploaded to =/lockfiles= and processed with =tryLockFile=

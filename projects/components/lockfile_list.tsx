@@ -1,8 +1,9 @@
-import { LockfileListDTO } from "lib/lockfiles";
+import { Lockfile } from "@prisma/client";
 
-type PageProps = { lockfiles?: LockfileListDTO[]; title?: string };
+type PageProps = { lockfiles?: Lockfile[]; title?: string };
 
 export default function LockfileList({ lockfiles, title }: PageProps) {
+  console.log(lockfiles);
   return (
     <>
       <h2 className="text-3xl py-8 font-bold tracking-wide">
@@ -11,13 +12,13 @@ export default function LockfileList({ lockfiles, title }: PageProps) {
       <table className="w-full">
         <tbody>
           <tr>
-            <th>Eco</th>
-            <th>Name</th>
-            <th>Uploaded</th>
-            <th>Valid</th>
-            <th>Parsed</th>
-            <th>Dependacies</th>
-            <th>Processed</th>
+            <th className="text-left">Eco</th>
+            <th className="text-left">Name</th>
+            <th className="text-left">Uploaded</th>
+            <th className="text-left">Valid</th>
+            <th className="text-left">Parsed</th>
+            <th className="text-left">Dependacies</th>
+            <th className="text-left">Processed</th>
           </tr>
           {lockfiles.map((l) => (
             <tr key={l.id}>
@@ -28,9 +29,14 @@ export default function LockfileList({ lockfiles, title }: PageProps) {
                 </a>
               </td>
               <td>{l.uploadedAt}</td>
-              <td>{l.valid}</td>
-              <td>{l.parsed}</td>
-              <td>{l.dependacies}</td>
+              <td>{l.valid ? "Yes" : "No"}</td>
+              <td>{l.parsed ? "Yes" : "No"}</td>
+              <td>
+                {
+                  // @ts-expect-error
+                  l._count.Dependancy
+                }
+              </td>
               <td>{l.processedAt}</td>
             </tr>
           ))}

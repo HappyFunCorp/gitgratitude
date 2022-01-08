@@ -1,11 +1,7 @@
 import { Project } from "@prisma/client";
 import { useState } from "react";
 
-type Props = {
-  project: Project;
-};
-
-export default function ProjectRefresh({ project }: Props) {
+export default function ProjectRefresh({ project, setProject }) {
   const [active, setActive] = useState(false);
 
   const onClick = async () => {
@@ -23,8 +19,11 @@ export default function ProjectRefresh({ project }: Props) {
     });
 
     setActive(false);
-    window.location.href = window.location.href;
+    const json = await result.json();
+    console.log(json);
+    setProject(json);
   };
+
   return (
     <button className="btn-primary" onClick={onClick}>
       {active ? "Refreshing..." : "Refresh"}

@@ -1,7 +1,8 @@
 import { prisma } from "lib/prisma";
 import { Ecosystem, lookupEcosystem } from "./ecosystem";
-import { EcosystemName, Project } from "@prisma/client";
-import { convertDate } from "./lockfiles";
+import { EcosystemName, Project, Release } from "@prisma/client";
+import { convertDate } from "./utils";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export async function syncProjectFromJson(
   ecoName: Ecosystem,
@@ -22,6 +23,7 @@ export async function syncProjectFromJson(
     description: projectJson.description,
     summary: projectJson.summary,
     git: projectJson.git,
+    last_synced: new Date(),
   };
 
   if (existingProject) {
@@ -39,7 +41,7 @@ export async function syncProjectFromJson(
 }
 
 async function syncReleases(project: Project, projectJson: any) {
-  projectJson["releases"].map(async (releaseJson) => {
+  for (const releaseJson of projectJson["releases"]) {
     const release = await prisma.release.findFirst({
       where: { project_id: project.id, version: releaseJson.version },
     });
@@ -70,7 +72,7 @@ async function syncReleases(project: Project, projectJson: any) {
       };
       await prisma.release.create({ data: projectData });
     }
-  });
+  }
 
   const first_release = await prisma.release.findFirst({
     select: { released: true },
@@ -79,7 +81,7 @@ async function syncReleases(project: Project, projectJson: any) {
   });
 
   if (first_release) {
-    await prisma.project.update({
+    const proj = await prisma.project.update({
       where: { id: project.id },
       data: { first_release: first_release.released },
     });
@@ -100,8 +102,10 @@ async function syncReleases(project: Project, projectJson: any) {
       },
     });
   }
-  return project;
+
+  return await prisma.project.findFirst({ where: { id: project.id } });
 }
+
 function integerOrNil(value: string) {
   const ret = parseInt(value);
 
@@ -120,7 +124,7 @@ export async function returnOrLookupProject(
     where: { ecosystem: ecosystem.enum, name },
   });
 
-  if (project) {
+  if (project && !stale(project)) {
     return project;
   }
 
@@ -128,6 +132,7 @@ export async function returnOrLookupProject(
   const url = new URL(ecosystem.package_endpoint);
   url.searchParams.append("package", name);
   const response = await fetch(url.href);
+  console.log("Response", response.ok);
   if (response.ok) {
     const json = await response.json();
     const project = await syncProjectFromJson(ecosystem, json);
@@ -145,8 +150,9 @@ export type ProjectListDTO = {
   git: string;
   homepage: string;
   latest_version: string;
-  latest_release: string;
+  latest_release: number;
   releases: number;
+  last_synced: number;
 };
 
 export async function lookupProjects(
@@ -162,6 +168,7 @@ export async function lookupProjects(
     homepage: true,
     latest_release: true,
     latest_version: true,
+    last_synced: true,
     _count: {
       select: {
         Release: true,
@@ -198,8 +205,32 @@ export async function lookupProjects(
       latest_release: convertDate(p.latest_release),
       homepage: p.homepage,
       releases: p._count.Release,
+      last_synced: convertDate(p.last_synced),
     });
   }
 
   return ret;
+}
+
+export function stale(project: Project): boolean {
+  if (!project.last_synced) {
+    return true;
+  }
+
+  const prevTime = new Date().getTime() - 1 * 24 * 60 * 60 * 1000;
+  console.log("last_synced", project.last_synced.getTime());
+  console.log("1 day ago  ", prevTime);
+
+  return project.last_synced.getTime() < prevTime;
+}
+
+export async function staleProjects() {
+  const prevTime = new Date(new Date().getTime() - 1 * 24 * 60 * 60 * 1000);
+
+  return await prisma.project.findMany({
+    where: {
+      OR: [{ last_synced: null }, { last_synced: { lt: prevTime } }],
+    },
+    orderBy: { last_synced: "desc" },
+  });
 }

@@ -2,6 +2,7 @@ import { Ecosystem } from "lib/ecosystem";
 import { ProjectListDTO } from "lib/projects";
 import Link from "next/link";
 import React from "react";
+import { Strftime } from "./strftime";
 
 type Props = {
   ecosystem?: Ecosystem;
@@ -22,6 +23,7 @@ export default function ProjectList({ ecosystem, projects }: Props) {
           <th>Releases</th>
           <th>Latest Version</th>
           <th>Latest Release</th>
+          <th>Last Synced</th>
         </tr>
         {projects.map((e) => (
           <tr key={e.id}>
@@ -33,7 +35,12 @@ export default function ProjectList({ ecosystem, projects }: Props) {
             </td>
             <td>{e.releases}</td>
             <td>{e.latest_version}</td>
-            <td>{e.latest_release}</td>
+            <td>
+              <Strftime date={e.latest_release} />
+            </td>
+            <td>
+              <Strftime date={e.last_synced} />
+            </td>
           </tr>
         ))}
       </tbody>

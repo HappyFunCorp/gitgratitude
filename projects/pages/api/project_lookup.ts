@@ -11,7 +11,7 @@ export default async function handler(
   const eco = lookupEcosystem(ecosystem);
 
   if (eco) {
-    doPackageRequest(res, eco, name);
+    await doPackageRequest(res, eco, name);
   } else {
     res
       .status(200)
@@ -28,10 +28,11 @@ async function doPackageRequest(
   const url = new URL(ecosystem.package_endpoint);
   url.searchParams.append("package", name);
   const response = await fetch(url.href);
+  console.log("Response ok?", response.ok);
   if (response.ok) {
     const json = await response.json();
-    syncProjectFromJson(ecosystem, json);
-    res.status(200).json(json);
+    const project = await syncProjectFromJson(ecosystem, json);
+    res.status(200).json(project);
   } else {
     const json = await response.json();
     console.log(json);
