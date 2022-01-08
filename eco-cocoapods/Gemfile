@@ -1,0 +1,8 @@
+source 'https://rubygems.org'
+
+gem "bundler", "~> 2.1"
+gem "gems", "~> 1.2"
+gem "json", "~> 2.5"
+gem "puma", "~> 5.5"
+gem "sinatra", "~> 2.1"
+gem "semver_dialects", "~> 1.0"
