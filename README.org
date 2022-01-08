@@ -104,6 +104,8 @@ Get the password:
   kubectl get secret --namespace default postgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode | pbcopy
 #+end_src
 
+#+RESULTS:
+
 Then start up a port forwarder:
 
 #+begin_src bash
@@ -185,6 +187,10 @@ Run =./kproj up backup= after you create a new schema to regenerate the
 | =BUCKET_NAME=           | bucket name, e..g =storage.gitgratitude.com=                       |
 | =*_DATABASE_URL=        | will loop over each entry in the enviroment matching the pattern |
 
+** [[eco-cocoapods]] -- not implemented
+
+ruby-based gateway to the cocoapods ecosystem
+
 ** [[eco-rubygems]]
 ruby-based gateway to the rubygems ecosystem
 
@@ -247,10 +253,11 @@ Mostly referenced in =lib/ecosystem.ts=
 | =DATABASE_URL=         | connect string to postgres |
 | =ECO_RUBYGEMS_URL=     | url to eco-rubygems        |
 | =ECO_NPM_URL=          | url to eco-npm             |
+| =ECO_COCOAPODS_URL=    | url to eco-cocoapods       |
 | =LOCK_GEMFILE_URL=     | url to lock-gemfile        |
 | =LOCK_YARNLOCK_URL=    | url to lock-yarnlock       |
 | =LOCK_PACKAGELOCK_URL= | url to lock-packagelock    |
-
+| =LOCK_PODLOCK_URL=     | uri to lock-podlock        |
 
 ** [[repositories]]
 
