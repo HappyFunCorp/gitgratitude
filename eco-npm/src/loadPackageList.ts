@@ -1,3 +1,4 @@
+/*
 import axios from 'axios';
 import { readFileSync, writeFileSync } from 'fs';
 
@@ -18,3 +19,4 @@ console.log(`Passing package-lock.json to ${url}`);
 
   writeFileSync('./package-list.json', JSON.stringify(response.data));
 })().then((e) => console.log('Done'));
+*/

@@ -7,9 +7,9 @@ RUN npm install --frozen-lockfile
 
 COPY . .
 
-RUN npm run build
+# RUN npm run build
 
 EXPOSE 3000
 ENV PORT 3000
 
-CMD ["node", "build/index.js"]
+CMD ["node", "src/index.js"]

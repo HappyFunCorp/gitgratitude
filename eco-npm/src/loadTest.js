@@ -1,3 +1,4 @@
+/*
 import axios from 'axios';
 import { readFileSync } from 'fs';
 import { URL } from 'url';
@@ -29,3 +30,4 @@ function timingMark(msg: string, startTime?: number) {
 
   return t;
 }
+*/
