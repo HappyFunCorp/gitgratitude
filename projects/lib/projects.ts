@@ -2,7 +2,6 @@ import { prisma } from "lib/prisma";
 import { Ecosystem, lookupEcosystem } from "./ecosystem";
 import { EcosystemName, Project, Release } from "@prisma/client";
 import { convertDate } from "./utils";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export async function syncProjectFromJson(
   ecoName: Ecosystem,
@@ -76,7 +75,7 @@ async function syncReleases(project: Project, projectJson: any) {
 
   const first_release = await prisma.release.findFirst({
     select: { released: true },
-    where: { project_id: project.id },
+    where: { project_id: project.id, prerelease: false },
     orderBy: { released: "asc" },
   });
 
@@ -88,7 +87,7 @@ async function syncReleases(project: Project, projectJson: any) {
   }
 
   const latest_release = await prisma.release.findFirst({
-    where: { project_id: project.id },
+    where: { project_id: project.id, prerelease: false },
     select: { released: true, version: true },
     orderBy: { released: "desc" },
   });

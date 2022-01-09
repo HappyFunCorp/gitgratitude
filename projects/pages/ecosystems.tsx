@@ -18,7 +18,7 @@ const Ecosystems: NextPage = ({ ecosystems }) => {
       <CardContainer>
         {ecosystems.map((e) => (
           <Card
-            key={e}
+            key={e.ecosystem}
             href={`/ecosystems/${e.ecosystem}`}
             title={e.ecosystem}
             description={`${e._count} packages tracked`}

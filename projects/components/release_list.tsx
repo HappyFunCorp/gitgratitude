@@ -11,7 +11,8 @@ export default function ReleaseList({ releases }) {
           <th className="text-left">Major</th>
           <th className="text-left">Minor</th>
           <th className="text-left">Patch</th>
-          <th className="text-left">Special</th>
+          <th className="text-left">Prerelease</th>
+          <th className="text-left">Suffix</th>
           <th className="text-left">sha</th>
         </tr>
       </thead>
@@ -25,7 +26,8 @@ export default function ReleaseList({ releases }) {
             <td>{r.major}</td>
             <td>{r.minor}</td>
             <td>{r.patch}</td>
-            <td>{r.prerelease}</td>
+            <td>{r.prerelease ? "Prerelease" : ""}</td>
+            <td>{r.suffix}</td>
             <td>{r.sha}</td>
           </tr>
         ))}

@@ -1,4 +1,5 @@
 import { Lockfile } from "@prisma/client";
+import { Strftime } from "./strftime";
 
 type PageProps = { lockfiles?: Lockfile[]; title?: string };
 
@@ -28,16 +29,20 @@ export default function LockfileList({ lockfiles, title }: PageProps) {
                   {l.name}
                 </a>
               </td>
-              <td>{l.uploadedAt}</td>
+              <td>
+                <Strftime date={l.uploadedAt} />
+              </td>
               <td>{l.valid ? "Yes" : "No"}</td>
               <td>{l.parsed ? "Yes" : "No"}</td>
               <td>
                 {
                   // @ts-expect-error
-                  l._count.Dependancy
+                  l._count.Dependency
                 }
               </td>
-              <td>{l.processedAt}</td>
+              <td>
+                <Strftime date={l.processedAt} />
+              </td>
             </tr>
           ))}
         </tbody>

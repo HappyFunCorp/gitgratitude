@@ -5,6 +5,7 @@ import ProjectLink from "components/project_link";
 import ReleaseLink from "components/release_link";
 import LockfileRefresh from "components/lockfile_refresh";
 import { useDependancies, useLockfile } from "lib/hooks";
+import { Strftime } from "components/strftime";
 
 type Props = {
   lockfile_id: string;
@@ -32,8 +33,12 @@ export default function LockfileDetail({ lockfile_id }: Props) {
       <p>Ecosystem: {lockfile.ecosystem}</p>
       <p>Valid? {lockfile.valid ? "Yes" : "No"}</p>
       <p>Parsed? {lockfile.parsed ? "Yes" : "No"}</p>
-      <p>Uploaded At : {lockfile.uploadedAt}</p>
-      <p>Proccessed : {lockfile.processedAt}</p>
+      <p>
+        Uploaded At : <Strftime date={lockfile.uploadedAt} />
+      </p>
+      <p>
+        Proccessed : <Strftime date={lockfile.processedAt} />
+      </p>
 
       <LockfileRefresh lockfile={lockfile} />
 
@@ -74,7 +79,9 @@ export function DependenciesTable({ dependencies }) {
                 version={d.current_version}
               />
             </td>
-            <td>{d.synced}</td>
+            <td>
+              <Strftime date={d.synced} />
+            </td>
           </tr>
         ))}
       </tbody>

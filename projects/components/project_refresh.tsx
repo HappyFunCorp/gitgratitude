@@ -20,7 +20,7 @@ export default function ProjectRefresh({ project, setProject }) {
 
     setActive(false);
     const json = await result.json();
-    console.log(json);
+    console.log("Setting project", json);
     setProject(json);
   };
 

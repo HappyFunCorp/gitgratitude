@@ -1,6 +1,7 @@
 import { Ecosystem, lookupEcosystem } from "lib/ecosystem";
 import { syncProjectFromJson } from "lib/projects";
 import { NextApiRequest, NextApiResponse } from "next";
+import { prisma } from "lib/prisma";
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,7 +32,8 @@ async function doPackageRequest(
   console.log("Response ok?", response.ok);
   if (response.ok) {
     const json = await response.json();
-    const project = await syncProjectFromJson(ecosystem, json);
+    let project = await syncProjectFromJson(ecosystem, json);
+    project = await prisma.project.findFirst({ where: { id: project.id } });
     res.status(200).json(project);
   } else {
     const json = await response.json();
