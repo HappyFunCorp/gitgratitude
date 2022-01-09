@@ -46,6 +46,7 @@ model Release {
   license        String?
   download_count Int?
 
+  Dependency Dependency[]
   @@map("releases")
 }
 
@@ -65,15 +66,24 @@ model Lockfile {
 }
 
 model Dependency {
-  id              String    @id @default(uuid())
-  lockfile_id     String
-  lockfile        Lockfile  @relation(fields: [lockfile_id], references: [id])
-  project_id      String?
-  project         Project?  @relation(fields: [project_id], references: [id])
-  name            String
-  version         String
-  current_version String?
-  synced          DateTime?
+  id             String    @id @default(uuid())
+  lockfile_id    String
+  lockfile       Lockfile  @relation(fields: [lockfile_id], references: [id])
+  project_id     String?
+  project        Project?  @relation(fields: [project_id], references: [id])
+  release_id     String?
+  release        Release?  @relation(fields: [release_id], references: [id])
+  name           String
+  version        String
+  major          Int?
+  minor          Int?
+  patch          Int?
+  prerelease     Boolean?
+  suffix         String?
+  major_outdated Boolean?
+  minor_outdated Boolean?
+  patch_outdated Boolean?
+  synced         DateTime?
 
   @@map("dependencies")
 }

@@ -5,14 +5,15 @@ import Layout from "components/layout";
 import ProjectLookup from "components/project_lookup";
 import ProjectList from "components/project_list";
 import { Ecosystem, lookupEcosystem } from "lib/ecosystem";
-import { lookupProjects, ProjectListDTO } from "lib/projects";
+import { Project } from "@prisma/client";
+import { useProjects } from "lib/hooks";
 
 type Props = {
   ecosystem: Ecosystem;
-  projects: ProjectListDTO[];
 };
 
-export default function Projects({ ecosystem, projects }: Props) {
+export default function Projects({ ecosystem }: Props) {
+  const [projects] = useProjects(ecosystem.name);
   return (
     <Layout title="Projects">
       <Link href="/ecosystems">
@@ -31,12 +32,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const ecosystem = lookupEcosystem(`${name}`);
 
-  const projects = await lookupProjects(ecosystem);
-
   return {
     props: {
       ecosystem,
-      projects,
     },
   };
 };

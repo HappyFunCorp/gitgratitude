@@ -8,6 +8,15 @@ export default async function handler(
   const { id, count } = req.query;
   if (id) {
     const lockfile = await prisma.lockfile.findFirst({
+      select: {
+        id: true,
+        name: true,
+        ecosystem: true,
+        valid: true,
+        parsed: true,
+        uploadedAt: true,
+        processedAt: true,
+      },
       where: { id: `${id}` },
     });
     res.status(200).json(lockfile);

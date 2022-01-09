@@ -1,7 +1,6 @@
 import { prisma } from "lib/prisma";
 import { Ecosystem, lookupEcosystem } from "./ecosystem";
-import { EcosystemName, Project, Release } from "@prisma/client";
-import { convertDate } from "./utils";
+import { Project } from "@prisma/client";
 
 export async function syncProjectFromJson(
   ecoName: Ecosystem,
@@ -139,76 +138,6 @@ export async function returnOrLookupProject(
   }
 
   return null;
-}
-
-export type ProjectListDTO = {
-  id: string;
-  ecosystem: EcosystemName;
-  name: string;
-  description: string;
-  git: string;
-  homepage: string;
-  latest_version: string;
-  latest_release: number;
-  releases: number;
-  last_synced: number;
-};
-
-export async function lookupProjects(
-  ecosystem?: Ecosystem,
-  limit?: number
-): Promise<ProjectListDTO[]> {
-  const select = {
-    id: true,
-    ecosystem: true,
-    name: true,
-    description: true,
-    git: true,
-    homepage: true,
-    latest_release: true,
-    latest_version: true,
-    last_synced: true,
-    _count: {
-      select: {
-        Release: true,
-      },
-    },
-  };
-
-  let where = {};
-  if (ecosystem) {
-    // @ts-expect-error
-    where.ecosystem = ecosystem.enum;
-  }
-
-  const projects = await prisma.project.findMany({
-    select,
-    where,
-    orderBy: [
-      {
-        latest_release: "desc",
-      },
-    ],
-  });
-
-  const ret = new Array<ProjectListDTO>();
-
-  for (const p of projects) {
-    ret.push({
-      id: p.id,
-      ecosystem: p.ecosystem,
-      name: p.name,
-      description: p.description,
-      git: p.git,
-      latest_version: p.latest_version,
-      latest_release: convertDate(p.latest_release),
-      homepage: p.homepage,
-      releases: p._count.Release,
-      last_synced: convertDate(p.last_synced),
-    });
-  }
-
-  return ret;
 }
 
 export function stale(project: Project): boolean {

@@ -102,10 +102,7 @@ export default function ProjectLookup({ ecosystem }: Props) {
                 // @ts-expect-error
                 project.name
               }
-              project_id={
-                // @ts-expect-error
-                project.id
-              }
+              project={project}
             />
           </dd>
           <dt>Description</dt>

@@ -3,13 +3,11 @@ import Link from "next/link";
 import Layout from "components/layout";
 import ProjectLookup from "components/project_lookup";
 import ProjectList from "components/project_list";
-import { lookupProjects, ProjectListDTO } from "lib/projects";
+import { useProjects } from "lib/hooks";
 
-type Props = {
-  projects: ProjectListDTO[];
-};
+export default function Projects() {
+  const [projects] = useProjects("all");
 
-export default function Projects({ projects }: Props) {
   return (
     <Layout title="Projects">
       <Link href="/">
@@ -22,13 +20,3 @@ export default function Projects({ projects }: Props) {
     </Layout>
   );
 }
-
-export const getServerSideProps = async () => {
-  const projects = await lookupProjects();
-
-  return {
-    props: {
-      projects,
-    },
-  };
-};

@@ -12,6 +12,7 @@ export default async function handler(
 
   const releases = await prisma.dependency.findMany({
     where: { lockfile_id: `${lockfile_id}` },
+    include: { project: true, release: true },
   });
   res.status(200).json(releases);
 }

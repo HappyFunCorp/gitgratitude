@@ -1,14 +1,15 @@
+import { Project } from "@prisma/client";
 import Link from "next/link";
 
 type Props = {
   name: string;
-  project_id?: string;
+  project?: Project;
 };
 
-export default function ProjectLink({ name, project_id }: Props) {
-  if (project_id) {
+export default function ProjectLink({ name, project }: Props) {
+  if (project) {
     return (
-      <Link href={`/projects/${project_id}`}>
+      <Link href={`/projects/${project.id}`}>
         <a className="link-style">{name}</a>
       </Link>
     );

@@ -35,22 +35,32 @@ export async function tryLockFile(file: File): Promise<Lockfile | null> {
 }
 
 export async function syncLockfileFromJson(lockfile: Lockfile, json) {
-  // await prisma.$executeRaw`UPDATE dependencies SET current_version = projects.latest_version WHERE dependencies.lockfile_id = ${lockfile.id} and dependencies.project_id = projects.id;`;
+  await mergeDependencies(lockfile, json);
+  await lookupProjects(lockfile);
+  await linkReleases(lockfile);
 
-  console.log("Creating dependancies from json");
-  console.log(`Found ${json.dependencies.length}`);
+  const data = {
+    parsed: true,
+    processedAt: new Date(),
+  };
+
+  console.log("Updating processed at");
+  await prisma.lockfile.update({
+    where: { id: lockfile.id },
+    data: data,
+  });
+}
+
+export async function mergeDependencies(lockfile, json) {
+  console.log(`Found ${json.dependencies.length} dependencies from json`);
+  const ds = await prisma.dependency.findMany({
+    where: { lockfile_id: lockfile.id },
+  });
+
   for (const d of json.dependencies) {
-    const dependancy = await prisma.dependency.findFirst({
-      where: { lockfile, name: d.name },
-    });
+    const dependancy = ds.filter((db_d) => d.name == db_d.name);
 
-    if (dependancy) {
-      console.log(`Updating ${d.name} version`);
-      await prisma.dependency.update({
-        where: { id: dependancy.id },
-        data: { version: d.version },
-      });
-    } else {
+    if (dependancy.length == 0) {
       console.log(`creating ${d.name}`);
       await prisma.dependency.create({
         data: {
@@ -61,14 +71,21 @@ export async function syncLockfileFromJson(lockfile: Lockfile, json) {
       });
     }
   }
+}
 
+export async function lookupProjects(lockfile) {
+  await linkProjects(lockfile);
+
+  console.log(`Looking up projects...`);
   const ecosystem = lookupEcosystem(lockfile.ecosystem);
 
   const dependancies = await prisma.dependency.findMany({
-    where: { lockfile_id: lockfile.id },
+    where: { lockfile_id: lockfile.id, project_id: { equals: null } },
   });
 
-  console.log(`Found ${dependancies.length} in the database`);
+  console.log(
+    `Found ${dependancies.length} unknown projects in dependency list`
+  );
 
   for (const d of dependancies) {
     const project = await returnOrLookupProject(ecosystem, d.name);
@@ -87,15 +104,33 @@ export async function syncLockfileFromJson(lockfile: Lockfile, json) {
     }
   }
 
-  const data = {
-    parsed: true,
-    processedAt: new Date(),
-  };
+  await linkProjects(lockfile);
+}
 
-  await prisma.lockfile.update({
-    where: { id: lockfile.id },
-    data: data,
-  });
+export async function linkProjects(lockfile: Lockfile) {
+  console.log(`Linking projects...`);
+  const results = await prisma.$executeRawUnsafe(`
+  update dependencies 
+  set project_id = projects.id 
+  from projects
+  where
+  lockfile_id ='${lockfile.id}' and
+  projects.name = dependencies.name and
+  projects.ecosystem = '${lockfile.ecosystem}'`);
+}
 
-  console.log("Done parsing");
+export async function linkReleases(lockfile) {
+  console.log(`Linking releases...`);
+  await prisma.$executeRawUnsafe(`update dependencies set
+  release_id = releases.id,
+  major = releases.major,
+  minor = releases.minor,
+  patch = releases.patch, 
+  prerelease = releases.prerelease,
+  suffix = releases.suffix
+  from releases
+  where
+  lockfile_id ='${lockfile.id}' and
+  releases.project_id = dependencies.project_id and
+  releases.version = dependencies.version`);
 }

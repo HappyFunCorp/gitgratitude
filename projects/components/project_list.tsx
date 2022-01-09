@@ -1,16 +1,16 @@
+import { Project } from "@prisma/client";
 import { Ecosystem } from "lib/ecosystem";
-import { ProjectListDTO } from "lib/projects";
 import Link from "next/link";
 import React from "react";
 import { Strftime } from "./strftime";
 
 type Props = {
   ecosystem?: Ecosystem;
-  projects: ProjectListDTO[];
+  projects: Project[];
 };
 
 export default function ProjectList({ ecosystem, projects }: Props) {
-  if (projects.length == 0) {
+  if (!projects || projects.length == 0) {
     return <p>No projects</p>;
   }
 
@@ -33,7 +33,12 @@ export default function ProjectList({ ecosystem, projects }: Props) {
                 <a className="link-style">{e.name}</a>
               </Link>
             </td>
-            <td>{e.releases}</td>
+            <td>
+              {
+                // @ts-expect-error
+                e.releases
+              }
+            </td>
             <td>{e.latest_version}</td>
             <td>
               <Strftime date={e.latest_release} />

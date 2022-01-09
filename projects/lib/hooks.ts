@@ -40,6 +40,26 @@ export function useProject(id): [Project, Dispatch<SetStateAction<Project>>] {
   return [project, setProject];
 }
 
+export function useProjects(
+  ecosystem
+): [Project[], Dispatch<SetStateAction<Project[]>>] {
+  const [project, setProject] = useState();
+  useEffect(() => {
+    const url = new URL(`${window.location.origin}/api/projects`);
+    url.searchParams.append("ecosystem", ecosystem);
+    try {
+      fetch(url.href)
+        .then((res) => res.json())
+        .then((projects) => setProject(projects));
+    } catch (err) {
+      console.log(err);
+    }
+    return () => {};
+  }, [ecosystem]);
+
+  return [project, setProject];
+}
+
 export function useReleases(
   project
 ): [Release[], Dispatch<SetStateAction<Release[]>>] {
